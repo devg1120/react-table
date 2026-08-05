@@ -40,7 +40,12 @@ const handleRowDelete = (index) => {
 
 export function Table<T>({ id, data, columns }: Props<T>): JSX.Element {
 
-const [dataA, setDataA] = useState(data);
+//let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
+const copyData = JSON.parse(JSON.stringify(data)); 
+
+
+//const [dataA, setDataA] = useState(data);
+const [dataA, setDataA] = useState(copyData);
 
 function arraymove(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
@@ -83,21 +88,48 @@ const handleRowDelete = (index) => {
 
 const dump = () => {
     console.dir(dataA);
+    
     const table = document.querySelector('#' + id);
     console.log(table)
-    //const tds = table.querySelectorAll('td[contenteditable="true"]');
     const tds = table.querySelectorAll('.tableCell');
-    //const tds = document.querySelectorAll('td[contenteditable="true"]');
     console.log(tds.length);
-   /*
-    for (const e of tds) {
-              console.log(e.textContent);
-    }
-   */
     for (let i = 0; i < tds.length; i++) {
      console.log(i, tds[i].textContent);
     }
+    
+};
 
+const updateCell = (row, col, text) => {
+
+
+}
+const update = () => {
+    const table_coln = columns.length
+    const table_rown = dataA.length
+    console.log(table_coln, table_rown)
+
+    console.dir(dataA);
+    const table = document.querySelector('#' + id);
+    console.log(table)
+    const tds = table.querySelectorAll('.tableCell');
+    console.log(tds.length);
+    for (let i = 0; i < tds.length; i++) {
+     //console.log(i, tds[i].textContent);
+     const rown = Math.floor(i / table_coln);
+     const coln = i % table_coln;
+     //console.log(i, rown, coln, tds[i].textContent);
+     console.log(i, rown, columns[coln].key, "=>", tds[i].textContent);
+
+
+     //updateCell(row,col,  tds[i].textContent);
+    }
+
+};
+
+const reset = () => {
+    //setDataA(dataA.concat())
+    const copyData = JSON.parse(JSON.stringify(data)); 
+    setDataA(copyData)
 };
 
 const save = () => {
@@ -117,6 +149,8 @@ const load = () => {
   return (
     <>
     <button onClick={() =>dump()} >dump</button>
+    <button onClick={() =>update()}>update</button>
+    <button onClick={() =>reset()}>reset</button>
     <button onClick={() =>save()} >save</button>
     <button onClick={() =>load()} >load</button>
     <TableWrapper id={id}>
