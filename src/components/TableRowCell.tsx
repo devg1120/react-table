@@ -11,16 +11,27 @@ interface Props<T> {
 }
 
 const TableCell = styled("td", {
-  paddingTop: 8,
-  paddingBottom: 5,
+  paddingTop: 0,
+  paddingBottom: 0,
   paddingLeft: 5,
-  fontSize: 16,
+  paddingRight: 5,
+
+  //fontFamily: 'sams-serif',  
+  //fontFamily: 'monospace',  
+  fontFamily: 'Inter',  
+
+  fontWeight: '400',     
+  fontSize: 15,
+
   verticalAlign: 'middle',
   //verticalAlign: 'bottom',
-  //verticalAlign: 'middle', // 上下中央
-  //textAlign: 'center',     // 左右中央にする場合
-  textAlign: 'left',     // 左右中央にする場合
-  color: "brack",
+  //verticalAlign: 'top', 
+  
+  //textAlign: 'center',     
+  textAlign: 'left',     
+  //textAlign: 'right',     
+
+  color: "black",
   border: "solid gray 1px"
 });
 /*

@@ -31,7 +31,7 @@ const columns: IColumnType<IData>[] = [
   {
     key: "tags",
     title: "Tags",
-    width: 200,
+    width: 150,
   },
 ];
 

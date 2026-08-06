@@ -19,6 +19,7 @@ interface Props<T> {
 
 
 const TableWrapper = styled("table", {
+  marginTop: "12px",
   borderCollapse: "collapse",
   border: "solid gray 1px",
   fontFamily: "Anek Telugu",
