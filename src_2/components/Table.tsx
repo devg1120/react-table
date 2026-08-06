@@ -44,11 +44,8 @@ export function Table<T>({ id, data, columns }: Props<T>): JSX.Element {
 //let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
 const copyData = JSON.parse(JSON.stringify(data)); 
 //const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
+const [resets, setResets] = useState(0);
 
-const [edit, setEdit] = useState("plaintext-only");
-//const [edit, setEdit] = useState("false");
-
-const [key, setKey] = useState(false);
 
 //const [dataA, setDataA] = useState(data);
 const [dataA, setDataA] = useState(copyData);
@@ -96,12 +93,12 @@ const handleRowDelete = (index) => {
 };
 
 const handleChange = () => {
-    //console.log("handleChange")
+    console.log("handleChange")
     update()
 };
 
 const dump = () => {
-    //console.dir(data);
+    console.dir(data);
     console.dir(dataA);
     
     //const table = document.querySelector('#' + id);
@@ -152,23 +149,11 @@ const update = () => {
 const reset = () => {
      console.log("reset")
     //setDataA(dataA.concat())
-    
-    //const copyData = JSON.parse(JSON.stringify(data)); 
-    //setDataA(copyData)
-
-    //arraymove(copyData, 0 , 1)
-    //setDataA(copyData)
-    //arraymove(copyData, 1 , 0)
-    //setDataA(copyData)
-    //setDataA(JSON.parse(JSON.stringify( dataA))); 
-    //forceUpdate()
-    //setResets("false");
-
-    //handleRowDown(0)
-    //handleRowDown(1)
     const copyData = JSON.parse(JSON.stringify(data)); 
     setDataA(copyData)
-    setKey(!key)
+    //forceUpdate()
+     setResets((resets) => resets + 1);
+
 };
 
 const save = () => {
@@ -192,20 +177,20 @@ const load = () => {
     <button onClick={() =>reset()}>reset</button>
     <button onClick={() =>save()} >save</button>
     <button onClick={() =>load()} >load</button>
-    <TableWrapper id={id} key={key}>
+    <TableWrapper id={id}>
       <thead>
         <TableHeader columns={columns} />
       </thead>
       <tbody>
         <TableRow data={dataA} columns={columns} 
-	           edit={edit}
+	           reset={reset}
 	           handleAdd={handleRowAdd}
 	           handleUp={handleRowUp}
 	           handleDown={handleRowDown}
 	           handleDelete={handleRowDelete}
 		   handleChange={handleChange}
 		   />
-     </tbody>
+      </tbody>
     </TableWrapper>
     </>
   );

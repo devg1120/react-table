@@ -26,20 +26,17 @@ const TableCell = styled("td", {
 /*
     <TableCell className="tableCell" contentEditable={"plaintext-only"} suppressContentEditableWarning={true} >{column.render ? column.render(column, item) : value}</TableCell>
 */
-export function TableRowCell<T>({ item, column , edit, handleChange}: Props<T>): JSX.Element {
-  const [contentEditable, setrCcontentEditable] = useState(edit);
+export function TableRowCell<T>({ item, column , reset, handleChange}: Props<T>): JSX.Element {
   const value = get(item, column.key);
-  //const [value, setValue] = useState(get(item, column.key));
-  //console.log("Cell", value);
+  console.log("Cell", value);
 
-  /*
   useEffect(() => {
-	  console.log("cell value:", value);
-  }, [value]);
-*/
+	  console.log("reset Cell");
+  }, [reset]);
+
   return (
 
-    <TableCell className="tableCell"  contentEditable={contentEditable} suppressContentEditableWarning={true} onInput={handleChange} >{column.render ? column.render(column, item) : value}</TableCell>
+    <TableCell className="tableCell"  contentEditable={"plaintext-only"} suppressContentEditableWarning={true} onInput={handleChange} >{column.render ? column.render(column, item) : value}</TableCell>
    
   );
 }

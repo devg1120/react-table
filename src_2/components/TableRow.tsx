@@ -46,8 +46,8 @@ const TableRowButton = styled("td", {
   };
 */
 
-export function TableRow<T>({ data, columns, edit, handleAdd, handleUp, handleDown, handleDelete, handleChange }: Props<T>): JSX.Element {
-    //console.log("TableRow", data)
+export function TableRow<T>({ data, columns, reset, handleAdd, handleUp, handleDown, handleDelete, handleChange }: Props<T>): JSX.Element {
+    console.log("TableRow", data)
   return (
     <>
       {data.map((item, itemIndex) => (
@@ -57,7 +57,7 @@ export function TableRow<T>({ data, columns, edit, handleAdd, handleUp, handleDo
               key={`table-row-cell-${columnIndex}`}
               item={item}
               column={column}
-	      edit={edit}
+	      reset={reset}
 	      handleChange={handleChange}
             />
           ))}
