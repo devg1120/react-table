@@ -1,7 +1,7 @@
 import "@fontsource/anek-telugu";
 import { styled } from "@stitches/react";
 
-import { Table, IColumnType } from "./components";
+import { Table, loadTableData, IColumnType } from "./components";
 
 interface IData {
   fullName: string;
@@ -63,6 +63,34 @@ const data: IData[] = [
   },
 ];
 
+const localStorageName = "table_data";
+const localStorageName2 = "table_data2";
+const localStorageName3 = "table_data3";
+
+let data2 = loadTableData(localStorageName2);
+if (data2 == null ) {
+     data2 = data
+ }
+let data3 = loadTableData(localStorageName3); // null
+/*
+if (data3 == null ) {
+    let row_data = {}
+    for (let i in columns) {
+     //console.dir(columns[i].key);
+     row_data[columns[i].key] = "A";
+    }
+    data3 = [ row_data ]
+}
+*/
 export const App = () => {
-  return <Table id="ASTable" data={data} columns={columns} />;
+  return (
+   <>
+     <h2> TABLE 1  </h2>
+     <Table id="ASTable" data={data} columns={columns} localStorageName={localStorageName}/>
+     <h2> TABLE 2  </h2>
+     <Table id="ASTable2" data={data2} columns={columns} localStorageName={localStorageName2}/>
+     <h2> TABLE 3  not storage</h2>
+     <Table id="ASTable3" data={data3} columns={columns} localStorageName={localStorageName3}/>
+   </>
+   )
 };

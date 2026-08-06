@@ -38,11 +38,34 @@ const handleRowDelete = (index) => {
     alert("Row Delete: " + index);
 };
 */
+export function loadTableData( localStorageName ): [] {
+    const json = localStorage.getItem(localStorageName);
+    if (json == null) {
+           //alert("localStorage not found:  \""+ localStorageName +"\"");
+           return null
+    }
+    return JSON.parse(json); 
+}
 
-export function Table<T>({ id, data, columns }: Props<T>): JSX.Element {
+export function Table<T>({ id, data, columns , localStorageName}: Props<T>): JSX.Element {
 
 //let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
-const copyData = JSON.parse(JSON.stringify(data)); 
+//const copyData = JSON.parse(JSON.stringify(data)); 
+
+let copyData = []
+if ( data != null ) {
+ copyData = JSON.parse(JSON.stringify(data)); 
+} else {
+    let row_data = {}
+    for (let i in columns) {
+     //console.dir(columns[i].key);
+     row_data[columns[i].key] = "";
+    }
+    let data_ = [ row_data ]
+    data = JSON.parse(JSON.stringify(data_)); 
+    copyData = JSON.parse(JSON.stringify(data)); 
+}
+
 //let resetData = JSON.parse(JSON.stringify(data)); 
 //const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
 
@@ -181,7 +204,7 @@ const save = () => {
     //}
     const json = JSON.stringify(dataA); 
     console.log(json)
-    localStorage.setItem("table_data", json);
+    localStorage.setItem(localStorageName, json);
 
 };
 
@@ -189,11 +212,20 @@ const load = () => {
     //console.dir(dataA);
     //setDataA(dataA.concat())
     //setDataA(data)
-    const json = localStorage.getItem("table_data");
+    const json = localStorage.getItem(localStorageName);
+    if (json == null) {
+           alert("localStorage not found:  \""+ localStorageName +"\"");
+           return
+    }
+
     const loadData = JSON.parse(json); 
     setDataA(loadData)
     setKey(!key)
     //resetData = JSON.parse(JSON.stringify(loadData)); 
+};
+
+const remove = () => {
+  localStorage.removeItem(localStorageName);
 };
 
   return (
@@ -201,8 +233,12 @@ const load = () => {
     <button onClick={() =>dump()} >dump</button>
     <button onClick={() =>update()}>update</button>
     <button onClick={() =>reset()}>reset</button>
+    &ensp;
     <button onClick={() =>save()} >save</button>
     <button onClick={() =>load()} >load</button>
+    <button onClick={() =>remove()} >remove</button>
+    &ensp;
+    <label>{localStorageName}</label>
     <TableWrapper id={id} key={key}>
       <thead>
         <TableHeader columns={columns} />
