@@ -43,6 +43,7 @@ export function Table<T>({ id, data, columns }: Props<T>): JSX.Element {
 
 //let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
 const copyData = JSON.parse(JSON.stringify(data)); 
+//let resetData = JSON.parse(JSON.stringify(data)); 
 //const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
 
 const [edit, setEdit] = useState("plaintext-only");
@@ -166,23 +167,33 @@ const reset = () => {
 
     //handleRowDown(0)
     //handleRowDown(1)
+    //const copyData = JSON.parse(JSON.stringify(resetData)); 
     const copyData = JSON.parse(JSON.stringify(data)); 
     setDataA(copyData)
     setKey(!key)
 };
 
 const save = () => {
-    const tds = document.querySelectorAll('td[contenteditable="true"]');
-    console.log(tds.length);
+    //const tds = document.querySelectorAll('td[contenteditable="true"]');
+    //console.log(tds.length);
     //for (let i in tds) {
     //         console.log(tds[i].textContent)
     //}
+    const json = JSON.stringify(dataA); 
+    console.log(json)
+    localStorage.setItem("table_data", json);
+
 };
 
 const load = () => {
-    console.dir(dataA);
+    //console.dir(dataA);
     //setDataA(dataA.concat())
-    setDataA(data)
+    //setDataA(data)
+    const json = localStorage.getItem("table_data");
+    const loadData = JSON.parse(json); 
+    setDataA(loadData)
+    setKey(!key)
+    //resetData = JSON.parse(JSON.stringify(loadData)); 
 };
 
   return (
