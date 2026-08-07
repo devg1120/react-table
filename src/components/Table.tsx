@@ -59,7 +59,8 @@ export function Table<T>({ id, data, columns , localStorageName,
 			tableStyle = {},
 			headerStyle = {},
 			rowStyle = {},
-			cellStyle = {}
+			cellStyle = {},
+			checkColEnable = false,
                         }: Props<T>): JSX.Element {
 
 //let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
@@ -89,6 +90,7 @@ const [key, setKey] = useState(false);
 
 //const [dataA, setDataA] = useState(data);
 const [dataA, setDataA] = useState(copyData);
+const [checkCol, setCheckCol] = useState(checkColEnable);
 
 function arraymove(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
@@ -256,7 +258,7 @@ const TableWrapper = styled("table", {...default_style_table, ...tableStyle});
     <label>{localStorageName}</label>
     <TableWrapper id={id} key={key}>
       <thead>
-        <TableHeader columns={columns} style={headerStyle} />
+        <TableHeader columns={columns} style={headerStyle} checkCol={checkCol}/>
       </thead>
       <tbody>
         <TableRow data={dataA} columns={columns} 
@@ -268,6 +270,7 @@ const TableWrapper = styled("table", {...default_style_table, ...tableStyle});
 		   handleChange={handleChange}
 		   rowStyle={rowStyle}
 		   cellStyle={cellStyle}
+		   checkCol={checkCol}
 		   />
      </tbody>
     </TableWrapper>

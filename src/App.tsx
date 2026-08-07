@@ -113,7 +113,7 @@ export const App = () => {
   return (
    <>
      <h2> TABLE 1  </h2>
-     <Table id="ASTable" data={data} columns={columns} localStorageName={localStorageName} tableStyle={tableStyle} cellStyle={cellStyle}/>
+     <Table id="ASTable" data={data} columns={columns} localStorageName={localStorageName} tableStyle={tableStyle} cellStyle={cellStyle} checkColEnable={true}/>
      <h2> TABLE 2  </h2>
      <Table id="ASTable2" data={data2} columns={columns} localStorageName={localStorageName2} rowStyle={rowStyle} headerStyle={headerStyle}/>
      <h2> TABLE 3  not storage</h2>

@@ -81,12 +81,17 @@ const default_style_button = {
 
 };
 
-export function TableHeader<T>({ columns , style = {} }: Props<T>): JSX.Element {
+export function TableHeader<T>({ columns , style = {} , checkCol = false}: Props<T>): JSX.Element {
   const TableHeaderCell = styled("th", {...default_style, ...style})
+  const TableHeaderCheck = styled("th", {...default_style_button, ...style})
   const TableHeaderButton = styled("th", {...default_style_button, ...style})
 
   return (
     <tr>
+      { checkCol &&
+          <TableHeaderCheck>
+          </TableHeaderCheck>
+      }
       {columns.map((column, columnIndex) => (
         <TableHeaderCell
           key={`table-head-cell-${columnIndex}`}
@@ -96,7 +101,6 @@ export function TableHeader<T>({ columns , style = {} }: Props<T>): JSX.Element 
         </TableHeaderCell>
       ))}
           <TableHeaderButton>
-	    
           </TableHeaderButton>
     </tr>
   );
