@@ -82,13 +82,30 @@ if (data3 == null ) {
     data3 = [ row_data ]
 }
 */
+
+const headerStyle = {
+  backgroundColor: "yellow",
+}
+
+const rowStyle = {
+  backgroundColor: "green",
+  "&:nth-child(odd)": {
+    backgroundColor: "orange",
+  },
+}
+
+const cellStyle = {
+  //backgroundColor: "red",
+}
+
+
 export const App = () => {
   return (
    <>
      <h2> TABLE 1  </h2>
-     <Table id="ASTable" data={data} columns={columns} localStorageName={localStorageName}/>
+     <Table id="ASTable" data={data} columns={columns} localStorageName={localStorageName} cellStyle={cellStyle}/>
      <h2> TABLE 2  </h2>
-     <Table id="ASTable2" data={data2} columns={columns} localStorageName={localStorageName2}/>
+     <Table id="ASTable2" data={data2} columns={columns} localStorageName={localStorageName2} rowStyle={rowStyle} headerStyle={headerStyle}/>
      <h2> TABLE 3  not storage</h2>
      <Table id="ASTable3" data={data3} columns={columns} localStorageName={localStorageName3}/>
    </>

@@ -67,14 +67,14 @@ const default_style = {
 /*
     <TableCell className="tableCell" contentEditable={"plaintext-only"} suppressContentEditableWarning={true} >{column.render ? column.render(column, item) : value}</TableCell>
 */
-export function TableRowCell<T>({ item, column , edit, handleChange}: Props<T>): JSX.Element {
+export function TableRowCell<T>({ item, column , edit, handleChange, style = {}}: Props<T>): JSX.Element {
   const [contentEditable, setrCcontentEditable] = useState(edit);
   const value = get(item, column.key);
   //const [value, setValue] = useState(get(item, column.key));
   //console.log("Cell", value);
   
-  const _style = { backgroundColor : "red" }
-  const TableCell = styled("td", {...default_style, ..._style});
+  //const _style = { backgroundColor : "red" }
+  const TableCell = styled("td", {...default_style, ...style});
 
   /*
   useEffect(() => {

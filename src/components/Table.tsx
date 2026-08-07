@@ -48,7 +48,11 @@ export function loadTableData( localStorageName ): [] {
     return JSON.parse(json); 
 }
 
-export function Table<T>({ id, data, columns , localStorageName}: Props<T>): JSX.Element {
+export function Table<T>({ id, data, columns , localStorageName, 
+			headerStyle = {},
+			rowStyle = {},
+			cellStyle = {}
+                        }: Props<T>): JSX.Element {
 
 //let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
 //const copyData = JSON.parse(JSON.stringify(data)); 
@@ -242,7 +246,7 @@ const remove = () => {
     <label>{localStorageName}</label>
     <TableWrapper id={id} key={key}>
       <thead>
-        <TableHeader columns={columns} />
+        <TableHeader columns={columns} style={headerStyle} />
       </thead>
       <tbody>
         <TableRow data={dataA} columns={columns} 
@@ -252,6 +256,8 @@ const remove = () => {
 	           handleDown={handleRowDown}
 	           handleDelete={handleRowDelete}
 		   handleChange={handleChange}
+		   rowStyle={rowStyle}
+		   cellStyle={cellStyle}
 		   />
      </tbody>
     </TableWrapper>
