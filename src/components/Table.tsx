@@ -139,6 +139,11 @@ const handleChange = () => {
     update()
 };
 
+const handleCheck = (index, e) => {
+    console.log("handleCheck:", index, e.target.checked)
+    //console.log("handleCheck:", e.target.checked)
+};
+
 const dump = () => {
     //console.dir(data);
     console.dir(dataA);
@@ -268,6 +273,7 @@ const TableWrapper = styled("table", {...default_style_table, ...tableStyle});
 	           handleDown={handleRowDown}
 	           handleDelete={handleRowDelete}
 		   handleChange={handleChange}
+		   handleCheck={handleCheck}
 		   rowStyle={rowStyle}
 		   cellStyle={cellStyle}
 		   checkCol={checkCol}

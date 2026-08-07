@@ -76,7 +76,7 @@ const default_style_button = {
   };
 */
 
-export function TableRow<T>({ data, columns, edit, handleAdd, handleUp, handleDown, handleDelete, handleChange,
+export function TableRow<T>({ data, columns, edit, handleAdd, handleUp, handleDown, handleDelete, handleChange, handleCheck,
                               rowStyle = {}, cellStyle ={}, checkCol = false}: Props<T>): JSX.Element {
     //console.log("TableRow", data)
   const TableRowItem = styled("tr", {  ...default_style_row, ...rowStyle})
@@ -89,7 +89,7 @@ export function TableRow<T>({ data, columns, edit, handleAdd, handleUp, handleDo
         <TableRowItem key={`table-body-${itemIndex}`}>
 	{ checkCol &&
 	  <TableRowCheck>
-	    <input type="checkbox" onClick={() => handlecheck(itemIndex)} />
+	    <input type="checkbox" onClick={(e) => handleCheck(itemIndex, e)} />
 	  </TableRowCheck>
 	}
           {columns.map((column, columnIndex) => (
