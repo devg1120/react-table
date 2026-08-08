@@ -58,7 +58,18 @@ const default_style = {
   //textAlign: 'right',     
 
   color: "black",
-  border: "solid gray 1px"
+  border: "solid gray 1px",
+// Focus styles
+  '&:focus': {
+    outline:"solid 3px #0080ff",
+    outlineOffset: "-1px",
+    //boxShadow: "2px 2px 0px #000",
+    //cornerBottomRightShape: "squircle",
+    borderBottomRightRadius: "-6px",
+
+    //borderShape: "circle()",
+
+  },
 };
 
 //const TableCell = styled("td", default_style);

@@ -140,17 +140,33 @@ for ( let x = 1 ; x <= 100 ; x++) {
    data_sy.push(row_data)
 }
 
+const Session = styled("div", {
+ marginLeft: "80px",
+ marginBottom: "50px",
+})
+
 export const App = () => {
   return (
    <>
      <h2> TABLE 1  </h2>
-     <Table id="ASTable" data={data} columns={columns} localStorageName={localStorageName} tableStyle={tableStyle} cellStyle={cellStyle} checkColEnable={true}/>
+       <Session>
+           <Table id="ASTable1" data={data} columns={columns} localStorageName={localStorageName} tableStyle={tableStyle} cellStyle={cellStyle} checkColEnable={true}/>
+       </Session>
+
      <h2> TABLE 2  </h2>
-     <Table id="ASTable2" data={data2} columns={columns} localStorageName={localStorageName2} rowStyle={rowStyle} headerStyle={headerStyle}/>
+       <Session>
+           <Table id="ASTable2" data={data2} columns={columns} localStorageName={localStorageName2} rowStyle={rowStyle} headerStyle={headerStyle}/>
+       </Session>
+
      <h2> TABLE 3  not storage</h2>
-     <Table id="ASTable3" data={data3} columns={columns} localStorageName={localStorageName3}/>
+       <Session>
+           <Table id="ASTable3" data={data3} columns={columns} localStorageName={localStorageName3}/>
+       </Session>
+
      <h2> TABLE 4  scroll-y</h2>
-     <Table id="ASTable4" data={data_sy} columns={columns_sy} cellStyle={cellStyle_sy} localStorageName={localStorageName4}/>
+       <Session>
+           <Table id="ASTable4" data={data_sy} columns={columns_sy} cellStyle={cellStyle_sy} localStorageName={localStorageName4}/>
+       </Session>
 
    </>
    )
