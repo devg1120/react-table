@@ -61,13 +61,17 @@ export function Table<T>({ id, data, columns , localStorageName,
 			rowStyle = {},
 			cellStyle = {},
 			checkColEnable = false,
+			enableScrollY = true,
+			containerHeight = "300px",
                         }: Props<T>): JSX.Element {
 
 //let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
 //const copyData = JSON.parse(JSON.stringify(data)); 
-let scroll_y = true
-let container_height = "300px"
-
+//let scroll_y = scroll_Y
+let container_height = containerHeight
+if (!enableScrollY) {
+   container_height = "100%"
+}
 let copyData = []
 if ( data != null ) {
  copyData = JSON.parse(JSON.stringify(data)); 
