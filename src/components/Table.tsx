@@ -148,6 +148,7 @@ const handleChange = () => {
 const handleCheck = (index, e) => {
     console.log("handleCheck:", index, e.target.checked)
     //console.log("handleCheck:", e.target.checked)
+    dataA[index]["_check"] = e.target.checked;
 };
 
 const dump = () => {

@@ -83,13 +83,19 @@ export function TableRow<T>({ data, columns, edit, handleAdd, handleUp, handleDo
   const TableRowCheck = styled("td", {...default_style_button, ...cellStyle})
   const TableRowButton = styled("td", {...default_style_button, ...cellStyle})
 
+function isChecked(index) {
+    if ( "_check" in data[index] ) {
+          return data[index]._check;
+    } 
+   return false;
+}
   return (
     <>
       {data.map((item, itemIndex) => (
         <TableRowItem key={`table-body-${itemIndex}`}>
 	{ checkCol &&
 	  <TableRowCheck>
-	    <input type="checkbox" onClick={(e) => handleCheck(itemIndex, e)} />
+	    <input type="checkbox" defaultChecked={isChecked(itemIndex)}  onClick={(e) => handleCheck(itemIndex, e)} />
 	  </TableRowCheck>
 	}
           {columns.map((column, columnIndex) => (
