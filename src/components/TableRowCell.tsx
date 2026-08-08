@@ -66,7 +66,6 @@ const default_style = {
     //boxShadow: "2px 2px 0px #000",
     //cornerBottomRightShape: "squircle",
     borderBottomRightRadius: "-6px",
-
     //borderShape: "circle()",
 
   },
