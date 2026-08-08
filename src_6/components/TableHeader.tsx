@@ -48,7 +48,7 @@ const default_style = {
   verticalAlign: 'middle',
 
   //textAlign: "left",
-  textAlign: "center",
+  textAlign: "cemter",
 
   border: "solid gray 1px",
   //backgroundColor: "#e0e0e0",

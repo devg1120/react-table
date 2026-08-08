@@ -124,8 +124,7 @@ const cellStyle_sy = {
   fontFamily: 'sams-serif',  
   //fontFamily: 'monospace',
   fontWeight: '800', 
-  fontSize: 14,
-  padding: 6,
+  fontSize: 16,
   textAlign: 'center',
 }
 

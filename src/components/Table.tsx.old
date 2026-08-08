@@ -1,5 +1,5 @@
 import { styled } from "@stitches/react";
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState } from 'react';
 //import { useReducer } from 'react'
 
 import { TableHeader } from "./TableHeader";
@@ -27,7 +27,7 @@ const TableWrapper = styled("table", {
 */
 
 const default_style_table = {
-  //marginTop: "12px",
+  marginTop: "12px",
   borderCollapse: "collapse",
   border: "solid gray 1px",
   fontFamily: "Anek Telugu",
@@ -66,7 +66,7 @@ export function Table<T>({ id, data, columns , localStorageName,
 //let copyData = data.map( list => ({'key1': list.key1, 'key2': list.key2}))
 //const copyData = JSON.parse(JSON.stringify(data)); 
 let scroll_y = true
-let container_height = "300px"
+let container_height = "500px"
 
 let copyData = []
 if ( data != null ) {
@@ -251,68 +251,18 @@ const remove = () => {
 };
 
 const TableWrapper = styled("table", {...default_style_table, ...tableStyle});
-//const TableContainer = styled("div", {overflowY:"auto", maxHeight:container_height,});
-
-const [scrollY, setScrollY] = useState(false);
-const TableContainer = useMemo(() => {
-      console.log("memo scrollY", scrollY)
-      if (scrollY) {
-          return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height, 
-	              borderTop: "solid 1px gray", 
-		      borderBottom: "solid 1px gray",
-		      borderRight: "solid 1px gray",
-		      });
-
-      } else {
-          return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
-      }
-}, [scrollY])
-
-const TableContainerElement = useRef(null);
-
-
-//const [scrollY, setScrollY] = useState(false);
-useEffect(() => {
-    if (TableContainerElement["current"]) {
-        const ele = TableContainerElement["current"] 
-        console.log(id, "scroll-y",ele.scrollHeight > ele.clientHeight)
-        setScrollY(ele.scrollHeight > ele.clientHeight)
-    }
-}, [dataA]);
-
-
-/*
-const scrollY = useMemo(() => {
-    if (TableContainerElement["current"]) {
-        const ele = TableContainerElement["current"] 
-        console.log(id, "scroll-y",ele.scrollHeight > ele.clientHeight)
-        return (ele.scrollHeight > ele.clientHeight)
-    }
-}, [dataA])
-*/
-/*
-  # scrol auto status check
-  element.scrollHeight > element.clientHeight 
-     true : scroll
-     false: none
-*/
+const TableContainer = styled("div", {overflowY:"auto", maxHeight:container_height});
 
 const fixStyle = {
     position: "sticky",
     top: 0,
-    //border: "solid gray 1px",
-    //background: "yellow",
-    zIndex: 1000,
-    //borderTop: "2px solid gray",
-    //borderBottom: "2px solid #ccc",
+    background: "yellow",
+    zIndex: 100,
+    borderBottom: "2px solid #ccc",
 }
 
 const headerStyleFix = {...headerStyle, ...fixStyle}
-/*
-    <TableContainer ref={TableContainerElement} >
-    <TableWrapper id={id} key={key}>
 
-*/
   return (
     <>
     <button onClick={() =>dump()} >dump</button>
@@ -324,10 +274,9 @@ const headerStyleFix = {...headerStyle, ...fixStyle}
     <button onClick={() =>remove()} >remove</button>
     &ensp;
     <label>{localStorageName}</label>
-    <TableContainer ref={TableContainerElement} >
     <TableWrapper id={id} key={key}>
       <thead>
-        <TableHeader columns={columns} style={headerStyleFix} checkCol={checkCol}/>
+        <TableHeader columns={columns} style={headerStyle} checkCol={checkCol}/>
       </thead>
       <tbody>
         <TableRow data={dataA} columns={columns} 
@@ -344,7 +293,6 @@ const headerStyleFix = {...headerStyle, ...fixStyle}
 		   />
      </tbody>
     </TableWrapper>
-    </TableContainer>
     </>
   );
 }
