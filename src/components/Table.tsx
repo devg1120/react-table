@@ -5,6 +5,45 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { TableHeader } from "./TableHeader";
 import { TableRow } from "./TableRow";
 
+import { AiOutlineRedo } from "react-icons/ai";
+import { AiOutlineDownload } from "react-icons/ai";
+import { AiOutlineUpload } from "react-icons/ai";
+
+import { AiOutlineToTop } from "react-icons/ai";
+import { AiOutlineVerticalAlignBottom } from "react-icons/ai";
+import { AiOutlineVerticalAlignTop } from "react-icons/ai";
+
+
+import { AiOutlineDelete } from "react-icons/ai";
+
+import { AiOutlineClose } from "react-icons/ai";
+
+import { Tooltip } from 'react-tooltip'
+
+import 'react-tooltip/dist/react-tooltip.css'
+
+
+
+
+const icon_style = {
+  //backgroundColor: "gray",
+  //color: "white",
+  fontSize: '11px',
+  padding: "2px 4px 2px 4px",
+  margin: "0px 0px 0px 3px",
+  //transform: "scale(0.7, 0.7)",
+  borderRight: "solid 1px gray",
+  borderBottom: "solid 1px gray",
+};
+
+const IconReset  = styled(AiOutlineRedo, icon_style);
+//const IconLoad   = styled(AiOutlineUpload, icon_style);
+const IconLoad   = styled(AiOutlineVerticalAlignTop, icon_style);
+const IconSave   = styled(AiOutlineVerticalAlignBottom, icon_style);
+const IconRemove = styled(AiOutlineDelete, icon_style);
+
+//const IconClose = styled(AiOutlineClose, icon_style);
+
 export interface IColumnType<T> {
   key: string;
   title: string;
@@ -313,6 +352,18 @@ const fixStyle = {
 }
 
 const headerStyleFix = {...headerStyle, ...fixStyle}
+const tooltipStyle = { 
+   //backgroundColor: "rgb(0, 247, 255)",
+   //color: "#222",
+   backgroundColor: "#696969",
+   color: "#fff",
+   borderRadius: "0px",
+   fontSize: "12px",
+   zIndex: 9999,
+   padding: "3px",
+
+   }
+
 /*
     <TableContainer ref={TableContainerElement} >
     <TableWrapper id={id} key={key}>
@@ -326,7 +377,28 @@ const headerStyleFix = {...headerStyle, ...fixStyle}
     &ensp;
     <button onClick={() =>save()} >save</button>
     <button onClick={() =>load()} >load</button>
-    <button onClick={() =>remove()} >remove</button>
+    <button onClick={() =>remove()} data-tooltip-id="my-tooltip1" data-tooltip-content="Hello to you too!" >
+    remove
+    <Tooltip id="my-tooltip1" />
+    </button>
+    &ensp;
+    {/*
+    <IconReset    onClick={() =>reset()} />
+    <IconLoad     onClick={() =>load()} />
+    <IconSave     onClick={() =>save()} />
+    <IconRemove   onClick={() =>remove()} />
+    */}
+
+
+    <IconReset    onClick={() =>reset()} 
+         data-tooltip-id="reset" data-tooltip-content="Reset"/> <Tooltip id="reset"   style={tooltipStyle} />
+
+    <IconLoad     onClick={() =>load()} 
+         data-tooltip-id="load" data-tooltip-content="Load"/> <Tooltip id="load" style={tooltipStyle} /> 
+    <IconSave     onClick={() =>save()} 
+         data-tooltip-id="save" data-tooltip-content="Save"/> <Tooltip id="save" style={tooltipStyle} /> 
+    <IconRemove   onClick={() =>remove()} 
+         data-tooltip-id="remove" data-tooltip-content="Remove"/> <Tooltip id="remove" style={tooltipStyle} /> 
     &ensp;
     <label>{localStorageName}</label>
     <TableContainer ref={TableContainerElement} >
