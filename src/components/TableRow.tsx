@@ -19,12 +19,13 @@ const tooltipStyle = {
    //backgroundColor: "rgb(0, 247, 255)",
    //color: "#222",
    //backgroundColor: "#1E90FF",
+   
    backgroundColor: "#696969",
    color: "#fff",
-   borderRadius: "0px",
-   fontSize: "12px",
+   //borderRadius: "8px",
+   fontSize: "10px",
    zIndex: 9999,
-   padding: "0px",
+   //padding: "0px",
 
    }
 
@@ -170,14 +171,13 @@ function isChecked(index) {
 	    <IconClose   onClick={() => handleDelete(itemIndex)} />
 */}
 	    <IconPlus    onClick={() => handleAdd(itemIndex)}
-	             data-tooltip-id="add" data-tooltip-content="below insert new row"/> <Tooltip id="add"   style={tooltipStyle} />
-
+	             data-tooltip-id="add" data-tooltip-content="insert" /> <Tooltip id="add"   style={tooltipStyle} />
 	    <IconUp      onClick={() => handleUp(itemIndex)}
-	             data-tooltip-id="up" data-tooltip-content="move up row"/> <Tooltip id="up"   style={tooltipStyle} />
+	             data-tooltip-id="up" data-tooltip-content="up"/> <Tooltip id="up"   style={tooltipStyle} />
 	    <IconDown    onClick={() => handleDown(itemIndex)}
-	             data-tooltip-id="down" data-tooltip-content="move down row"/> <Tooltip id="down"   style={tooltipStyle} />
+	             data-tooltip-id="down" data-tooltip-content="down"/> <Tooltip id="down"   style={tooltipStyle} />
 	    <IconClose   onClick={() => handleDelete(itemIndex)} 
-	             data-tooltip-id="delete" data-tooltip-content="delete row"/> <Tooltip id="delete"   style={tooltipStyle} />
+	             data-tooltip-id="delete" data-tooltip-content="delete"/> <Tooltip id="delete"   style={tooltipStyle} />
 
 
            {/*

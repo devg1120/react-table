@@ -30,10 +30,11 @@ const icon_style = {
   //color: "white",
   fontSize: '11px',
   padding: "2px 4px 2px 4px",
-  margin: "0px 0px 0px 3px",
+  margin: "0px 0px 3px 2px",
   //transform: "scale(0.7, 0.7)",
   borderRight: "solid 1px gray",
   borderBottom: "solid 1px gray",
+  verticalAlign: "bottom",
 };
 
 const IconReset  = styled(AiOutlineRedo, icon_style);
@@ -400,7 +401,8 @@ const tooltipStyle = {
     <IconRemove   onClick={() =>remove()} 
          data-tooltip-id="remove" data-tooltip-content="Remove"/> <Tooltip id="remove" style={tooltipStyle} /> 
     &ensp;
-    <label>{localStorageName}</label>
+    <label style={{backgroundColor: "lightgreen", fontSize: "11px", verticalAlign: "middle", padding: "1px 10px 0px 10px"}}>{localStorageName}</label>
+
     <TableContainer ref={TableContainerElement} >
     <TableWrapper id={id} key={key}>
       <thead>
