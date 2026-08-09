@@ -13,6 +13,8 @@ import { AiOutlineToTop } from "react-icons/ai";
 import { AiOutlineVerticalAlignBottom } from "react-icons/ai";
 import { AiOutlineVerticalAlignTop } from "react-icons/ai";
 
+import { AiOutlineTable } from "react-icons/ai";
+import { AiOutlineFile } from "react-icons/ai";
 
 import { AiOutlineDelete } from "react-icons/ai";
 
@@ -37,6 +39,8 @@ const icon_style = {
   verticalAlign: "bottom",
 };
 
+const IconDump  = styled(AiOutlineFile, icon_style);
+const IconUpdate  = styled(AiOutlineTable, icon_style);
 const IconReset  = styled(AiOutlineRedo, icon_style);
 //const IconLoad   = styled(AiOutlineUpload, icon_style);
 const IconLoad   = styled(AiOutlineVerticalAlignTop, icon_style);
@@ -393,7 +397,12 @@ const tooltipStyle = {
 
     <IconReset    onClick={() =>reset()} 
          data-tooltip-id="reset" data-tooltip-content="Reset"/> <Tooltip id="reset"   style={tooltipStyle} />
+    <IconUpdate    onClick={() =>update()} 
+         data-tooltip-id="update" data-tooltip-content="Update"/> <Tooltip id="update"   style={tooltipStyle} />
+    <IconDump    onClick={() =>dump()} 
+         data-tooltip-id="dump" data-tooltip-content="Dump"/> <Tooltip id="dump"   style={tooltipStyle} />
 
+    
     <IconLoad     onClick={() =>load()} 
          data-tooltip-id="load" data-tooltip-content="Load"/> <Tooltip id="load" style={tooltipStyle} /> 
     <IconSave     onClick={() =>save()} 
