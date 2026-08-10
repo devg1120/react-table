@@ -32,7 +32,7 @@ const icon_style = {
   //color: "white",
   fontSize: '11px',
   padding: "2px 4px 2px 4px",
-  margin: "0px 0px 3px 2px",
+  margin: "0px 0px 0px 0px",
   //transform: "scale(0.7, 0.7)",
   borderRight: "solid 1px gray",
   borderBottom: "solid 1px gray",
@@ -376,6 +376,7 @@ const tooltipStyle = {
 */
   return (
     <>
+    {/*
     <button onClick={() =>dump()} >dump</button>
     <button onClick={() =>update()}>update</button>
     <button onClick={() =>reset()}>reset</button>
@@ -387,14 +388,12 @@ const tooltipStyle = {
     <Tooltip id="my-tooltip1" />
     </button>
     &ensp;
-    {/*
-    <IconReset    onClick={() =>reset()} />
-    <IconLoad     onClick={() =>load()} />
-    <IconSave     onClick={() =>save()} />
-    <IconRemove   onClick={() =>remove()} />
-    */}
+*/}
 
-
+<div style={{ width: "fit-content" }}>
+<div style={{display: "flex", justifyContent: "space-between", paddingBottom: "3px"}}>
+  <div>
+  &nbsp;
     <IconReset    onClick={() =>reset()} 
          data-tooltip-id="reset" data-tooltip-content="Reset"/> <Tooltip id="reset"   style={tooltipStyle} />
     <IconUpdate    onClick={() =>update()} 
@@ -402,15 +401,20 @@ const tooltipStyle = {
     <IconDump    onClick={() =>dump()} 
          data-tooltip-id="dump" data-tooltip-content="Dump"/> <Tooltip id="dump"   style={tooltipStyle} />
 
+  </div>
     
+  <div>
+    <label style={{backgroundColor: "#ffffff", fontSize: "10px",  verticalAlign:"middle", border:"solid gray 1px ", margin:"0px 10px 0px 10px", padding: "1px 10px 1px 10px"}}>{localStorageName}</label>
     <IconLoad     onClick={() =>load()} 
          data-tooltip-id="load" data-tooltip-content="Load"/> <Tooltip id="load" style={tooltipStyle} /> 
     <IconSave     onClick={() =>save()} 
          data-tooltip-id="save" data-tooltip-content="Save"/> <Tooltip id="save" style={tooltipStyle} /> 
     <IconRemove   onClick={() =>remove()} 
          data-tooltip-id="remove" data-tooltip-content="Remove"/> <Tooltip id="remove" style={tooltipStyle} /> 
-    &ensp;
-    <label style={{backgroundColor: "lightgreen", fontSize: "11px", verticalAlign: "middle", padding: "1px 10px 0px 10px"}}>{localStorageName}</label>
+    &nbsp;
+  </div>
+
+</div>
 
     <TableContainer ref={TableContainerElement} >
     <TableWrapper id={id} key={key}>
@@ -433,6 +437,7 @@ const tooltipStyle = {
      </tbody>
     </TableWrapper>
     </TableContainer>
+</div>
     </>
   );
 }
