@@ -1,5 +1,5 @@
 import { styled } from "@stitches/react";
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 //import { useReducer } from 'react'
 
 import { TableHeader } from "./TableHeader";
@@ -330,6 +330,8 @@ useEffect(() => {
 }, [dataA]);
 
 
+
+
 /*
 const scrollY = useMemo(() => {
     if (TableContainerElement["current"]) {
@@ -346,10 +348,33 @@ const scrollY = useMemo(() => {
      false: none
 */
 
+
+  const keydown = useCallback((event) => {
+    if (event.shiftKey) {
+       if  (event.keyCode >= 37 && event.keyCode <= 40) {
+            console.log("press", id, event.keyCode);
+       }
+    } else {
+       //console.log("press", id, event.keyCode);
+    }
+
+    if (event.keyCode === 27) {
+      // キーコードを判定して何かする。
+      console.log("Esc Key is pressed!");
+    }
+
+  }, []);
+
+
+ useEffect(() => {
+    TableContainerElement["current"].addEventListener("keydown", keydown, false);
+  }, []);
+
 const fixStyle = {
     position: "sticky",
-    top: -1,
-    //border: "solid gray 1px",
+    //top: -1,
+    top: "-1px" ,
+    //border: "solid red 1px",
     //background: "yellow",
     zIndex: 1000,
     //borderTop: "2px solid gray",
