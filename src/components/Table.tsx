@@ -41,6 +41,7 @@ const IconLoad = styled(AiOutlineVerticalAlignTop, icon_style);
 const IconSave = styled(AiOutlineVerticalAlignBottom, icon_style);
 const IconRemove = styled(AiOutlineDelete, icon_style);
 
+let focusCell = null;
 
 export interface IColumnType<T> {
   key: string;
@@ -154,11 +155,12 @@ export function Table<T>({
     dataA[index]["_check"] = e.target.checked;
   };
 
-  let focusCell = null;
+  //let focusCell = null;
 
   const handleFocus = (id) => {
-	  console.log("focus:", id)
+	  //console.log("focus:", id)
 	  focusCell = id
+	  //console.log("focus:", focusCell)
   };
   const dump = () => {
     console.dir(dataA);
@@ -242,6 +244,7 @@ export function Table<T>({
   }, [scrollY]);
 
   const TableContainerElement = useRef(null);
+  const TableElement = useRef(null);
 
   useEffect(() => {
     if (TableContainerElement["current"]) {
@@ -250,20 +253,79 @@ export function Table<T>({
     }
   }, [dataA]);
 
-  const keydown = useCallback((event) => {
+  //function focusChange( key_name ) {
+  const focusChange = ( key_name ) => {
+  
+      if ( focusCell == null ) {
+            console.log("focusCell  null", focusCell)
+	    return
+      }
+
+      //console.log(focusCell, key_name);
+      const param = focusCell.split('_');
+      let r = Number(param[1]);
+      let c = Number(param[2]);
+      let rl = dataA.length;
+      let cl = columns.length;
+      //console.log(r, c, rl, cl);
+      switch (key_name) {
+        case "left":
+          console.log("LEFT");
+	  if ( c == 1 ) return;
+          c = --c;
+          break;
+        case "up":
+          console.log("UP");
+	  if ( r == 1 ) return;
+          r = --r;
+          break;
+        case "right":
+          console.log("RIGHT");
+	  if ( c == cl ) return;
+          c = ++c;
+          break;
+        case "down":
+          console.log("DOWN");
+	  if ( r == rl ) return;
+          r = ++r;
+          break;
+        default:
+          return;
+      }
+      const new_id = `Cell_${r}_${c}`
+      //console.log("new_id", new_id)
+      const ele = TableContainerElement["current"].querySelector("#" + new_id);
+      ele.focus();
+    return
+  }
+  //const keydown = useCallback((event) => {
+  const keydown = (event) => {
     if (event.shiftKey) {
       if (event.keyCode >= 37 && event.keyCode <= 40) {
-        console.log("press", id, event.keyCode);
+        console.log("sheftKey +press",  event.keyCode);
+      }
+    } else {
+      if (event.keyCode >= 37 && event.keyCode <= 40) {
+        console.log("press",  event.keyCode);
+         let key_name = "";
+         if (event.keyCode == 37 )  { key_name = "left";
+         } else if (event.keyCode == 38 )  { key_name = "up";
+         } else if (event.keyCode == 39 )  { key_name = "right";
+         } else if (event.keyCode == 40 )  { key_name = "down"; 
+	 } else { return }
+        focusChange(key_name);
       }
     }
 
     if (event.keyCode === 27) {
       console.log("Esc Key is pressed!");
     }
-  }, []);
+  //}, []);
+  };
 
   useEffect(() => {
     TableContainerElement["current"].addEventListener(
+    //TableElement["current"].addEventListener(
       "keydown",
       keydown,
       false,
@@ -389,7 +451,7 @@ export function Table<T>({
                 checkCol={checkCol}
               />
             </thead>
-            <tbody>
+            <tbody ref={TableElement}>
               <TableRow
                 data={dataA}
                 columns={columns}
