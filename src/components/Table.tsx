@@ -404,7 +404,8 @@ const tooltipStyle = {
   </div>
     
   <div>
-    <label style={{backgroundColor: "#ffffff", fontSize: "10px",  verticalAlign:"middle", border:"solid gray 1px ", margin:"0px 10px 0px 10px", padding: "1px 10px 1px 10px"}}>{localStorageName}</label>
+    <label style={{backgroundColor: "#ffffff", fontSize: "10px",  fontStyle: "italic", verticalAlign:"middle",  margin:"0px 6px 0px 0px", padding: "1px 0px 1px 0px"}}>{"LocalStorage"}</label>
+    <label style={{backgroundColor: "#ffffff", fontSize: "10px",  verticalAlign:"middle", border:"solid gray 1px ", margin:"0px 2px 0px 2px", padding: "1px 10px 1px 10px"}}>{localStorageName}</label>
     <IconLoad     onClick={() =>load()} 
          data-tooltip-id="load" data-tooltip-content="Load"/> <Tooltip id="load" style={tooltipStyle} /> 
     <IconSave     onClick={() =>save()} 
