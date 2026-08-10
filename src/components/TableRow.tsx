@@ -63,6 +63,7 @@ const IconDown = styled(AiOutlineArrowDown, icon_style);
 const IconClose = styled(AiOutlineClose, icon_style);
 
 export function TableRow<T>({
+  rown,
   data,
   columns,
   edit,
@@ -72,6 +73,7 @@ export function TableRow<T>({
   handleDelete,
   handleChange,
   handleCheck,
+  handleFocus,
   rowStyle = {},
   cellStyle = {},
   checkCol = false,
@@ -104,11 +106,14 @@ export function TableRow<T>({
           )}
           {columns.map((column, columnIndex) => (
             <TableRowCell
+              rown={itemIndex + 1}
+	      coln={columnIndex + 1}
               key={`table-row-cell-${columnIndex}`}
               item={item}
               column={column}
               edit={edit}
               handleChange={handleChange}
+              handleFocus={handleFocus}
               style={cellStyle}
             />
           ))}

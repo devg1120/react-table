@@ -154,6 +154,12 @@ export function Table<T>({
     dataA[index]["_check"] = e.target.checked;
   };
 
+  let focusCell = null;
+
+  const handleFocus = (id) => {
+	  console.log("focus:", id)
+	  focusCell = id
+  };
   const dump = () => {
     console.dir(dataA);
   };
@@ -394,6 +400,7 @@ export function Table<T>({
                 handleDelete={handleRowDelete}
                 handleChange={handleChange}
                 handleCheck={handleCheck}
+                handleFocus={handleFocus}
                 rowStyle={rowStyle}
                 cellStyle={cellStyle}
                 checkCol={checkCol}

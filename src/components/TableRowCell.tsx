@@ -43,10 +43,13 @@ const default_style = {
 
 
 export function TableRowCell<T>({
+  rown,
+  coln,
   item,
   column,
   edit,
   handleChange,
+  handleFocus,
   style = {},
 }: Props<T>): JSX.Element {
   const [contentEditable, setrCcontentEditable] = useState(edit);
@@ -54,18 +57,26 @@ export function TableRowCell<T>({
 
   const TableCell = styled("td", { ...default_style, ...style });
 
+  const id=`Cell_${rown}_${coln}`
   /*
   useEffect(() => {
 	  console.log("cell value:", value);
   }, [value]);
 */
 
+  function onFocus() {
+   //console.log("focus:", id)
+   handleFocus(id)
+  }
+
   return (
     <TableCell
+      id={id}
       className="tableCell"
       contentEditable={contentEditable}
       suppressContentEditableWarning={true}
       onInput={handleChange}
+      onFocus={onFocus}
     >
       {column.render ? column.render(column, item) : value}
     </TableCell>
