@@ -73,7 +73,7 @@ const TableWrapper = styled("table", {
 const default_style_table = {
   //marginTop: "12px",
   borderCollapse: "collapse",
-  border: "solid gray 1px",
+  //border: "solid gray 1px",
   fontFamily: "Anek Telugu",
 };
 /*
@@ -305,15 +305,26 @@ const TableWrapper = styled("table", {...default_style_table, ...tableStyle});
 const [scrollY, setScrollY] = useState(false);
 const TableContainer = useMemo(() => {
       console.log("memo scrollY", scrollY)
-      if (scrollY) {
+      /*
+          return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height, 
+	              borderTop: "solid 1px gray", 
+		      //borderRight: "solid 1px gray",
+		      });
+		     */
+      if (scrollY ) {
           return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height, 
 	              borderTop: "solid 1px gray", 
 		      borderBottom: "solid 1px gray",
 		      borderRight: "solid 1px gray",
 		      });
+		     
+          //return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
 
       } else {
-          return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
+          //return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
+          return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height, 
+	              borderTop: "solid 1px gray", 
+		      });
       }
 }, [scrollY])
 
@@ -324,7 +335,7 @@ const TableContainerElement = useRef(null);
 useEffect(() => {
     if (TableContainerElement["current"]) {
         const ele = TableContainerElement["current"] 
-        console.log(id, "scroll-y",ele.scrollHeight > ele.clientHeight)
+        console.log(id, "scroll-y",ele.scrollHeight > ele.clientHeight, ele.scrollY)
         setScrollY(ele.scrollHeight > ele.clientHeight)
     }
 }, [dataA]);
@@ -373,8 +384,9 @@ const scrollY = useMemo(() => {
 const fixStyle = {
     position: "sticky",
     //top: -1,
-    top: "-1px" ,
-    //border: "solid red 1px",
+    //top: "-1px" ,
+    top: "0px" ,
+    borderBottom: "solid red 1px",
     //background: "yellow",
     zIndex: 1000,
     //borderTop: "2px solid gray",

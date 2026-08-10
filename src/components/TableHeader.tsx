@@ -50,7 +50,8 @@ const default_style = {
   //textAlign: "left",
   textAlign: "center",
 
-  border: "solid gray 1px",
+  borderLeft: "solid gray 1px",
+  borderRight: "solid gray 1px",
   //backgroundColor: "#e0e0e0",
   backgroundColor: "#cce5ff",
   /*
@@ -78,6 +79,7 @@ const default_style_button = {
   backgroundRepeat:' no-repeat;',
   //backgroundColor: "#e0e0e0",
   backgroundColor: "#cce5ff",
+  borderRight: "solid gray 1px",
 
 };
 
