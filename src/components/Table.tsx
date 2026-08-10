@@ -328,7 +328,8 @@ export function Table<T>({
     //TableElement["current"].addEventListener(
       "keydown",
       keydown,
-      false,
+      //false,
+       {passive: false}
     );
   }, []);
 
