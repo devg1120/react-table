@@ -164,6 +164,13 @@ export function Table<T>({
   };
   const dump = () => {
     console.dir(dataA);
+    TableContainerElement["current"].addEventListener(
+    //TableElement["current"].addEventListener(
+      "keydown",
+      keydown,
+      //false,
+       {passive: false}
+    );
   };
 
   const updateData = (row, colname, text) => {
@@ -331,7 +338,7 @@ export function Table<T>({
       //false,
        {passive: false}
     );
-  }, []);
+  }, [scrollY]);
 
   const fixStyle = {
     position: "sticky",
