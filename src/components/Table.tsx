@@ -73,6 +73,10 @@ const TableWrapper = styled("table", {
 const default_style_table = {
   //marginTop: "12px",
   borderCollapse: "collapse",
+
+  //borderCollapse: "separate",
+  //borderSpacing: "0",
+  
   //border: "solid gray 1px",
   fontFamily: "Anek Telugu",
 };
@@ -386,7 +390,7 @@ const fixStyle = {
     //top: -1,
     //top: "-1px" ,
     top: "0px" ,
-    borderBottom: "solid red 1px",
+    //borderBottom: "solid red 1px",
     //background: "yellow",
     zIndex: 1000,
     //borderTop: "2px solid gray",
