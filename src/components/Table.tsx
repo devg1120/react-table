@@ -197,31 +197,8 @@ export function Table<T>({
       { passive: false },
     );
   };
-
-//  const cellArrowNaviToggle = () => {
-  function cellArrowNaviToggle  ()  {
-      if (cellArrowNavi) {
-         setCellArrowNavi(false)
-         TableContainerElement["current"].removeEventListener(
-         //TableElement["current"].removeEventListener(
-           "keydown",
-           keydown,
-	   //{ handleEvent: keydown, name:dataA},
-           { passive: false  },
-         );
-	 //console.log(".removeEventListener");
-
-      } else {
-         setCellArrowNavi(true)
-         TableContainerElement["current"].addEventListener(
-         //TableElement["current"].addEventListener(
-           "keydown",
-           keydown,
-	   //{ handleEvent: keydown, data:dataA},
-           { passive: false  },
-         );
-      }
-
+  const cellArrowNaviToggle = () => {
+         setCellArrowNavi(!cellArrowNavi);
   };
 
   const updateData = (row, colname, text) => {
@@ -313,7 +290,7 @@ export function Table<T>({
 
   //function focusChange( key_name ) {
   const focusChange = ( key_name ) => {
-    console.dir(dataA);
+   // console.dir(dataA);
   //const focusChange = (key_name) => {
     if (focusCell == null) {
       console.log("focusCell  null", focusCell);
@@ -330,7 +307,7 @@ export function Table<T>({
     let cl = columns.length;
     //console.log(r, c, rl, cl);
     console.log(r,  rl);
-    console.log(dataA);
+    //console.log(dataA);
     switch (key_name) {
       case "left":
         //console.log("LEFT");
@@ -361,10 +338,12 @@ export function Table<T>({
     ele.focus();
     return;
   };
-  //const keydown = useCallback((event) => {
-  const keydown = (event) => {
-  //function keydown(event) {
-    console.log("dataA",dataA);
+
+  const handleKeyDown = (event) => {
+  //function  keydown (event)  {
+    console.log("cellArrowNavi", cellArrowNavi);
+    if (!cellArrowNavi) return;
+    console.log("dataA",dataA.length);
     if (event.shiftKey) {
       if (event.keyCode >= 37 && event.keyCode <= 40) {
         console.log("sheftKey +press", event.keyCode);
@@ -391,18 +370,19 @@ export function Table<T>({
     if (event.keyCode === 27) {
       console.log("Esc Key is pressed!");
     }
-  //  }, []);
   };
 
 /*
   useEffect(() => {
-    TableContainerElement["current"].addEventListener(
-      //TableElement["current"].addEventListener(
-      "keydown",
-      keydown,
-      //false,
-      { passive: false },
-    );
+      //if (cellArrowNavi) {
+        TableContainerElement["current"].addEventListener(
+          //TableElement["current"].addEventListener(
+          "keydown",
+          keydown,
+          //false,
+          { passive: false },
+        );
+       //}
   }, [scrollY]);
 */
 
@@ -529,7 +509,7 @@ export function Table<T>({
           </div>
         </div>
 
-        <TableContainer ref={TableContainerElement}>
+        <TableContainer ref={TableContainerElement} onKeyDown={handleKeyDown} >
           <TableWrapper id={id} key={key}>
             <thead>
               <TableHeader
