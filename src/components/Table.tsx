@@ -189,18 +189,20 @@ export function Table<T>({
 
   const dump = () => {
     console.dir(dataA);
-    TableContainerElement["current"].addEventListener(
-      //TableElement["current"].addEventListener(
-      "keydown",
-      keydown,
-      //false,
-      { passive: false },
-    );
   };
   const cellArrowNaviToggle = () => {
-         setCellArrowNavi(!cellArrowNavi);
+     setCellArrowNavi(!cellArrowNavi);
   };
 
+  const handleMouseEnter = () => {
+    if (focusCell != null) {
+      const ele = TableContainerElement["current"].querySelector("#" + focusCell);
+      //console.log(ele);
+      TableElement["current"].focus();
+      ele.click();
+      ele.focus();
+    }
+  };
   const updateData = (row, colname, text) => {
     if (dataA[row][colname] != text) {
       const rowData = JSON.parse(JSON.stringify(dataA[row]));
@@ -509,7 +511,9 @@ export function Table<T>({
           </div>
         </div>
 
-        <TableContainer ref={TableContainerElement} onKeyDown={handleKeyDown} >
+        <TableContainer ref={TableContainerElement} onKeyDown={handleKeyDown} 
+             onMouseEnter={handleMouseEnter}
+	>
           <TableWrapper id={id} key={key}>
             <thead>
               <TableHeader
