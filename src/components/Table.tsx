@@ -1,50 +1,51 @@
-import { styled } from "@stitches/react";
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { styled } from '@stitches/react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 //import { useReducer } from 'react'
 
-import { TableHeader } from "./TableHeader";
-import { TableRow } from "./TableRow";
+import { TableHeader } from './TableHeader';
+import { TableRow } from './TableRow';
 
-import { AiOutlineRedo } from "react-icons/ai";
-import { AiOutlineDownload } from "react-icons/ai";
-import { AiOutlineUpload } from "react-icons/ai";
+import { AiOutlineRedo } from 'react-icons/ai';
+import { AiOutlineDownload } from 'react-icons/ai';
+import { AiOutlineUpload } from 'react-icons/ai';
 
-import { AiOutlineToTop } from "react-icons/ai";
-import { AiOutlineVerticalAlignBottom } from "react-icons/ai";
-import { AiOutlineVerticalAlignTop } from "react-icons/ai";
-import { AiOutlineDrag } from "react-icons/ai";
+import { AiOutlineToTop } from 'react-icons/ai';
+import { AiOutlineVerticalAlignBottom } from 'react-icons/ai';
+import { AiOutlineVerticalAlignTop } from 'react-icons/ai';
+import { AiOutlineDrag } from 'react-icons/ai';
 
-import { AiOutlineTable } from "react-icons/ai";
-import { AiOutlineFile } from "react-icons/ai";
+import { AiOutlineTable } from 'react-icons/ai';
+import { AiOutlineFile } from 'react-icons/ai';
 
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete } from 'react-icons/ai';
 
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from 'react-icons/ai';
 
-import { Tooltip } from "react-tooltip";
+import { Tooltip } from 'react-tooltip';
 
-import "react-tooltip/dist/react-tooltip.css";
+import 'react-tooltip/dist/react-tooltip.css';
 
 const icon_style = {
-  fontSize: "11px",
-  padding: "2px 4px 2px 4px",
-  margin: "0px 2px 0px 0px",
+  fontSize: '11px',
+  padding: '2px 4px 2px 4px',
+  margin: '0px 2px 0px 0px',
   //transform: "scale(0.7, 0.7)",
-  borderRight: "solid 1px gray",
-  borderBottom: "solid 1px gray",
-  verticalAlign: "bottom",
+  borderRight: 'solid 1px gray',
+  borderBottom: 'solid 1px gray',
+  verticalAlign: 'bottom',
 };
 
 const icon_style_press = {
-  fontSize: "11px",
-  padding: "2px 4px 2px 4px",
-  margin: "0px 2px 0px 0px",
+  fontSize: '11px',
+  padding: '2px 4px 2px 4px',
+  margin: '0px 2px 0px 0px',
   //transform: "scale(0.7, 0.7)",
-  borderLeft: "solid 1px gray",
-  borderTop: "solid 1px gray",
-  verticalAlign: "bottom",
-  backgroundColor: "#f5f5f5",
+  borderLeft: 'solid 1px gray',
+  borderTop: 'solid 1px gray',
+  verticalAlign: 'bottom',
+  backgroundColor: '#f5f5f5',
 };
+
 const IconDump = styled(AiOutlineFile, icon_style);
 const IconUpdate = styled(AiOutlineTable, icon_style);
 const IconReset = styled(AiOutlineRedo, icon_style);
@@ -70,10 +71,10 @@ interface Props<T> {
 }
 
 const default_style_table = {
-  borderCollapse: "collapse",
+  borderCollapse: 'collapse',
   //borderCollapse: "separate",
   //borderSpacing: "0",
-  fontFamily: "Anek Telugu",
+  fontFamily: 'Anek Telugu',
 };
 
 export function loadTableData(localStorageName): [] {
@@ -96,11 +97,11 @@ export function Table<T>({
   cellStyle = {},
   checkColEnable = false,
   enableScrollY = true,
-  containerHeight = "300px",
+  containerHeight = '300px',
 }: Props<T>): JSX.Element {
   let container_height = containerHeight;
   if (!enableScrollY) {
-    container_height = "100%";
+    container_height = '100%';
   }
   let copyData = [];
   if (data != null) {
@@ -108,14 +109,14 @@ export function Table<T>({
   } else {
     let row_data = {};
     for (let i in columns) {
-      row_data[columns[i].key] = "";
+      row_data[columns[i].key] = '';
     }
     let data_ = [row_data];
     data = JSON.parse(JSON.stringify(data_));
     copyData = JSON.parse(JSON.stringify(data));
   }
 
-  const [edit, setEdit] = useState("plaintext-only");
+  const [edit, setEdit] = useState('plaintext-only');
   const [key, setKey] = useState(false);
   const [dataA, setDataA] = useState(copyData);
   const [checkCol, setCheckCol] = useState(checkColEnable);
@@ -132,7 +133,7 @@ export function Table<T>({
   const handleRowAdd = (index) => {
     let _data2 = {};
     for (let i in columns) {
-      _data2[columns[i].key] = "";
+      _data2[columns[i].key] = '';
     }
     dataA.splice(Number(index) + 1, 0, _data2);
     setDataA(dataA.concat());
@@ -148,7 +149,7 @@ export function Table<T>({
 
   const handleRowUp = (index) => {
     if (index == 0) {
-      alert("skip");
+      alert('skip');
       return;
     }
     arraymove(dataA, Number(index), Number(index) - 1);
@@ -158,7 +159,7 @@ export function Table<T>({
   const handleRowDown = (index) => {
     //alert("Row Down: " + index);
     if (index >= dataA.length - 1) {
-      alert("skip");
+      alert('skip');
       return;
     }
     arraymove(dataA, Number(index), Number(index) + 1);
@@ -175,7 +176,7 @@ export function Table<T>({
   };
 
   const handleCheck = (index, e) => {
-    dataA[index]["_check"] = e.target.checked;
+    dataA[index]['_check'] = e.target.checked;
   };
 
   //let focusCell = null;
@@ -188,19 +189,21 @@ export function Table<T>({
   };
 
   const dump = () => {
-    console.dir(dataA);
+    console.dir('dump', dataA);
   };
   const cellArrowNaviToggle = () => {
-     setCellArrowNavi(!cellArrowNavi);
+    setCellArrowNavi(!cellArrowNavi);
   };
 
   const handleMouseEnter = () => {
     if (focusCell != null) {
-      const ele = TableContainerElement["current"].querySelector("#" + focusCell);
+      const ele = TableContainerElement['current'].querySelector('#' + focusCell);
       //console.log(ele);
-      TableElement["current"].focus();
-      ele.click();
-      ele.focus();
+      if (ele) {
+        TableElement['current'].focus();
+        ele.click();
+        ele.focus();
+      }
     }
   };
   const updateData = (row, colname, text) => {
@@ -214,8 +217,8 @@ export function Table<T>({
   const update = () => {
     const table_coln = columns.length;
     const table_rown = dataA.length;
-    const table = document.querySelector("#" + id);
-    const tds = table.querySelectorAll(".tableCell");
+    const table = document.querySelector('#' + id);
+    const tds = table.querySelectorAll('.tableCell');
     for (let i = 0; i < tds.length; i++) {
       const rown = Math.floor(i / table_coln);
       const coln = i % table_coln;
@@ -251,7 +254,7 @@ export function Table<T>({
     localStorage.removeItem(localStorageName);
   };
 
-  const TableWrapper = styled("table", {
+  const TableWrapper = styled('table', {
     ...default_style_table,
     ...tableStyle,
   });
@@ -259,23 +262,23 @@ export function Table<T>({
   const [scrollY, setScrollY] = useState(false);
   const TableContainer = useMemo(() => {
     if (scrollY) {
-      return styled("div", {
-        overflowY: "auto",
-        width: "fit-content",
+      return styled('div', {
+        overflowY: 'auto',
+        width: 'fit-content',
         maxHeight: container_height,
-        borderTop: "solid 1px gray",
-        borderBottom: "solid 1px gray",
-        borderRight: "solid 1px gray",
+        borderTop: 'solid 1px gray',
+        borderBottom: 'solid 1px gray',
+        borderRight: 'solid 1px gray',
       });
 
       //return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
     } else {
       //return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
-      return styled("div", {
-        overflowY: "auto",
-        width: "fit-content",
+      return styled('div', {
+        overflowY: 'auto',
+        width: 'fit-content',
         maxHeight: container_height,
-        borderTop: "solid 1px gray",
+        borderTop: 'solid 1px gray',
       });
     }
   }, [scrollY]);
@@ -284,49 +287,49 @@ export function Table<T>({
   const TableElement = useRef(null);
 
   useEffect(() => {
-    if (TableContainerElement["current"]) {
-      const ele = TableContainerElement["current"];
+    if (TableContainerElement['current']) {
+      const ele = TableContainerElement['current'];
       setScrollY(ele.scrollHeight > ele.clientHeight);
     }
   }, [dataA]);
 
   //function focusChange( key_name ) {
-  const focusChange = ( key_name ) => {
-   // console.dir(dataA);
-  //const focusChange = (key_name) => {
+  const focusChange = (key_name) => {
+    // console.dir(dataA);
+    //const focusChange = (key_name) => {
     if (focusCell == null) {
-      console.log("focusCell  null", focusCell);
+      console.log('focusCell  null', focusCell);
       return;
     }
 
     //console.log(focusCell, key_name);
-    const param = focusCell.split("_");
+    const param = focusCell.split('_');
     let r = Number(param[1]);
     let c = Number(param[2]);
     //let rl = useMemo( () => {return dataA.length;} )
-    let rl = dataA.length
+    let rl = dataA.length;
     //let rl = rowNum;
     let cl = columns.length;
     //console.log(r, c, rl, cl);
-    console.log(r,  rl);
+    //console.log(r,  rl);
     //console.log(dataA);
     switch (key_name) {
-      case "left":
+      case 'left':
         //console.log("LEFT");
         if (c == 1) return;
         c = --c;
         break;
-      case "up":
+      case 'up':
         //console.log("UP");
         if (r == 1) return;
         r = --r;
         break;
-      case "right":
+      case 'right':
         //console.log("RIGHT");
         if (c == cl) return;
         c = ++c;
         break;
-      case "down":
+      case 'down':
         //console.log("DOWN");
         if (r == rl) return;
         r = ++r;
@@ -336,32 +339,32 @@ export function Table<T>({
     }
     const new_id = `Cell_${r}_${c}`;
     //console.log("new_id", new_id)
-    const ele = TableContainerElement["current"].querySelector("#" + new_id);
+    const ele = TableContainerElement['current'].querySelector('#' + new_id);
     ele.focus();
     return;
   };
 
   const handleKeyDown = (event) => {
-  //function  keydown (event)  {
-    console.log("cellArrowNavi", cellArrowNavi);
+    //function  keydown (event)  {
+    //console.log("cellArrowNavi", cellArrowNavi);
     if (!cellArrowNavi) return;
-    console.log("dataA",dataA.length);
+    //console.log("dataA",dataA.length);
     if (event.shiftKey) {
       if (event.keyCode >= 37 && event.keyCode <= 40) {
-        console.log("sheftKey +press", event.keyCode);
+        //console.log("sheftKey +press", event.keyCode);
       }
     } else {
       if (event.keyCode >= 37 && event.keyCode <= 40) {
         //console.log("press", event.keyCode);
-        let key_name = "";
+        let key_name = '';
         if (event.keyCode == 37) {
-          key_name = "left";
+          key_name = 'left';
         } else if (event.keyCode == 38) {
-          key_name = "up";
+          key_name = 'up';
         } else if (event.keyCode == 39) {
-          key_name = "right";
+          key_name = 'right';
         } else if (event.keyCode == 40) {
-          key_name = "down";
+          key_name = 'down';
         } else {
           return;
         }
@@ -370,11 +373,11 @@ export function Table<T>({
     }
 
     if (event.keyCode === 27) {
-      console.log("Esc Key is pressed!");
+      console.log('Esc Key is pressed!');
     }
   };
 
-/*
+  /*
   useEffect(() => {
       //if (cellArrowNavi) {
         TableContainerElement["current"].addEventListener(
@@ -389,20 +392,20 @@ export function Table<T>({
 */
 
   const fixStyle = {
-    position: "sticky",
-    top: "0px",
+    position: 'sticky',
+    top: '0px',
     zIndex: 1000,
   };
 
   const headerStyleFix = { ...headerStyle, ...fixStyle };
   const tooltipStyle = {
     //backgroundColor: "#696969",
-    backgroundColor: "#003366",
-    color: "#fff",
-    borderRadius: "0px",
-    fontSize: "10px",
+    backgroundColor: '#003366',
+    color: '#fff',
+    borderRadius: '0px',
+    fontSize: '10px',
     zIndex: 9999,
-    padding: "0px",
+    padding: '0px',
   };
 
   return (
@@ -421,106 +424,76 @@ export function Table<T>({
     &ensp;
 */}
 
-      <div style={{ width: "fit-content" }}>
+      <div style={{ width: 'fit-content' }}>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            paddingBottom: "3px",
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingBottom: '3px',
           }}
         >
           <div>
             &nbsp;
-            <IconReset
-              onClick={() => reset()}
-              data-tooltip-id="reset"
-              data-tooltip-content="Reset"
-            />
-            <Tooltip id="reset" style={tooltipStyle} />
-            <IconUpdate
-              onClick={() => update()}
-              data-tooltip-id="update"
-              data-tooltip-content="Update"
-            />
-            <Tooltip id="update" style={tooltipStyle} />
-            <IconDump
-              onClick={() => dump()}
-              data-tooltip-id="dump"
-              data-tooltip-content="Dump"
-            />
-            <Tooltip id="dump" style={tooltipStyle} />
-            {cellArrowNavi ? 
-	        <IconCellArrowNaviOn 
-                  onClick={() => cellArrowNaviToggle()}
-                  data-tooltip-id="arrow"
-                  data-tooltip-content="Arrow Cell Navi"
-		/> 
-		: 
-		<IconCellArrowNaviOff 
-                  onClick={() => cellArrowNaviToggle()}
-                  data-tooltip-id="arrow"
-                  data-tooltip-content="Arrow Cell Navi"
-		/>
-		}
-            <Tooltip id="arrow" style={tooltipStyle} />
+            <IconReset onClick={() => reset()} data-tooltip-id='reset' data-tooltip-content='Reset' />
+            <Tooltip id='reset' style={tooltipStyle} />
+            <IconUpdate onClick={() => update()} data-tooltip-id='update' data-tooltip-content='Update' />
+            <Tooltip id='update' style={tooltipStyle} />
+            <IconDump onClick={() => dump()} data-tooltip-id='dump' data-tooltip-content='Dump' />
+            <Tooltip id='dump' style={tooltipStyle} />
+            {cellArrowNavi ? (
+              <IconCellArrowNaviOn
+                onClick={() => cellArrowNaviToggle()}
+                data-tooltip-id='arrow'
+                data-tooltip-content='Arrow Cell Navi'
+              />
+            ) : (
+              <IconCellArrowNaviOff
+                onClick={() => cellArrowNaviToggle()}
+                data-tooltip-id='arrow'
+                data-tooltip-content='Arrow Cell Navi'
+              />
+            )}
+            <Tooltip id='arrow' style={tooltipStyle} />
           </div>
           <div>
             <label
               style={{
-                backgroundColor: "#ffffff",
-                fontSize: "10px",
-                fontStyle: "italic",
-                verticalAlign: "middle",
-                margin: "0px 6px 0px 0px",
-                padding: "1px 0px 1px 0px",
+                backgroundColor: '#ffffff',
+                fontSize: '10px',
+                fontStyle: 'italic',
+                verticalAlign: 'middle',
+                margin: '0px 6px 0px 0px',
+                padding: '1px 0px 1px 0px',
               }}
             >
-              {"LocalStorage"}
+              {'LocalStorage'}
             </label>
             <label
               style={{
-                backgroundColor: "#ffffff",
-                fontSize: "10px",
-                verticalAlign: "middle",
-                border: "solid gray 1px ",
-                margin: "0px 2px 0px 2px",
-                padding: "1px 10px 1px 10px",
+                backgroundColor: '#ffffff',
+                fontSize: '10px',
+                verticalAlign: 'middle',
+                border: 'solid gray 1px ',
+                margin: '0px 2px 0px 2px',
+                padding: '1px 10px 1px 10px',
               }}
             >
               {localStorageName}
             </label>
-            <IconLoad
-              onClick={() => load()}
-              data-tooltip-id="load"
-              data-tooltip-content="Load"
-            />
-            <Tooltip id="load" style={tooltipStyle} />
-            <IconSave
-              onClick={() => save()}
-              data-tooltip-id="save"
-              data-tooltip-content="Save"
-            />
-            <Tooltip id="save" style={tooltipStyle} />
-            <IconRemove
-              onClick={() => remove()}
-              data-tooltip-id="remove"
-              data-tooltip-content="Remove"
-            />
-            <Tooltip id="remove" style={tooltipStyle} />
+            <IconLoad onClick={() => load()} data-tooltip-id='load' data-tooltip-content='Load' />
+            <Tooltip id='load' style={tooltipStyle} />
+            <IconSave onClick={() => save()} data-tooltip-id='save' data-tooltip-content='Save' />
+            <Tooltip id='save' style={tooltipStyle} />
+            <IconRemove onClick={() => remove()} data-tooltip-id='remove' data-tooltip-content='Remove' />
+            <Tooltip id='remove' style={tooltipStyle} />
             &nbsp;
           </div>
         </div>
 
-        <TableContainer ref={TableContainerElement} onKeyDown={handleKeyDown} 
-             onMouseEnter={handleMouseEnter}
-	>
+        <TableContainer ref={TableContainerElement} onKeyDown={handleKeyDown} onMouseEnter={handleMouseEnter}>
           <TableWrapper id={id} key={key}>
             <thead>
-              <TableHeader
-                columns={columns}
-                style={headerStyleFix}
-                checkCol={checkCol}
-              />
+              <TableHeader columns={columns} style={headerStyleFix} checkCol={checkCol} />
             </thead>
             <tbody ref={TableElement}>
               <TableRow
