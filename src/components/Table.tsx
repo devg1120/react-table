@@ -120,6 +120,8 @@ export function Table<T>({
   const [dataA, setDataA] = useState(copyData);
   const [checkCol, setCheckCol] = useState(checkColEnable);
   const [cellArrowNavi, setCellArrowNavi] = useState(false);
+  //const [focusCell, setFocusCell] = useState(null);
+  const [rowNum, setRowNum] = useState(dataA.length);
 
   function arraymove(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
@@ -134,6 +136,14 @@ export function Table<T>({
     }
     dataA.splice(Number(index) + 1, 0, _data2);
     setDataA(dataA.concat());
+    console.log(dataA);
+    setRowNum(dataA.length);
+    //
+    /*
+    let dataB = JSON.parse(JSON.stringify(dataA));
+    dataB.splice(Number(index) + 1, 0, _data2);
+    setDataA(dataB.concat());
+    */
   };
 
   const handleRowUp = (index) => {
@@ -173,6 +183,7 @@ export function Table<T>({
   const handleFocus = (id) => {
     //console.log("focus:", id)
     focusCell = id;
+    //setFocusCell(id);
     //console.log("focus:", focusCell)
   };
 
@@ -187,21 +198,27 @@ export function Table<T>({
     );
   };
 
-  const cellArrowNaviToggle = () => {
+//  const cellArrowNaviToggle = () => {
+  function cellArrowNaviToggle  ()  {
       if (cellArrowNavi) {
          setCellArrowNavi(false)
          TableContainerElement["current"].removeEventListener(
+         //TableElement["current"].removeEventListener(
            "keydown",
            keydown,
-           { passive: false },
+	   //{ handleEvent: keydown, name:dataA},
+           { passive: false  },
          );
 	 //console.log(".removeEventListener");
+
       } else {
          setCellArrowNavi(true)
          TableContainerElement["current"].addEventListener(
+         //TableElement["current"].addEventListener(
            "keydown",
            keydown,
-           { passive: false },
+	   //{ handleEvent: keydown, data:dataA},
+           { passive: false  },
          );
       }
 
@@ -295,7 +312,9 @@ export function Table<T>({
   }, [dataA]);
 
   //function focusChange( key_name ) {
-  const focusChange = (key_name) => {
+  const focusChange = ( key_name ) => {
+    console.dir(dataA);
+  //const focusChange = (key_name) => {
     if (focusCell == null) {
       console.log("focusCell  null", focusCell);
       return;
@@ -305,9 +324,13 @@ export function Table<T>({
     const param = focusCell.split("_");
     let r = Number(param[1]);
     let c = Number(param[2]);
-    let rl = dataA.length;
+    //let rl = useMemo( () => {return dataA.length;} )
+    let rl = dataA.length
+    //let rl = rowNum;
     let cl = columns.length;
     //console.log(r, c, rl, cl);
+    console.log(r,  rl);
+    console.log(dataA);
     switch (key_name) {
       case "left":
         //console.log("LEFT");
@@ -338,15 +361,17 @@ export function Table<T>({
     ele.focus();
     return;
   };
-  const keydown = useCallback((event) => {
-  //const keydown = (event) => {
+  //const keydown = useCallback((event) => {
+  const keydown = (event) => {
+  //function keydown(event) {
+    console.log("dataA",dataA);
     if (event.shiftKey) {
       if (event.keyCode >= 37 && event.keyCode <= 40) {
         console.log("sheftKey +press", event.keyCode);
       }
     } else {
       if (event.keyCode >= 37 && event.keyCode <= 40) {
-        console.log("press", event.keyCode);
+        //console.log("press", event.keyCode);
         let key_name = "";
         if (event.keyCode == 37) {
           key_name = "left";
@@ -366,8 +391,8 @@ export function Table<T>({
     if (event.keyCode === 27) {
       console.log("Esc Key is pressed!");
     }
-    }, []);
-  //};
+  //  }, []);
+  };
 
 /*
   useEffect(() => {

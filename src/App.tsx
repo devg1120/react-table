@@ -179,6 +179,7 @@ export const App = () => {
           tableStyle={tableStyle}
           cellStyle={cellStyle}
           checkColEnable={true}
+	  enableScrollY={false}
         />
       </Session>
 
