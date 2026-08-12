@@ -167,9 +167,13 @@ const Session = styled('div', {
   marginBottom: '50px',
 });
 
+const test_session = false;
+
 export const App = () => {
   return (
     <>
+    {test_session && (
+      <>
       <h2> TABLE 5 scroll-yx</h2>
       <Session>
         <Table
@@ -183,6 +187,8 @@ export const App = () => {
           containerWidth={'800px'}
         />
       </Session>
+      </>
+    )}
       <h2> TABLE 1 </h2>
       <Session>
         <Table
