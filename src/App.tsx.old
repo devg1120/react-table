@@ -170,19 +170,6 @@ const Session = styled('div', {
 export const App = () => {
   return (
     <>
-      <h2> TABLE 5 scroll-yx</h2>
-      <Session>
-        <Table
-          id='ASTable6'
-          data={data_sy2}
-          columns={columns_sy2}
-          cellStyle={cellStyle_sy}
-          localStorageName={localStorageName5}
-          checkColEnable={true}
-          enableScrollX={true}
-          containerWidth={'800px'}
-        />
-      </Session>
       <h2> TABLE 1 </h2>
       <Session>
         <Table
