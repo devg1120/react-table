@@ -72,8 +72,8 @@ interface Props<T> {
 
 const default_style_table = {
   borderCollapse: 'collapse',
-  //borderCollapse: "separate",
-  //borderSpacing: "0",
+  //borderCollapse: "separate",  //SP
+  //borderSpacing: 0,            //SP
   fontFamily: 'Anek Telugu',
 };
 
@@ -427,6 +427,7 @@ export function Table<T>({
   };
 
   const headerStyleFix = { ...headerStyle, ...fixStyle };
+  //const headerStyleFix = { ...headerStyle,  };
   const tooltipStyle = {
     //backgroundColor: "#696969",
     backgroundColor: '#003366',

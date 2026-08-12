@@ -49,9 +49,9 @@ const default_style_button = {
 
 const check_fixed__style = {
   position: 'sticky',
-  left: 0,
+  left: -1,
   zIndex: 8999,
-  borderLeft: 'solid 1px red',
+  borderLeft: 'solid 1px gray',
   borderRight: 'solid 1px gray',
 };
 
@@ -59,7 +59,7 @@ const button_fixed__style = {
   position: 'sticky',
   right: 0,
   zIndex: 8999,
-  borderLeft: 'solid 1px red',
+  borderLeft: 'solid 1px gray',
   borderRight: 'solid 1px gray',
 };
 const icon_style = {

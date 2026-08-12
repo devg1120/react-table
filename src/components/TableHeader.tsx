@@ -25,6 +25,8 @@ const default_style = {
   borderRight: 'solid gray 1px',
   //backgroundColor: "#e0e0e0",
   backgroundColor: '#cce5ff',
+  //boxShadow: "inset 0 -0.7px 0 gray",  //OK
+
 };
 
 const default_style_button = {
@@ -33,21 +35,28 @@ const default_style_button = {
   backgroundRepeat: ' no-repeat;',
   //backgroundColor: "#e0e0e0",
   backgroundColor: '#cce5ff',
-  borderRight: 'solid gray 1px',
+  //borderRight: 'solid gray 1px',
+  //boxShadow: "inset 0 -0.7px 0 gray",  //OK
 };
 
 const check_fixed__style = {
   position: 'sticky',
-  left: 0,
+  left: -1,
   zIndex: 9999,
+  borderLeft: 'solid 1px gray',  
+  borderRight: 'solid 1px gray', 
+  //boxShadow: "inset 0 -0.7px 0 gray",  //OK
+  //outline: "1px solid red",
+  //outlineOffset: "-1px 0px",
 };
 
 const button_fixed__style = {
   position: 'sticky',
   right: 0,
   zIndex: 9999,
-  borderLeft: 'solid 1px gray',
-  borderRight: 'solid 1px gray',
+  borderLeft: 'solid 1px gray', 
+  borderRight: 'solid 1px gray', 
+  //boxShadow: "inset 0 -0.7px 0 gray",  //OK
 };
 
 export function TableHeader<T>({ columns, style = {}, checkCol = false }: Props<T>): JSX.Element {

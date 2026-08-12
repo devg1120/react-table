@@ -11,6 +11,8 @@ interface Props<T> {
 }
 
 const default_style = {
+
+
   paddingTop: 0,
   paddingBottom: 0,
   paddingLeft: 5,
@@ -33,6 +35,9 @@ const default_style = {
 
   color: 'black',
   border: 'solid gray 1px',
+  //borderRight: 0,   //SP
+  //borderBottom: 0,  //SP
+
   // Focus styles
   '&:focus': {
     outline: 'solid 3px #0080ff',
