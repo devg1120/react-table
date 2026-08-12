@@ -420,13 +420,13 @@ export function Table<T>({
   }, [scrollY]);
 */
 
-  const fixStyle = {
+  const fixStyle = {                                    //PENDING
     position: 'sticky',
     top: '0px',
     zIndex: 1000,
   };
 
-  const headerStyleFix = { ...headerStyle, ...fixStyle };
+  const headerStyleFix = { ...headerStyle, ...fixStyle };       // PENDING
   //const headerStyleFix = { ...headerStyle,  };
   const tooltipStyle = {
     //backgroundColor: "#696969",
