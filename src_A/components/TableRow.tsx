@@ -43,25 +43,9 @@ const default_style_row = {
 const default_style_button = {
   border: 'solid gray 1px',
   //paddingTop: "6px",
-  backgroundColor: '#ffffff',
   cursor: 'auto',
 };
 
-const check_fixed__style = {
-  position: 'sticky',
-  left: 0,
-  zIndex: 8999,
-  borderLeft: 'solid 1px red',
-  borderRight: 'solid 1px gray',
-};
-
-const button_fixed__style = {
-  position: 'sticky',
-  right: 0,
-  zIndex: 8999,
-  borderLeft: 'solid 1px red',
-  borderRight: 'solid 1px gray',
-};
 const icon_style = {
   fontSize: '10px',
   padding: '2px 6px 2px 3px',
@@ -93,10 +77,9 @@ export function TableRow<T>({
   checkCol = false,
 }: Props<T>): JSX.Element {
   const TableRowItem = styled('tr', { ...default_style_row, ...rowStyle });
-  const TableRowCheck = styled('td', { ...default_style_button, ...cellStyle, ...check_fixed__style });
+  const TableRowCheck = styled('td', { ...default_style_button, ...cellStyle });
   const TableRowButton = styled('td', {
     ...default_style_button,
-    ...button_fixed__style,
     //...cellStyle,
   });
 
@@ -135,7 +118,6 @@ export function TableRow<T>({
 	    <button onClick={() => handleDown(itemIndex)} >↓</button>
 	    <button onClick={() => handleDelete(itemIndex)} >×</button>
 	    */}
-            {/*
             <IconPlus onClick={() => handleAdd(itemIndex)} data-tooltip-id={'add'} data-tooltip-content='Insert' />
             <Tooltip id={'add'} style={tooltipStyle} />
             <IconUp onClick={() => handleUp(itemIndex)} data-tooltip-id='up' data-tooltip-content='Up' />
@@ -148,11 +130,6 @@ export function TableRow<T>({
               data-tooltip-content='Delete'
             />{' '}
             <Tooltip id='delete' style={tooltipStyle} />
-	    */}
-            <IconPlus onClick={() => handleAdd(itemIndex)} />
-            <IconUp onClick={() => handleUp(itemIndex)} />
-            <IconDown onClick={() => handleDown(itemIndex)} />
-            <IconClose onClick={() => handleDelete(itemIndex)} />
           </TableRowButton>
         </TableRowItem>
       ))}

@@ -136,7 +136,6 @@ const columns_sy2: IColumnType<IData>[] = [
   { key: 'C', title: 'C', width: 150 },
   { key: 'D', title: 'D', width: 150 },
   { key: 'E', title: 'E', width: 150 },
-  { key: 'F', title: 'F', width: 150 },
   { key: 'G', title: 'G', width: 150 },
   { key: 'H', title: 'H', width: 150 },
   { key: 'I', title: 'I', width: 150 },
@@ -210,10 +209,7 @@ export const App = () => {
           cellStyle={cellStyle_sy}
           localStorageName={localStorageName4}
         />
-      </Session>
-
-      <h2> TABLE 5 scroll-yx</h2>
-      <Session>
+        <br />
         <Table
           id='ASTable5'
           data={data_sy2}
@@ -221,8 +217,6 @@ export const App = () => {
           cellStyle={cellStyle_sy}
           localStorageName={localStorageName5}
           checkColEnable={true}
-          enableScrollX={true}
-          containerWidth={'800px'}
         />
       </Session>
     </>

@@ -97,35 +97,12 @@ export function Table<T>({
   cellStyle = {},
   checkColEnable = false,
   enableScrollY = true,
-  enableScrollX = false,
   containerHeight = '300px',
-  containerWidth = '500px',
 }: Props<T>): JSX.Element {
   let container_height = containerHeight;
   if (!enableScrollY) {
     container_height = '100%';
   }
-
-  let container_width = containerWidth;
-  if (!enableScrollX) {
-    container_width = 'fit-content';
-  }
-
-  let table_width = '';
-  if (enableScrollX) {
-    /*
-    let width = 0;
-    for (let i in columns) {
-         if (columns[i].width) {
-           width = width + Number(columns[i].width);
-	 }
-    }
-    width += 125;
-    table_width = `${width}px`;
-   */
-    table_width = 'max-content';
-  }
-
   let copyData = [];
   if (data != null) {
     copyData = JSON.parse(JSON.stringify(data));
@@ -280,10 +257,6 @@ export function Table<T>({
   const TableWrapper = styled('table', {
     ...default_style_table,
     ...tableStyle,
-    ...{
-      width: table_width,
-      //display: "inline-block",
-    },
   });
 
   const [scrollY, setScrollY] = useState(false);
@@ -291,8 +264,7 @@ export function Table<T>({
     if (scrollY) {
       return styled('div', {
         overflowY: 'auto',
-        overflowX: 'auto',
-        maxWidth: container_width,
+        width: 'fit-content',
         maxHeight: container_height,
         borderTop: 'solid 1px gray',
         borderBottom: 'solid 1px gray',
@@ -303,9 +275,8 @@ export function Table<T>({
     } else {
       //return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
       return styled('div', {
-        overflowY: 'none',
-        overflowX: 'none',
-        maxWidth: container_width,
+        overflowY: 'auto',
+        width: 'fit-content',
         maxHeight: container_height,
         borderTop: 'solid 1px gray',
       });

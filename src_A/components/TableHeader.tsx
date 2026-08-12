@@ -36,24 +36,10 @@ const default_style_button = {
   borderRight: 'solid gray 1px',
 };
 
-const check_fixed__style = {
-  position: 'sticky',
-  left: 0,
-  zIndex: 9999,
-};
-
-const button_fixed__style = {
-  position: 'sticky',
-  right: 0,
-  zIndex: 9999,
-  borderLeft: 'solid 1px gray',
-  borderRight: 'solid 1px gray',
-};
-
 export function TableHeader<T>({ columns, style = {}, checkCol = false }: Props<T>): JSX.Element {
   const TableHeaderCell = styled('th', { ...default_style, ...style });
-  const TableHeaderCheck = styled('th', { ...default_style_button, ...style, ...check_fixed__style });
-  const TableHeaderButton = styled('th', { ...default_style_button, ...style, ...button_fixed__style });
+  const TableHeaderCheck = styled('th', { ...default_style_button, ...style });
+  const TableHeaderButton = styled('th', { ...default_style_button, ...style });
 
   return (
     <tr>
