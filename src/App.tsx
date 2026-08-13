@@ -222,7 +222,7 @@ const data4: IData[] = [
   },
   {
     A: 'a5',
-    B: { value: 'b5', colspan: "2", rowspan: "3" },
+    B: { value: 'b5', colspan: "2", rowspan: "3" , style: { backgroundColor: "lightyellow"}},
     C: 'c5',
     D: 'd5',
   },
@@ -246,9 +246,41 @@ const data4: IData[] = [
   },
   {
     A: 'a9',
-    B: 'b9',
+    //B: 'b9',
+    B: { value: 'b9', colspan: "2", style: { backgroundColor: "lightblue"}  },
     C: 'c9',
     D: 'd9',
+  },
+  {
+    A: 'a10',
+    B: 'b10',
+    C: 'c10',
+    D: 'd10',
+  },
+  {
+    A: 'a11',
+    //B: 'b11',
+    B: { value: 'b11', rowspan: "3", style: { backgroundColor: "lightgreen"}  },
+    C: 'c11',
+    D: 'd11',
+  },
+  {
+    A: 'a12',
+    B: 'b12',
+    C: 'c12',
+    D: 'd12',
+  },
+  {
+    A: 'a13',
+    B: 'b13',
+    C: 'c13',
+    D: 'd13',
+  },
+  {
+    A: 'a14',
+    B: 'b14',
+    C: 'c14',
+    D: 'd14',
   },
 
 ];
@@ -257,6 +289,11 @@ const skipCellList= [
       [5,3],
       [6,2],[6,3],
       [7,2],[7,3],
+
+      [9,3],
+
+      [12,3],
+      [13,3],
 ]
 
 const localStorageName4 = 'table_data4';

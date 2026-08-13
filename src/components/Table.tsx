@@ -322,7 +322,65 @@ export function Table<T>({
       const ele = TableContainerElement['current'];
       setScrollY(ele.scrollHeight > ele.clientHeight);
     }
+
+    for ( let r = 0; r < dataA.length ; r++) {
+         for ( let c = 0; c < columns.length ; c++) {
+	   if (columns[c].key) {
+	        let  cell = dataA[r][columns[c].key]
+                if (typeof(cell) == 'object') {
+		    if ( cell["colspan"] && cell["rowspan"]) {
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         console.log(rn,cn,rs,cs,cell)
+			 for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     for (let c_ = cn ; c_ < cn + cs; c_++) {
+				 if( !(r_ == rn && c_ == cn) ) {
+				     console.log(r_, c_)
+				  }
+			     }
+			 }
+		    } else  if ( cell["colspan"] ) { 
+                         console.log(r,c,cell)
+		    } else  if ( cell["rowspan"] ) { 
+                         console.log(r,c,cell)
+		    }
+		}
+	   }
+	 }
+    }
   }, [dataA]);
+/*
+  useEffect(() => {
+    console.log("=================================")
+    for ( let r = 0; r < dataA.length ; r++) {
+         for ( let c = 0; c < columns.length ; c++) {
+	   if (columns[c].key) {
+	        let  cell = dataA[r][columns[c].key]
+                if (typeof(cell) == 'object') {
+		    if ( cell["colspan"] && cell["rowspan"]) {
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         console.log(rn,cn,rs,cs,cell)
+			 for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     for (let c_ = cn ; c_ < cn + cs; c_++) {
+				     console.log(r_, c_)
+			     }
+			 }
+		    } else  if ( cell["colspan"] ) { 
+                         console.log(r,c,cell)
+		    } else  if ( cell["rowspan"] ) { 
+                         console.log(r,c,cell)
+		    }
+		}
+	   }
+	 }
+    }
+  }, []);
+*/
 
   //function focusChange( key_name ) {
   const focusChange = (key_name) => {
