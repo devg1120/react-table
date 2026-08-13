@@ -424,6 +424,14 @@ export function Table<T>({
     position: 'sticky',
     top: '0px',
     zIndex: 1000,
+
+    // https://demo1.uonuma-js.com/box-shadow-inset-one-direction/
+    //
+    //boxShadow: "0 20px 20px -20px #000000 inset;", //上
+    //boxShadow: "0 -20px 20px -20px #000000 inset;",  //下
+    //boxShadow: "0 -3px 3px -3px #000000 inset;",  //下
+    boxShadow: "0 -1px inset gray;", //下
+
   };
 
   const headerStyleFix = { ...headerStyle, ...fixStyle };       // PENDING

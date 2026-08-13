@@ -53,6 +53,22 @@ const check_fixed__style = {
   zIndex: 8999,
   borderLeft: 'solid 1px gray',
   borderRight: 'solid 1px gray',
+/*
+  boxShadow: "-1px 0px 1px 0px gray inset;",
+
+  boxShadow: "10px 0 inset;", //左
+  boxShadow: "-10px 0 inset;", //右
+  boxShadow: "0 10px inset;", //上
+  boxShadow: "0 -10px inset;", //下
+
+  boxShadow: "10px 10px inset;", //左上
+  boxShadow: "-10px -10px inset;", //右下
+  boxShadow: "10px -10px inset;", //左上
+  boxShadow: "-10px 10px inset;", //右上
+
+  boxShadow: "1px 0 inset gray;", //左
+ */
+  //boxShadow: "-1px 0 inset gray;", //右
 };
 
 const button_fixed__style = {
