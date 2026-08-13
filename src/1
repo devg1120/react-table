@@ -122,24 +122,11 @@ const cellStyle = {
 
 //--------------------------------------------------
 const columns4: IColumnType<IData>[] = [
-  { key: 'A', title: 'A', width: 150 },
-  { key: 'B', title: 'B', width: 150 },
-  { key: 'C', title: 'C', width: 150 },
-  { key: 'D', title: 'D', width: 200 },
+  { key: 'A', title: 'A', width: 100 },
+  { key: 'B', title: 'B', width: 100 },
+  { key: 'C', title: 'C', width: 100 },
+  { key: 'D', title: 'D', width: 100 },
 ];
-
-const r = "30";
-  const color = "lightgreen";
-  const svgdata = `
-     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-         <circle cx="50" cy="50" r="${r}" stroke="red" stroke-width="2" fill="${color}"/>
-     </svg>
-     `;
-
-  const svgdata_enc = encodeURIComponent(svgdata);
-
-  const image2 = "url(\'data:image/svg+xml, " + svgdata_enc + "\')";
-
 const data4: IData[] = [
   {
     A: 'a1',
@@ -149,79 +136,21 @@ const data4: IData[] = [
   },
   {
     A: 'a2',
-    B: //'b2',
-       {
-         value : "b2",
-	 style : {
-           borderTop:"solid 3px green",
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"double 4px green",
-          "text-align": "left",
-	 }
-       },
-    C: //'c2',
-       {
-         value : "c2",
-	 style : {
-           borderTop:"solid 3px green",
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"double 4px green",
-          "text-align": "right",
-
-	 }
-       },
-    D: //'d2',
-       {
-         value : "d2",
-         style : {
-                "background-image": image2,
-                "background-repeat": "no-repeat",
-                "background-size": "cover",
-         }
-       },
-
-
-    row_style: {
-         height:"160px",
-    }
+    B: 'b2',
+    C: 'c2',
+    D: 'd2',
   },
   {
     A: 'a3',
-    B: //'b3',
-       {
-         value : "b3",
-	 style : {
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"solid 3px green",
-	   "vertical-align": "top",
-	 }
-       },
-    C: //'c3',
-       {
-         value : "c3",
-	 style : {
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"solid 3px green",
-	   "vertical-align": "bottom",
-	 }
-       },
+    B: 'b3',
+    C: 'c3',
     D: 'd3',
-    row_style: {
-         height:"60px",
-    }
   },
   {
     A: 'a4',
     B: 'b4',
     C: 'c4',
     D: 'd4',
-    row_style: {
-         height:"40px",
-    }
   },
   {
     A: 'a5',
@@ -362,7 +291,6 @@ export const App = () => {
           data={data4}
           columns={columns4}
           cellStyle={cellStyle_sy}
-          enableScrollY={false}
           localStorageName={"styles_table_ample"}
         />
       </Session>
