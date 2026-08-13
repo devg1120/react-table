@@ -157,7 +157,7 @@ export function Table<T>({
   enableScrollX = false,
   containerHeight = '300px',
   containerWidth = '500px',
-  //skipCellList = [],
+  skipCellList = [],
 }: Props<T>): JSX.Element {
   //let skipCellList = [];
   // console.log(id, skipCellList)
@@ -199,7 +199,6 @@ export function Table<T>({
     copyData = JSON.parse(JSON.stringify(data));
   }
 
-
   const [edit, setEdit] = useState('plaintext-only');
   const [key, setKey] = useState(false);
   const [dataA, setDataA] = useState(copyData);
@@ -207,8 +206,6 @@ export function Table<T>({
   const [cellArrowNavi, setCellArrowNavi] = useState(false);
   //const [focusCell, setFocusCell] = useState(null);
   const [rowNum, setRowNum] = useState(dataA.length);
-
-  const skipCellList = build_skipCellList( dataA, columns )
 
   function arraymove(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];

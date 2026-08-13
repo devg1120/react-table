@@ -489,7 +489,7 @@ export const App = () => {
           cellStyle={cellStyle_sy}
           enableScrollY={false}
           localStorageName={"styles_table_ample"}
-	  //skipCellList={skipCellList}
+	  skipCellList={skipCellList}
         />
       </Session>
 
