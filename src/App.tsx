@@ -292,8 +292,8 @@ const skipCellList= [
 
       [9,3],
 
-      [12,3],
-      [13,3],
+      [12,2],
+      [13,2],
 ]
 
 const localStorageName4 = 'table_data4';
