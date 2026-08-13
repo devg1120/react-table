@@ -149,7 +149,7 @@ const data4: IData[] = [
   },
   {
     A: 'a2',
-    B: //'b2',
+    B: 
        {
          value : "b2",
 	 style : {
@@ -160,7 +160,7 @@ const data4: IData[] = [
           "text-align": "left",
 	 }
        },
-    C: //'c2',
+    C: 
        {
          value : "c2",
 	 style : {
@@ -172,7 +172,7 @@ const data4: IData[] = [
 
 	 }
        },
-    D: //'d2',
+    D: 
        {
          value : "d2",
          style : {

@@ -212,7 +212,7 @@ export function Table<T>({
   };
 
   const dump = () => {
-    console.dir('dump', dataA);
+    console.dir( dataA);
   };
   const cellArrowNaviToggle = () => {
     setCellArrowNavi(!cellArrowNavi);
