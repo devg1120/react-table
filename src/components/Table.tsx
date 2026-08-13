@@ -371,7 +371,12 @@ export function Table<T>({
     const new_id = `Cell_${r}_${c}`;
     //console.log("new_id", new_id)
     const ele = TableContainerElement['current'].querySelector('#' + new_id);
-    ele.focus();
+    if (ele) {
+       ele.focus();
+    } else {
+       focusCell = new_id;
+       focusChange(key_name);
+    }
     return;
   };
 
