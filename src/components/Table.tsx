@@ -333,7 +333,7 @@ export function Table<T>({
                           const cn = c + 1;
 			  const rs = Number(cell["rowspan"])
 			  const cs = Number(cell["colspan"])
-                         console.log(rn,cn,rs,cs,cell)
+                         //console.log(rn,cn,rs,cs,cell)
 			 for (let r_ = rn ; r_ < rn + rs; r_++) {
 			     for (let c_ = cn ; c_ < cn + cs; c_++) {
 				 if( !(r_ == rn && c_ == cn) ) {
@@ -342,9 +342,34 @@ export function Table<T>({
 			     }
 			 }
 		    } else  if ( cell["colspan"] ) { 
-                         console.log(r,c,cell)
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 let r_ = rn ;
+			 //for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     for (let c_ = cn ; c_ < cn + cs; c_++) {
+				 if( !(r_ == rn && c_ == cn) ) {
+				     console.log(r_, c_)
+				  }
+			     }
+			 //}
 		    } else  if ( cell["rowspan"] ) { 
-                         console.log(r,c,cell)
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     let c_ = cn;
+			     //for (let c_ = cn ; c_ < cn + cs; c_++) {
+				 if( !(r_ == rn && c_ == cn) ) {
+				     console.log(r_, c_)
+				  }
+			     //}
+			 }
+
 		    }
 		}
 	   }
