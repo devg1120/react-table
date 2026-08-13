@@ -100,7 +100,9 @@ export function Table<T>({
   enableScrollX = false,
   containerHeight = '300px',
   containerWidth = '500px',
+  skipCellList = [],
 }: Props<T>): JSX.Element {
+  // console.log(id, skipCellList)
   let container_height = containerHeight;
   if (!enableScrollY) {
     container_height = '100%';
@@ -548,6 +550,7 @@ export function Table<T>({
                 rowStyle={rowStyle}
                 cellStyle={cellStyle}
                 checkCol={checkCol}
+		skipCellList={skipCellList}
               />
             </tbody>
           </TableWrapper>

@@ -219,18 +219,45 @@ const data4: IData[] = [
     B: 'b4',
     C: 'c4',
     D: 'd4',
-    row_style: {
-         height:"40px",
-    }
   },
   {
     A: 'a5',
-    B: 'b5',
+    B: { value: 'b5', colspan: "2", rowspan: "3" },
     C: 'c5',
     D: 'd5',
   },
+  {
+    A: 'a6',
+    B: 'b6',
+    C: 'c6',
+    D: 'd6',
+  },
+  {
+    A: 'a7',
+    B: 'b7',
+    C: 'c7',
+    D: 'd7',
+  },
+  {
+    A: 'a8',
+    B: 'b8',
+    C: 'c8',
+    D: 'd8',
+  },
+  {
+    A: 'a9',
+    B: 'b9',
+    C: 'c9',
+    D: 'd9',
+  },
 
 ];
+
+const skipCellList= [
+      [5,3],
+      [6,2],[6,3],
+      [7,2],[7,3],
+]
 
 const localStorageName4 = 'table_data4';
 //--------------------------------------------------
@@ -364,6 +391,7 @@ export const App = () => {
           cellStyle={cellStyle_sy}
           enableScrollY={false}
           localStorageName={"styles_table_ample"}
+	  skipCellList={skipCellList}
         />
       </Session>
 
