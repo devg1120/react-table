@@ -285,6 +285,7 @@ const data4: IData[] = [
 
 ];
 
+/*
 const skipCellList= [
       [5,3],
       [6,2],[6,3],
@@ -295,7 +296,67 @@ const skipCellList= [
       [12,2],
       [13,2],
 ]
+*/
 
+
+function build_skipCellList( data, columns ) {
+    let skipCellList_= []
+
+    for ( let r = 0; r < data.length ; r++) {
+         for ( let c = 0; c < columns.length ; c++) {
+	   if (columns[c].key) {
+	        let  cell = data[r][columns[c].key]
+                if (typeof(cell) == 'object') {
+		    if ( cell["colspan"] && cell["rowspan"]) {
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     for (let c_ = cn ; c_ < cn + cs; c_++) {
+				 if( !(r_ == rn && c_ == cn) ) {
+				     console.log(r_, c_)
+                                     skipCellList_.push([r_, c_])
+				  }
+			     }
+			 }
+		    } else  if ( cell["colspan"] ) { 
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 let r_ = rn ;
+			     for (let c_ = cn ; c_ < cn + cs; c_++) {
+				 if( !(r_ == rn && c_ == cn) ) {
+				     console.log(r_, c_)
+                                     skipCellList_.push([r_, c_])
+				  }
+			     }
+		    } else  if ( cell["rowspan"] ) { 
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     let c_ = cn;
+				 if( !(r_ == rn && c_ == cn) ) {
+				     console.log(r_, c_)
+                                     skipCellList_.push([r_, c_])
+				  }
+			 }
+
+		    }
+		}
+	   }
+	 }
+    }
+    return skipCellList_;
+}
+
+let skipCellList = build_skipCellList( data4, columns4 ) 
 const localStorageName4 = 'table_data4';
 //--------------------------------------------------
 const localStorageName5 = 'table_data5';
