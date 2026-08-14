@@ -353,7 +353,6 @@ export function Table<T>({
   const TableContainer = useMemo(() => {
     if (scrollY) {
       return styled('div', {
-        position: 'relative',
         overflowY: 'auto',
         overflowX: 'auto',
         maxWidth: container_width,
@@ -367,7 +366,6 @@ export function Table<T>({
     } else {
       //return styled("div", {overflowY:"auto", width:"fit-content", maxHeight:container_height,});
       return styled('div', {
-        position: 'relative',
         overflowY: 'none',
         overflowX: 'none',
         maxWidth: container_width,
@@ -516,20 +514,6 @@ export function Table<T>({
     padding: '0px',
   };
 
-  const ResizeY = styled('div',
-              {
-                 position: "absolute",
-                 //position: "relative",
-                 top: 0,
-                 left: 0,
-                 width: "7px",
-                 height: "100%",
-                 //background: "transparent",
-                 background: "#1E90FF",
-                 cursor: "col-resize",
-                 zIndex: "100000",
-             });
-
   return (
     <>
       {/*
@@ -636,20 +620,6 @@ export function Table<T>({
               />
             </tbody>
           </TableWrapper>
-
-             {columns.map((column, columnIndex) => {
-		    //const left = 100 * columnIndex;
-		    console.log("columnIndex", columnIndex);
-                     let left = 0;
-                     for ( let i = 0 ; i <= columnIndex; i++) {
-                            left = left +Number(columns[i].width)
-		     }
-		     if (checkColEnable) { left = left + 32; }
-	            return  (
-                            <ResizeY  style={{ left: `${left}px`}} />
-                      )}
-	     )}
-
         </TableContainer>
       </div>
     </>

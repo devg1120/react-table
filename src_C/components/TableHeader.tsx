@@ -65,17 +65,6 @@ export function TableHeader<T>({ columns, style = {}, checkCol = false }: Props<
   //const TableHeaderCheck = styled('th', { ...default_style_button, ...style,  });
   //const TableHeaderButton = styled('th', { ...default_style_button, ...style,  });
 
-  const ResizeY = styled('div', 
-	      { 
-	         position: "absolute", 
-	         top: 0,
-	         left: 0, 
-	         width: "7px",
-	         height: "102%", 
-	         background: "transparent", 
-	         cursor: "col-resize",
-
-             });
   return (
     <tr>
       {checkCol && <TableHeaderCheck></TableHeaderCheck>}
