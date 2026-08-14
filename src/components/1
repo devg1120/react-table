@@ -530,58 +530,32 @@ export function Table<T>({
                  zIndex: "100000",
              });
 
-  //const mouseMove_handle = () => {console.log("move");}
-  //const mouseUp_handle   = () => {console.log("up");}
+  const mouseMove_handle = (id) => {mouseMove_y(id);}
+  const mouseUp_handle = (id) => {mouseUp_y(id);}
+  document.body.addEventListener("mousemove", mouseMove_handle(id) );
+  document.body.addEventListener("mouseup",   mouseUp_handle(id)   );
 
-  let y_cursorStart = 0;
-  let y_dragStart = false;
-  let resizeCol_index = -1;    
-
-  const f1 = (e) => mouseMove_y(e,id) ;
-  const f2 = (e) => mouseUp_y(e,id) ;
-
-  function mouseDown_y(event,index) {
-       //console.log("mouseDown_y", id , index);
-
-       y_cursorStart =  event.pageX; // 注意!! resize-yであれば  pageX
-
-       resizeCol_index = index;    
-       y_dragStart = true;
-      
-       document.body.addEventListener("mousemove", f1 );
-       document.body.addEventListener("mouseup",  f2 );
-
+  function mouseDown_y(index) {
+       console.log("mouseDown_y", id , index);
+       //document.body.addEventListener("mousemove", mouseMove_handle(id) );
+       //document.body.addEventListener("mouseup",   mouseUp_handle(id)   );
+       //document.body.addEventListener("mousemove", mouseMove_y(id, index) );
+       //document.body.addEventListener("mouseup",   mouseUp_y(id, index)   );
   }
-  function mouseMove_y( event, id_) {
+  function mouseMove_y(id_) {
        if (id != id_) return;
-       if (!y_dragStart ) return;
 
-       let cursorPosition = event.pageX; // 注意!!  resize-yであれば  pageX
-
-       let mouseMoved = cursorPosition - y_cursorStart;
-	
-       //console.log("mouseMove_y", id_ , resizeCol_index , y_cursorStart, cursorPosition, mouseMoved);
-
-      /*
-      var newLeft = this.resize_left + mouseMoved;
-      var newWidth = this.width + mouseMoved;
-     */
-
-      if (resizeCol_index >= 0) {
-          console.log(columns[resizeCol_index].width);
-          columns[resizeCol_index].width += mouseMoved;
-          console.log(">", columns[resizeCol_index].width);
-          setKey(!key);
-      }
-
+       console.log("mouseMove_y", id  );
   }
-  function mouseUp_y( event, id_) {
+  function mouseUp_y(id_) {
        if (id != id_) return;
-       //console.log("mouseUp_y", id_ , resizeCol_index );
-       y_dragStart = false;
-       resizeCol_index = -1;    
-       document.body.removeEventListener("mousemove", f1 );
-       document.body.removeEventListener("mouseup",  f2 );
+       console.log("mouseUp_y", id  );
+       //document.body.removeEventListener("mousemove", mouseMove_handle );
+       //document.body.removeEventListener("mouseup",   mouseUp_handle   );
+       //document.body.removeEventListener("mousemove", (e) => mouseMove_y(id, index) );
+       //document.body.removeEventListener("mouseup",   (e) => mouseUp_y(id, index)   );
+       //document.body.removeEventListener("mousemove", mouseMove_y(id, index) );
+       //document.body.removeEventListener("mouseup",   mouseUp_y(id, index)   );
   }
 
 
@@ -700,7 +674,7 @@ export function Table<T>({
 		     }
 		     if (checkColEnable) { left = left + 32; }
 	            return  (
-                            <ResizeY key={columnIndex} onMouseDown={(e) => mouseDown_y(e, columnIndex) } style={{ left: `${left}px`}} />
+                            <ResizeY key={columnIndex} onMouseDown={(e) => mouseDown_y(columnIndex) } style={{ left: `${left}px`}} />
                       )}
 	     )}
 
