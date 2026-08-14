@@ -376,19 +376,8 @@ export function Table<T>({
     }
   }, [scrollY]);
 
-
   const TableContainerElement = useRef(null);
   const TableElement = useRef(null);
-
-  //let tableHeight = 100;
-  const [tableHeight, set_tableHeight] = useState(100);
-  useEffect(() => {
-      if (TableElement['current']) {
-       console.log(TableElement['current'].scrollHeight) ;
-       set_tableHeight( TableElement['current'].scrollHeight) ;
-       //setKey(!key)
-      }
-  }, []);
 
   useEffect(() => {
     if (TableContainerElement['current']) {
@@ -528,17 +517,25 @@ export function Table<T>({
 
   const ResizeY = styled('div', {
     position: 'absolute',
-    //position: 'fixed',
+    //position: "relative",
     top: 0,
     left: 0,
     width: '7px',
-    //height: '100%',
+    height: '100%',
     //background: "transparent",
     background: '#1E90FF',
     cursor: 'col-resize',
     zIndex: '100000',
   });
 
+  //const mouseMove_handle = () => {console.log("move");}
+  //const mouseUp_handle   = () => {console.log("up");}
+  /*************************************************************************/
+  /*
+  let y_cursorStart = 0;
+  let y_dragStart = false;
+  let resizeCol_index = -1;    
+*/
   const [y_cursorStart, set_y_cursorStart] = useState(0);
   const [y_dragStart, set_y_dragStart] = useState(false);
   const [resizeCol_index, set_resizeCol_index] = useState(-1);
@@ -547,13 +544,20 @@ export function Table<T>({
   const f2 = (e) => mouseUp_y(e, id);
 
   function mouseDown_y(event, index) {
-    //console.log('mouseDown_y', id, index);
+    console.log('mouseDown_y', id, index);
     event.stopPropagation();
     event.preventDefault();
 
+    //y_cursorStart =  event.pageX; // 注意!! resize-yであれば  pageX
     set_y_cursorStart(event.clientX);
+    //y_cursorStart =  event.offsetX; // 注意!! resize-yであれば  pageX
+    //y_cursorStart =  event.screenX; // 注意!! resize-yであれば  pageX
+
     set_resizeCol_index(index);
     set_y_dragStart(true);
+
+    //document.body.addEventListener("mousemove", f1 );
+    //document.body.addEventListener("mouseup",  f2 );
   }
   function mouseMove_y(event, id_) {
     //if (id != id_) return;
@@ -564,14 +568,22 @@ export function Table<T>({
     if (!y_dragStart) return;
     event.stopPropagation();
     event.preventDefault();
-    let cursorPosition = event.clientX; 
+    //let cursorPosition = event.pageX; // 注意!!  resize-yであれば  pageX
+    let cursorPosition = event.clientX; // 注意!!  resize-yであれば  pageX
+    //let cursorPosition = event.offsetX; // 注意!!  resize-yであれば  pageX
+    //let cursorPosition = event.screenX; // 注意!!  resize-yであれば  pageX
 
     let mouseMoved = cursorPosition - y_cursorStart;
     set_y_cursorStart(cursorPosition);
-    //console.log('mouseMove_y', id_, resizeCol_index, mouseMoved);
+    console.log('mouseMove_y', id_, resizeCol_index, mouseMoved);
+    //console.log("mouseMove_y", id_ , resizeCol_index , y_cursorStart, cursorPosition, mouseMoved);
 
     if (resizeCol_index >= 0) {
+      //console.log(columns[resizeCol_index].width);
       columns[resizeCol_index].width += mouseMoved;
+      //console.log(columns[resizeCol_index].width);
+      //console.log(">", columns[resizeCol_index].width);
+      //setKey(!key);
       setKey2(!key2);
     }
   }
@@ -583,14 +595,21 @@ export function Table<T>({
     if (!y_dragStart) return;
     event.stopPropagation();
     event.preventDefault();
-    //console.log('mouseUp_y', id_, resizeCol_index);
-    let cursorPosition = event.clientX; 
+    console.log('mouseUp_y', id_, resizeCol_index);
+    //let cursorPosition = event.pageX; // 注意!!  resize-yであれば  pageX
+    let cursorPosition = event.clientX; // 注意!!  resize-yであれば  pageX
 
     let mouseMoved = cursorPosition - y_cursorStart;
     set_y_cursorStart(cursorPosition);
+    //console.log("mouseMove_y", id_ , resizeCol_index , mouseMoved);
+    //console.log("mouseMove_y", id_ , resizeCol_index , y_cursorStart, cursorPosition, mouseMoved);
 
     if (resizeCol_index >= 0) {
+      //console.log(columns[resizeCol_index].width);
       columns[resizeCol_index].width += mouseMoved;
+      //console.log(columns[resizeCol_index].width);
+      //console.log(">", columns[resizeCol_index].width);
+      //setKey(!key);
       setKey2(!key2);
     }
 
@@ -689,7 +708,6 @@ export function Table<T>({
           onMouseUp={f2}
         >
           <TableWrapper
-            ref={TableElement}
             id={id}
             key={key}
             onMouseMove={f1}
@@ -698,9 +716,7 @@ export function Table<T>({
             <thead>
               <TableHeader key={key2} columns={columns} style={scrollY ? headerStyleFix : ''} checkCol={checkCol} />
             </thead>
-            <tbody 
-            //ref={TableElement}
-	    >
+            <tbody ref={TableElement}>
               <TableRow
                 data={dataA}
                 columns={columns}
@@ -729,19 +745,11 @@ export function Table<T>({
             if (checkColEnable) {
               left = left + 32;
             }
-	    //const height = TableContainerElement.scrollHeight;
-	    //const height = TableElement.scrollHeight + 1000;
-	    //const height = TableElement.height;
-	    //console.log(id, TableElement['current'].scrollHeight) ;
-	    //const height_ = TableElement['current'].scrollHeight ;
-	    //const height = 800;
             return (
               <ResizeY
                 key={columnIndex}
                 onMouseDown={(e) => mouseDown_y(e, columnIndex)}
-                //style={{ left: `${left}px`   }}
-                //style={{ left: `${left}px` , height: `100%`}}
-                style={{ left: `${left}px` , height: `${tableHeight}px`}}
+                style={{ left: `${left}px` }}
               />
             );
           })}
