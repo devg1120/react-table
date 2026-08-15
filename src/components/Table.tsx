@@ -806,11 +806,13 @@ export function Table<T>({
               //console.log("columnIndex", columnIndex);
               let left = 0;
               for (let i = 0; i <= columnIndex; i++) {
-                left = left + Number(columns[i].width);
+                left = left + Number(columns[i].width) + 1;
               }
               if (checkColEnable) {
-                left = left + 32;
-              }
+                left = left + 31;
+              } else {
+                left = left - 1;
+	      }
               return (
                 <ResizeX
                   key={columnIndex}
