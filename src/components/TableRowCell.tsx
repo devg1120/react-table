@@ -54,6 +54,7 @@ export function TableRowCell<T>({
   handleFocus,
   style = {},
   skipCellList = [],
+  cellLine = true,
 }: Props<T>): JSX.Element {
   if (skipCellList.length > 0) {
     //console.log(skipCellList);
@@ -93,7 +94,9 @@ export function TableRowCell<T>({
     row_style = item.row_style;
   }
 
-  const TableCell = styled('td', { ...default_style, ...style, ...row_style, ...cell_style });
+  const cellLine_style = cellLine? {} : {border: ""};
+
+  const TableCell = styled('td', { ...default_style, ...style, ...row_style, ...cell_style , ...cellLine_style});
 
   const id = `Cell_${rown}_${coln}`;
   /*

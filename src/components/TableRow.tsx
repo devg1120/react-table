@@ -109,12 +109,17 @@ export function TableRow<T>({
   cellStyle = {},
   checkCol = false,
   skipCellList = [],
+  cellLine = true,
 }: Props<T>): JSX.Element {
+
+  const cellLine_style = cellLine? {} : {border: ""};
+
   const TableRowItem = styled('tr', { ...default_style_row, ...rowStyle });
-  const TableRowCheck = styled('td', { ...default_style_button, ...cellStyle, ...check_fixed__style });
+  const TableRowCheck = styled('td', { ...default_style_button, ...cellStyle, ...check_fixed__style, ...cellLine_style });
   const TableRowButton = styled('td', {
     ...default_style_button,
     ...button_fixed__style,
+    ...cellLine_style,
     //...cellStyle,
   });
   //console.log(skipCellList);
@@ -156,6 +161,7 @@ export function TableRow<T>({
               handleFocus={handleFocus}
               style={cellStyle}
               skipCellList={skipCellList}
+	      cellLine={cellLine}
             />
           ))}
           {rowEdit && (

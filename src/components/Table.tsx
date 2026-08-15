@@ -222,7 +222,7 @@ export function Table<T>({
   const [checkCol, setCheckCol] = useState(checkColEnable);
   const [cellArrowNavi, setCellArrowNavi] = useState(false);
   const [columnWidthResize, setColumnWidthResize] = useState(false);
-  const [cellLine, setCellLine] = useState(false);
+  const [cellLine, setCellLine] = useState(true);
   const [rowEdit, setRowEdit] = useState(false);
   //const [focusCell, setFocusCell] = useState(null);
   const [rowNum, setRowNum] = useState(dataA.length);
@@ -797,6 +797,7 @@ export function Table<T>({
                 cellStyle={cellStyle}
                 checkCol={checkCol}
                 skipCellList={skipCellList}
+		cellLine={cellLine}
               />
             </tbody>
           </TableWrapper>
