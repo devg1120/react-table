@@ -16,6 +16,7 @@ import { AiOutlineDrag } from 'react-icons/ai';
 
 import { AiOutlineTable } from 'react-icons/ai';
 import { AiOutlineFile } from 'react-icons/ai';
+import { AiOutlinePrinter } from 'react-icons/ai';
 
 import { AiOutlineDelete } from 'react-icons/ai';
 
@@ -48,15 +49,18 @@ const icon_style_press = {
   backgroundColor: '#f5f5f5',
 };
 
-const IconDump = styled(AiOutlineFile, icon_style);
-const IconUpdate = styled(AiOutlineTable, icon_style);
 const IconReset = styled(AiOutlineRedo, icon_style);
+const IconUpdate = styled(AiOutlineFile, icon_style);
+const IconDump = styled(AiOutlinePrinter, icon_style);
 
 const IconCellArrowNaviOff = styled(AiOutlineDrag, icon_style);
 const IconCellArrowNaviOn = styled(AiOutlineDrag, icon_style_press);
 
 const IconColumnWidthResizeOff = styled(AiOutlineColumnWidth, icon_style);
 const IconColumnWidthResizeOn = styled(AiOutlineColumnWidth, icon_style_press);
+
+const IconCellLineOff = styled(AiOutlineTable, icon_style);
+const IconCellLineOn = styled(AiOutlineTable, icon_style_press);
 
 const IconLoad = styled(AiOutlineVerticalAlignTop, icon_style);
 const IconSave = styled(AiOutlineVerticalAlignBottom, icon_style);
@@ -211,6 +215,7 @@ export function Table<T>({
   const [checkCol, setCheckCol] = useState(checkColEnable);
   const [cellArrowNavi, setCellArrowNavi] = useState(false);
   const [columnWidthResize, setColumnWidthResize] = useState(false);
+  const [cellLine, setCellLine] = useState(false);
   //const [focusCell, setFocusCell] = useState(null);
   const [rowNum, setRowNum] = useState(dataA.length);
 
@@ -292,6 +297,10 @@ export function Table<T>({
     setColumnWidthResize(!columnWidthResize);
   };
 
+  const cellLineToggle = () => {
+    setCellLine(!cellLine);
+  };
+
   const handleMouseEnter = () => {
     if (focusCell != null) {
       const ele = TableContainerElement['current'].querySelector('#' + focusCell);
@@ -308,10 +317,12 @@ export function Table<T>({
       const rowData = JSON.parse(JSON.stringify(dataA[row]));
       rowData[colname] = text;
       dataA[row] = rowData;
+      console.log('updateData', row, colname, text);
     }
   };
 
   const update = () => {
+    console.log('update');
     const table_coln = columns.length;
     const table_rown = dataA.length;
     const table = document.querySelector('#' + id);
@@ -395,7 +406,7 @@ export function Table<T>({
   const [tableHeight, set_tableHeight] = useState(100);
   useEffect(() => {
     if (TableElement['current']) {
-      console.log(TableElement['current'].scrollHeight);
+      //console.log(TableElement['current'].scrollHeight);
       set_tableHeight(TableElement['current'].scrollHeight);
       //setKey(!key)
     }
@@ -542,7 +553,8 @@ export function Table<T>({
     //position: 'fixed',
     top: 0,
     left: 0,
-    width: '7px',
+    //width: '7px',
+    width: '3px',
     //height: '100%',
     //background: "transparent",
     background: '#1E90FF',
@@ -639,6 +651,7 @@ export function Table<T>({
             <Tooltip id='update' style={tooltipStyle} />
             <IconDump onClick={() => dump()} data-tooltip-id='dump' data-tooltip-content='Dump' />
             <Tooltip id='dump' style={tooltipStyle} />
+            &nbsp; &nbsp;
             {cellArrowNavi ? (
               <IconCellArrowNaviOn
                 onClick={() => cellArrowNaviToggle()}
@@ -667,6 +680,20 @@ export function Table<T>({
               />
             )}
             <Tooltip id='colResize' style={tooltipStyle} />
+            {cellLine ? (
+              <IconCellLineOn
+                onClick={() => cellLineToggle()}
+                data-tooltip-id='cellLine'
+                data-tooltip-content='Cell Line'
+              />
+            ) : (
+              <IconCellLineOff
+                onClick={() => cellLineToggle()}
+                data-tooltip-id='cellLine'
+                data-tooltip-content='Cell Line'
+              />
+            )}
+            <Tooltip id='cellLine' style={tooltipStyle} />
           </div>
           <div>
             <label
