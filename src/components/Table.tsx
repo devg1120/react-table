@@ -21,6 +21,8 @@ import { AiOutlineDelete } from 'react-icons/ai';
 
 import { AiOutlineClose } from 'react-icons/ai';
 
+import { AiOutlineColumnWidth } from 'react-icons/ai';
+
 import { Tooltip } from 'react-tooltip';
 
 import 'react-tooltip/dist/react-tooltip.css';
@@ -49,12 +51,16 @@ const icon_style_press = {
 const IconDump = styled(AiOutlineFile, icon_style);
 const IconUpdate = styled(AiOutlineTable, icon_style);
 const IconReset = styled(AiOutlineRedo, icon_style);
-const IconLoad = styled(AiOutlineVerticalAlignTop, icon_style);
-const IconSave = styled(AiOutlineVerticalAlignBottom, icon_style);
-const IconRemove = styled(AiOutlineDelete, icon_style);
 
 const IconCellArrowNaviOff = styled(AiOutlineDrag, icon_style);
 const IconCellArrowNaviOn = styled(AiOutlineDrag, icon_style_press);
+
+const IconColumnWidthResizeOff = styled(AiOutlineColumnWidth, icon_style);
+const IconColumnWidthResizeOn = styled(AiOutlineColumnWidth, icon_style_press);
+
+const IconLoad = styled(AiOutlineVerticalAlignTop, icon_style);
+const IconSave = styled(AiOutlineVerticalAlignBottom, icon_style);
+const IconRemove = styled(AiOutlineDelete, icon_style);
 
 let focusCell = null;
 
@@ -204,6 +210,7 @@ export function Table<T>({
   const [dataA, setDataA] = useState(copyData);
   const [checkCol, setCheckCol] = useState(checkColEnable);
   const [cellArrowNavi, setCellArrowNavi] = useState(false);
+  const [columnWidthResize, setColumnWidthResize] = useState(false);
   //const [focusCell, setFocusCell] = useState(null);
   const [rowNum, setRowNum] = useState(dataA.length);
 
@@ -276,8 +283,13 @@ export function Table<T>({
   const dump = () => {
     console.dir(dataA);
   };
+
   const cellArrowNaviToggle = () => {
     setCellArrowNavi(!cellArrowNavi);
+  };
+
+  const columnWidthResizeToggle = () => {
+    setColumnWidthResize(!columnWidthResize);
   };
 
   const handleMouseEnter = () => {
@@ -376,18 +388,17 @@ export function Table<T>({
     }
   }, [scrollY]);
 
-
   const TableContainerElement = useRef(null);
   const TableElement = useRef(null);
 
   //let tableHeight = 100;
   const [tableHeight, set_tableHeight] = useState(100);
   useEffect(() => {
-      if (TableElement['current']) {
-       console.log(TableElement['current'].scrollHeight) ;
-       set_tableHeight( TableElement['current'].scrollHeight) ;
-       //setKey(!key)
-      }
+    if (TableElement['current']) {
+      console.log(TableElement['current'].scrollHeight);
+      set_tableHeight(TableElement['current'].scrollHeight);
+      //setKey(!key)
+    }
   }, []);
 
   useEffect(() => {
@@ -526,7 +537,7 @@ export function Table<T>({
     padding: '0px',
   };
 
-  const ResizeY = styled('div', {
+  const ResizeX = styled('div', {
     position: 'absolute',
     //position: 'fixed',
     top: 0,
@@ -539,65 +550,61 @@ export function Table<T>({
     zIndex: '100000',
   });
 
-  const [y_cursorStart, set_y_cursorStart] = useState(0);
-  const [y_dragStart, set_y_dragStart] = useState(false);
+  const [x_cursorStart, set_x_cursorStart] = useState(0);
+  const [x_dragStart, set_x_dragStart] = useState(false);
   const [resizeCol_index, set_resizeCol_index] = useState(-1);
 
-  const f1 = (e) => mouseMove_y(e, id);
-  const f2 = (e) => mouseUp_y(e, id);
+  const f1 = (e) => mouseMove_x(e, id);
+  const f2 = (e) => mouseUp_x(e, id);
 
-  function mouseDown_y(event, index) {
-    //console.log('mouseDown_y', id, index);
+  function mouseDown_x(event, index) {
+    //console.log('mouseDown_x', id, index);
     event.stopPropagation();
     event.preventDefault();
 
-    set_y_cursorStart(event.clientX);
+    set_x_cursorStart(event.clientX);
     set_resizeCol_index(index);
-    set_y_dragStart(true);
+    set_x_dragStart(true);
   }
-  function mouseMove_y(event, id_) {
+  function mouseMove_x(event, id_) {
     //if (id != id_) return;
     if (id != id_) {
       console.log('NG');
       return;
     }
-    if (!y_dragStart) return;
+    if (!x_dragStart) return;
     event.stopPropagation();
     event.preventDefault();
-    let cursorPosition = event.clientX; 
+    let cursorPosition = event.clientX;
 
-    let mouseMoved = cursorPosition - y_cursorStart;
-    set_y_cursorStart(cursorPosition);
-    //console.log('mouseMove_y', id_, resizeCol_index, mouseMoved);
+    let mouseMoved = cursorPosition - x_cursorStart;
+    set_x_cursorStart(cursorPosition);
+    //console.log('mouseMove_x', id_, resizeCol_index, mouseMoved);
 
     if (resizeCol_index >= 0) {
       columns[resizeCol_index].width += mouseMoved;
       setKey2(!key2);
     }
   }
-  function mouseUp_y(event, id_) {
+  function mouseUp_x(event, id_) {
     if (id != id_) {
       console.log('NG');
       return;
     }
-    if (!y_dragStart) return;
+    if (!x_dragStart) return;
     event.stopPropagation();
     event.preventDefault();
-    //console.log('mouseUp_y', id_, resizeCol_index);
-    let cursorPosition = event.clientX; 
+    //console.log('mouseUp_x', id_, resizeCol_index);
+    let cursorPosition = event.clientX;
 
-    let mouseMoved = cursorPosition - y_cursorStart;
-    set_y_cursorStart(cursorPosition);
+    let mouseMoved = cursorPosition - x_cursorStart;
+    set_x_cursorStart(cursorPosition);
 
     if (resizeCol_index >= 0) {
       columns[resizeCol_index].width += mouseMoved;
       setKey2(!key2);
     }
-
-    set_y_dragStart(false);
-    //resizeCol_index = -1;
-    //document.body.removeEventListener("mousemove", f1 );
-    //document.body.removeEventListener("mouseup",  f2 );
+    set_x_dragStart(false);
   }
 
   return (
@@ -646,6 +653,20 @@ export function Table<T>({
               />
             )}
             <Tooltip id='arrow' style={tooltipStyle} />
+            {columnWidthResize ? (
+              <IconColumnWidthResizeOn
+                onClick={() => columnWidthResizeToggle()}
+                data-tooltip-id='colResize'
+                data-tooltip-content='Col Width Resize'
+              />
+            ) : (
+              <IconColumnWidthResizeOff
+                onClick={() => columnWidthResizeToggle()}
+                data-tooltip-id='colResize'
+                data-tooltip-content='Col Width Resize'
+              />
+            )}
+            <Tooltip id='colResize' style={tooltipStyle} />
           </div>
           <div>
             <label
@@ -698,9 +719,9 @@ export function Table<T>({
             <thead>
               <TableHeader key={key2} columns={columns} style={scrollY ? headerStyleFix : ''} checkCol={checkCol} />
             </thead>
-            <tbody 
+            <tbody
             //ref={TableElement}
-	    >
+            >
               <TableRow
                 data={dataA}
                 columns={columns}
@@ -719,32 +740,24 @@ export function Table<T>({
               />
             </tbody>
           </TableWrapper>
-
-          {columns.map((column, columnIndex) => {
-            //console.log("columnIndex", columnIndex);
-            let left = 0;
-            for (let i = 0; i <= columnIndex; i++) {
-              left = left + Number(columns[i].width);
-            }
-            if (checkColEnable) {
-              left = left + 32;
-            }
-	    //const height = TableContainerElement.scrollHeight;
-	    //const height = TableElement.scrollHeight + 1000;
-	    //const height = TableElement.height;
-	    //console.log(id, TableElement['current'].scrollHeight) ;
-	    //const height_ = TableElement['current'].scrollHeight ;
-	    //const height = 800;
-            return (
-              <ResizeY
-                key={columnIndex}
-                onMouseDown={(e) => mouseDown_y(e, columnIndex)}
-                //style={{ left: `${left}px`   }}
-                //style={{ left: `${left}px` , height: `100%`}}
-                style={{ left: `${left}px` , height: `${tableHeight}px`}}
-              />
-            );
-          })}
+          {columnWidthResize &&
+            columns.map((column, columnIndex) => {
+              //console.log("columnIndex", columnIndex);
+              let left = 0;
+              for (let i = 0; i <= columnIndex; i++) {
+                left = left + Number(columns[i].width);
+              }
+              if (checkColEnable) {
+                left = left + 32;
+              }
+              return (
+                <ResizeX
+                  key={columnIndex}
+                  onMouseDown={(e) => mouseDown_x(e, columnIndex)}
+                  style={{ left: `${left}px`, height: `${tableHeight}px` }}
+                />
+              );
+            })}
         </TableContainer>
       </div>
     </>
