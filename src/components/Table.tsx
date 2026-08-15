@@ -18,6 +18,7 @@ import { AiOutlineTable } from 'react-icons/ai';
 import { AiOutlineFile } from 'react-icons/ai';
 import { AiOutlinePrinter } from 'react-icons/ai';
 import { AiOutlineSelect } from "react-icons/ai";
+import { AiOutlineBuild } from "react-icons/ai";
 
 import { AiOutlineDelete } from 'react-icons/ai';
 
@@ -64,6 +65,9 @@ const IconColumnWidthResizeOn = styled(AiOutlineColumnWidth, icon_style_press);
 
 const IconCellLineOff = styled(AiOutlineTable, icon_style);
 const IconCellLineOn = styled(AiOutlineTable, icon_style_press);
+
+const IconRowEditOff = styled(AiOutlineBuild, icon_style);
+const IconRowEditOn = styled(AiOutlineBuild, icon_style_press);
 
 const IconLoad = styled(AiOutlineVerticalAlignTop, icon_style);
 const IconSave = styled(AiOutlineVerticalAlignBottom, icon_style);
@@ -219,6 +223,7 @@ export function Table<T>({
   const [cellArrowNavi, setCellArrowNavi] = useState(false);
   const [columnWidthResize, setColumnWidthResize] = useState(false);
   const [cellLine, setCellLine] = useState(false);
+  const [rowEdit, setRowEdit] = useState(false);
   //const [focusCell, setFocusCell] = useState(null);
   const [rowNum, setRowNum] = useState(dataA.length);
 
@@ -302,6 +307,10 @@ export function Table<T>({
 
   const cellLineToggle = () => {
     setCellLine(!cellLine);
+  };
+
+  const rowEditToggle = () => {
+    setRowEdit(!rowEdit);
   };
 
   const handleMouseEnter = () => {
@@ -697,6 +706,20 @@ export function Table<T>({
               />
             )}
             <Tooltip id='cellLine' style={tooltipStyle} />
+            {rowEdit ? (
+              <IconRowEditOn
+                onClick={() => rowEditToggle()}
+                data-tooltip-id='rowEdit'
+                data-tooltip-content='Row Edit'
+              />
+            ) : (
+              <IconRowEditOff
+                onClick={() => rowEditToggle()}
+                data-tooltip-id='rowEdit'
+                data-tooltip-content='Row Edit'
+              />
+            )}
+            <Tooltip id='rowEdit' style={tooltipStyle} />
           </div>
           <div>
             <label
