@@ -17,6 +17,7 @@ import { AiOutlineDrag } from 'react-icons/ai';
 import { AiOutlineTable } from 'react-icons/ai';
 import { AiOutlineFile } from 'react-icons/ai';
 import { AiOutlinePrinter } from 'react-icons/ai';
+import { AiOutlineSelect } from "react-icons/ai";
 
 import { AiOutlineDelete } from 'react-icons/ai';
 
@@ -53,8 +54,10 @@ const IconReset = styled(AiOutlineRedo, icon_style);
 const IconUpdate = styled(AiOutlineFile, icon_style);
 const IconDump = styled(AiOutlinePrinter, icon_style);
 
-const IconCellArrowNaviOff = styled(AiOutlineDrag, icon_style);
-const IconCellArrowNaviOn = styled(AiOutlineDrag, icon_style_press);
+//const IconCellArrowNaviOff = styled(AiOutlineDrag, icon_style);
+//const IconCellArrowNaviOn = styled(AiOutlineDrag, icon_style_press);
+const IconCellArrowNaviOff = styled(AiOutlineSelect, icon_style);
+const IconCellArrowNaviOn = styled(AiOutlineSelect, icon_style_press);
 
 const IconColumnWidthResizeOff = styled(AiOutlineColumnWidth, icon_style);
 const IconColumnWidthResizeOn = styled(AiOutlineColumnWidth, icon_style_press);
