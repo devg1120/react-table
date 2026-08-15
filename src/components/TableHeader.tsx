@@ -78,7 +78,7 @@ export function TableHeader<T>({ columns, rowEdit = true, style = {}, checkCol =
 	    */
   return (
     <tr>
-      {checkCol && <TableHeaderCheck></TableHeaderCheck>}
+      {checkCol && <TableHeaderCheck id="thc" ></TableHeaderCheck>}
       {columns.map((column, columnIndex) => (
         <TableHeaderCell key={`table-head-cell-${columnIndex}`} style={{ width: column.width }}>
           {column.title}

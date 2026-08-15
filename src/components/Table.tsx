@@ -411,15 +411,23 @@ export function Table<T>({
     }
   }, [scrollY]);
 
+
   const TableContainerElement = useRef(null);
   const TableElement = useRef(null);
 
   //let tableHeight = 100;
   const [tableHeight, set_tableHeight] = useState(100);
+  const [checkHeaderWidth, set_checkHeaderWidth,] = useState(31);
   useEffect(() => {
     if (TableElement['current']) {
       //console.log(TableElement['current'].scrollHeight);
       set_tableHeight(TableElement['current'].scrollHeight);
+      const thc_ele = TableElement['current'].querySelector("#thc" );
+      //console.log(thc_ele);
+      if (thc_ele !=null) {
+          const width = thc_ele.getBoundingClientRect().width;
+          set_checkHeaderWidth(width);
+      }
       //setKey(!key)
     }
   }, []);
@@ -833,10 +841,10 @@ export function Table<T>({
               //console.log("columnIndex", columnIndex);
               let left = 0;
               for (let i = 0; i <= columnIndex; i++) {
-                left = left + Number(columns[i].width) + 1;
+                left = left + Number(columns[i].width) ;
               }
               if (checkColEnable) {
-                left = left + 31;
+                left = left + checkHeaderWidth;
               } else {
                 left = left - 1;
 	      }
