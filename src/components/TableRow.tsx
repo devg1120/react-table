@@ -97,6 +97,7 @@ export function TableRow<T>({
   data,
   columns,
   edit,
+  rowEdit = false,
   handleAdd,
   handleUp,
   handleDown,
@@ -157,14 +158,15 @@ export function TableRow<T>({
               skipCellList={skipCellList}
             />
           ))}
-          <TableRowButton>
-            {/*
+          {rowEdit && (
+            <TableRowButton>
+              {/*
 	    <button onClick={() => handleAdd(itemIndex)} >□</button>
 	    <button onClick={() => handleUp(itemIndex)} >↑</button>
 	    <button onClick={() => handleDown(itemIndex)} >↓</button>
 	    <button onClick={() => handleDelete(itemIndex)} >×</button>
 	    */}
-            {/*
+              {/*
             <IconPlus onClick={() => handleAdd(itemIndex)} data-tooltip-id={'add'} data-tooltip-content='Insert' />
             <Tooltip id={'add'} style={tooltipStyle} />
             <IconUp onClick={() => handleUp(itemIndex)} data-tooltip-id='up' data-tooltip-content='Up' />
@@ -178,11 +180,12 @@ export function TableRow<T>({
             />{' '}
             <Tooltip id='delete' style={tooltipStyle} />
 	    */}
-            <IconPlus onClick={() => handleAdd(itemIndex)} />
-            <IconUp onClick={() => handleUp(itemIndex)} />
-            <IconDown onClick={() => handleDown(itemIndex)} />
-            <IconClose onClick={() => handleDelete(itemIndex)} />
-          </TableRowButton>
+              <IconPlus onClick={() => handleAdd(itemIndex)} />
+              <IconUp onClick={() => handleUp(itemIndex)} />
+              <IconDown onClick={() => handleDown(itemIndex)} />
+              <IconClose onClick={() => handleDelete(itemIndex)} />
+            </TableRowButton>
+          )}
         </TableRowItem>
       ))}
     </>

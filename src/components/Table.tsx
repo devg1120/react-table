@@ -17,8 +17,8 @@ import { AiOutlineDrag } from 'react-icons/ai';
 import { AiOutlineTable } from 'react-icons/ai';
 import { AiOutlineFile } from 'react-icons/ai';
 import { AiOutlinePrinter } from 'react-icons/ai';
-import { AiOutlineSelect } from "react-icons/ai";
-import { AiOutlineBuild } from "react-icons/ai";
+import { AiOutlineSelect } from 'react-icons/ai';
+import { AiOutlineBuild } from 'react-icons/ai';
 
 import { AiOutlineDelete } from 'react-icons/ai';
 
@@ -770,7 +770,13 @@ export function Table<T>({
             //onMouseUp={f2}
           >
             <thead>
-              <TableHeader key={key2} columns={columns} style={scrollY ? headerStyleFix : ''} checkCol={checkCol} />
+              <TableHeader
+                key={key2}
+                columns={columns}
+                rowEdit={rowEdit}
+                style={scrollY ? headerStyleFix : ''}
+                checkCol={checkCol}
+              />
             </thead>
             <tbody
             //ref={TableElement}
@@ -779,6 +785,7 @@ export function Table<T>({
                 data={dataA}
                 columns={columns}
                 edit={edit}
+                rowEdit={rowEdit}
                 handleAdd={handleRowAdd}
                 handleUp={handleRowUp}
                 handleDown={handleRowDown}

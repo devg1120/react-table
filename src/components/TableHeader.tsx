@@ -52,7 +52,7 @@ const button_fixed__style = {
   borderRight: 'solid 1px gray',
 };
 
-export function TableHeader<T>({ columns, style = {}, checkCol = false }: Props<T>): JSX.Element {
+export function TableHeader<T>({ columns, rowEdit = true, style = {}, checkCol = false }: Props<T>): JSX.Element {
   const TableHeaderCell = styled('th', { ...default_style, ...style });
   const TableHeaderCheck = styled('th', { ...default_style_button, ...style, ...check_fixed__style });
   const TableHeaderButton = styled('th', { ...default_style_button, ...style, ...button_fixed__style });
@@ -84,7 +84,7 @@ export function TableHeader<T>({ columns, style = {}, checkCol = false }: Props<
           {column.title}
         </TableHeaderCell>
       ))}
-      <TableHeaderButton></TableHeaderButton>
+      {rowEdit && <TableHeaderButton></TableHeaderButton>}
     </tr>
   );
 }
