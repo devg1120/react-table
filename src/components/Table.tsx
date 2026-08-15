@@ -430,7 +430,8 @@ export function Table<T>({
       }
       //setKey(!key)
     }
-  }, []);
+  //}, []);
+  }, [dataA]);
 
   useEffect(() => {
     if (TableContainerElement['current']) {
