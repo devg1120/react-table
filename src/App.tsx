@@ -465,6 +465,7 @@ export const App = () => {
           localStorageName={localStorageName2}
           rowStyle={rowStyle}
           headerStyle={headerStyle}
+          //checkColEnable={true}
         />
       </Session>
 

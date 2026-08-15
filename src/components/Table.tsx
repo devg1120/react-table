@@ -580,6 +580,7 @@ export function Table<T>({
 
   const f1 = (e) => mouseMove_x(e, id);
   const f2 = (e) => mouseUp_x(e, id);
+  const f3 = (e) => document_mouseUp_x(e, id);
 
   function mouseDown_x(event, index) {
     //console.log('mouseDown_x', id, index);
@@ -589,6 +590,7 @@ export function Table<T>({
     set_x_cursorStart(event.clientX);
     set_resizeCol_index(index);
     set_x_dragStart(true);
+    document.addEventListener('mouseup',f3, { once : true })
   }
   function mouseMove_x(event, id_) {
     //if (id != id_) return;
@@ -618,6 +620,31 @@ export function Table<T>({
     if (!x_dragStart) return;
     event.stopPropagation();
     event.preventDefault();
+    //console.log('mouseUp_x', id_, resizeCol_index);
+    let cursorPosition = event.clientX;
+
+    let mouseMoved = cursorPosition - x_cursorStart;
+    set_x_cursorStart(cursorPosition);
+
+    if (resizeCol_index >= 0) {
+      columns[resizeCol_index].width += mouseMoved;
+      setKey2(!key2);
+    }
+    set_x_dragStart(false);
+  }
+
+  function document_mouseUp_x(event, id_) {
+    console.log('document_mouseUp_x', id_, resizeCol_index);
+    if (id != id_) {
+      console.log('NG');
+      return;
+    }
+    if (!x_dragStart) return;
+    event.stopPropagation();
+    event.preventDefault();
+    set_x_dragStart(false);
+    return
+
     //console.log('mouseUp_x', id_, resizeCol_index);
     let cursorPosition = event.clientX;
 

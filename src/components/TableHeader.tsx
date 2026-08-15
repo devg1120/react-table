@@ -84,7 +84,9 @@ export function TableHeader<T>({ columns, rowEdit = true, style = {}, checkCol =
           {column.title}
         </TableHeaderCell>
       ))}
-      {rowEdit && <TableHeaderButton></TableHeaderButton>}
+      {rowEdit ? <TableHeaderButton></TableHeaderButton>
+               : <TableHeaderButton></TableHeaderButton>
+      }
     </tr>
   );
 }

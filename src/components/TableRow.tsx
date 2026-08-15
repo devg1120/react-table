@@ -122,6 +122,13 @@ export function TableRow<T>({
     ...cellLine_style,
     //...cellStyle,
   });
+  const TableRowTail = styled('td', {
+    ...default_style_button,
+    ...button_fixed__style,
+    ...cellLine_style,
+    //...cellStyle,
+  });
+
   //console.log(skipCellList);
   function isChecked(index) {
     if ('_check' in data[index]) {
@@ -164,7 +171,7 @@ export function TableRow<T>({
 	      cellLine={cellLine}
             />
           ))}
-          {rowEdit && (
+          {rowEdit ? (
             <TableRowButton>
               {/*
 	    <button onClick={() => handleAdd(itemIndex)} >□</button>
@@ -191,7 +198,13 @@ export function TableRow<T>({
               <IconDown onClick={() => handleDown(itemIndex)} />
               <IconClose onClick={() => handleDelete(itemIndex)} />
             </TableRowButton>
-          )}
+          ) : (
+            <TableRowTail>
+	    &ensp;&ensp;&ensp;
+	    &ensp;&ensp;&ensp;
+	    &ensp;&ensp;&ensp;
+            </TableRowTail>
+	  )}
         </TableRowItem>
       ))}
     </>
