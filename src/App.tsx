@@ -450,6 +450,10 @@ const data_1 =  {
     A: 'a5',
     //B: { value: 'b5', colspan: '3', rowspan: '5', style: { backgroundColor: 'lightyellow' } },
     //B: { value: 'b5', type: "graph", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+
+    //B: { value: 'button', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+    //B: { value: 'checkbox', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+
     B: { value: 'b5xz', type: "graph", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
     C: 'c5',
     D: 'd5',
@@ -458,6 +462,17 @@ const data_1 =  {
   }
 
 data_test[1] = data_1 ;
+
+function onClick()  {
+    console.log("OK App")
+}
+const data_8 =  {
+    B: { type: "html", value: 'checkbox'  },
+    D: { type: "html", value: 'button'  , label : "NEW2", handler: onClick},
+}
+
+data_test[8] = data_8 ;
+
 
 const test_session = true;
 

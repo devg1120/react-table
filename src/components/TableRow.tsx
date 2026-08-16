@@ -110,7 +110,12 @@ export function TableRow<T>({
   checkCol = false,
   skipCellList = [],
   cellLine = true,
+  func_dic = {},
 }: Props<T>): JSX.Element {
+
+ if (Object.keys(func_dic).length > 0 ){
+     console.log(func_dic)
+  }
 
   const cellLine_style = cellLine? {} : {border: ""};
 
@@ -146,7 +151,10 @@ export function TableRow<T>({
       return false;
     }
   }
-
+ function onClickRow() {
+     alert("onClickRow")
+     console.log(func_dic)
+ }
   return (
     <>
       {data.map((item, itemIndex) => (
@@ -169,6 +177,8 @@ export function TableRow<T>({
               style={cellStyle}
               skipCellList={skipCellList}
 	      cellLine={cellLine}
+	      func_dic={func_dic}
+	      func={onClickRow}
             />
           ))}
           {rowEdit ? (

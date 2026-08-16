@@ -202,6 +202,37 @@ export function Table<T>({
     table_width = 'max-content';
   }
 
+
+
+  const func_dic_ = {}
+
+  if ( data ) {
+      for ( let i = 0 ; i < data.length ; i++ ) {
+         if (data[i]) {
+	    for (const key in data[i]) {
+                if (typeof data[i][key] == "object") {
+	             for (const key2 in data[i][key]) {
+                         if (typeof data[i][key][key2] == "function") {
+                             const func = data[i][key][key2];
+                             const name = data[i][key][key2].name;
+			     console.log(name, func);
+                             //console.log(key,key2,  data[i][key][key2].name);
+			     func_dic_[name] = func;
+			     data[i][key][key2] = name;
+		         }
+		     }
+		}
+            }
+         }
+      }
+  }
+
+  const [func_dic, ] = useState(func_dic_);
+/*
+ if (Object.keys(func_dic).length > 0 ){
+     console.log(func_dic)
+  }
+*/
   let copyData = [];
   if (data != null) {
     copyData = JSON.parse(JSON.stringify(data));
@@ -834,6 +865,7 @@ export function Table<T>({
                 checkCol={checkCol}
                 skipCellList={skipCellList}
 		cellLine={cellLine}
+		func_dic={func_dic}
               />
             </tbody>
           </TableWrapper>
