@@ -875,7 +875,7 @@ export function Table<T>({
               //console.log("columnIndex", columnIndex);
               let left = 0;
               for (let i = 0; i <= columnIndex; i++) {
-                left = left + Number(columns[i].width) ;
+                left = left + Number(columns[i].width) + 0.5;
               }
               if (checkColEnable) {
                 left = left + checkHeaderWidth;

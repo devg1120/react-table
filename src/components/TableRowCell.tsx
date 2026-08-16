@@ -161,10 +161,21 @@ export function TableRowCell<T>({
     // console.log("Skip", rown,coln);
     return <></>;
   }
-
+/*
 function renderGraph() {
     return (
              <LineChart  width={"600px"} height={"165px"} data={data__}>
+                  <Line type="monotone" dataKey="サイト訪問者数" />
+                  <CartesianGrid />
+                  <XAxis dataKey="day" />
+                  <YAxis />
+              </LineChart>
+	);
+}
+*/
+function renderGraph() {
+    return (
+             <LineChart  width={"100%"} height={126} data={data__}>
                   <Line type="monotone" dataKey="サイト訪問者数" />
                   <CartesianGrid />
                   <XAxis dataKey="day" />
