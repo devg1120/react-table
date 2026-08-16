@@ -112,15 +112,19 @@ export function TableRow<T>({
   cellLine = true,
   func_dic = {},
 }: Props<T>): JSX.Element {
-
- if (Object.keys(func_dic).length > 0 ){
-     console.log(func_dic)
+  if (Object.keys(func_dic).length > 0) {
+    console.log(func_dic);
   }
 
-  const cellLine_style = cellLine? {} : {border: ""};
+  const cellLine_style = cellLine ? {} : { border: '' };
 
   const TableRowItem = styled('tr', { ...default_style_row, ...rowStyle });
-  const TableRowCheck = styled('td', { ...default_style_button, ...cellStyle, ...check_fixed__style, ...cellLine_style });
+  const TableRowCheck = styled('td', {
+    ...default_style_button,
+    ...cellStyle,
+    ...check_fixed__style,
+    ...cellLine_style,
+  });
   const TableRowButton = styled('td', {
     ...default_style_button,
     ...button_fixed__style,
@@ -151,10 +155,10 @@ export function TableRow<T>({
       return false;
     }
   }
- function onClickRow() {
-     alert("onClickRow")
-     console.log(func_dic)
- }
+  function onClickRow() {
+    alert('onClickRow');
+    console.log(func_dic);
+  }
   return (
     <>
       {data.map((item, itemIndex) => (
@@ -176,9 +180,9 @@ export function TableRow<T>({
               handleFocus={handleFocus}
               style={cellStyle}
               skipCellList={skipCellList}
-	      cellLine={cellLine}
-	      func_dic={func_dic}
-	      func={onClickRow}
+              cellLine={cellLine}
+              func_dic={func_dic}
+              func={onClickRow}
             />
           ))}
           {rowEdit ? (
@@ -209,12 +213,8 @@ export function TableRow<T>({
               <IconClose onClick={() => handleDelete(itemIndex)} />
             </TableRowButton>
           ) : (
-            <TableRowTail>
-	    &ensp;&ensp;&ensp;
-	    &ensp;&ensp;&ensp;
-	    &ensp;&ensp;&ensp;
-            </TableRowTail>
-	  )}
+            <TableRowTail>&ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;</TableRowTail>
+          )}
         </TableRowItem>
       ))}
     </>

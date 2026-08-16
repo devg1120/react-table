@@ -5,6 +5,13 @@ import get from 'lodash.get';
 
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
+// https://github.com/recharts/recharts/tree/main/www/src/docs/exampleComponents
+//import Example1 from "./rechart/SimpleLineChart";
+//import SimpleLineChart   from "./rechart/exampleComponents/LineChart/SimpleLineChart";
+//import  {SimpleLineChart}    from "./rechart/exampleComponents/entry";
+//import  * as Ex   from "./rechart/exampleComponents/entry2";
+import  * as Example   from "./rechart";
+
 import { IColumnType } from './Table';
 
 const data__ = [
@@ -23,7 +30,7 @@ interface Props<T> {
 }
 
 const default_style = {
-  position: "relative",
+  position: 'relative',
 
   paddingTop: 0,
   paddingBottom: 0,
@@ -69,10 +76,10 @@ export function TableRowCell<T>({
   style = {},
   skipCellList = [],
   cellLine = true,
-  func =  () => alert("A") ,
+  func = () => alert('A'),
   func_dic = {},
 }: Props<T>): JSX.Element {
-/*
+  /*
  const that = this;
  let f2;
  if (Object.keys(func_dic).length > 0 ){
@@ -101,7 +108,7 @@ export function TableRowCell<T>({
   let rowspan_num = 0;
 
   //let graph = false;
-  let render_type = "string";
+  let render_type = 'string';
 
   if (typeof data === 'string') {
     value = data;
@@ -110,8 +117,8 @@ export function TableRowCell<T>({
       value = data.value;
     }
     if (data.type) {
-      render_type = data.type
-    } 
+      render_type = data.type;
+    }
 
     if (data.style) {
       cell_style = data.style;
@@ -132,9 +139,9 @@ export function TableRowCell<T>({
     row_style = item.row_style;
   }
 
-  const cellLine_style = cellLine? {} : {border: ""};
+  const cellLine_style = cellLine ? {} : { border: '' };
 
-  const TableCell = styled('td', { ...default_style, ...style, ...row_style, ...cell_style , ...cellLine_style});
+  const TableCell = styled('td', { ...default_style, ...style, ...row_style, ...cell_style, ...cellLine_style });
   //const TableCell = styled('td', { position: "relative"});
 
   const id = `Cell_${rown}_${coln}`;
@@ -163,7 +170,7 @@ export function TableRowCell<T>({
     // console.log("Skip", rown,coln);
     return <></>;
   }
-/*
+  /*
 function renderGraph() {
     return (
              <LineChart  width={"600px"} height={"165px"} data={data__}>
@@ -175,42 +182,66 @@ function renderGraph() {
 	);
 }
              <LineChart  width={"100%"} height={126} data={data__}>
-*/
-function renderGraph() {
-    return (
-             <LineChart  style={{position: "absolute",  top: 5, bottom: 0, left: -12, right: 0 }}
-	                 width={"100%"} height={"100%"} data={data__}>
-                  <Line type="monotone" dataKey="サイト訪問者数" />
-                  <CartesianGrid />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-              </LineChart>
-	);
-}
 
-//function onClick(that)  {
-const onClick = () => {
+             <LineChart  style={{position: "absolute",  top: 5, bottom: 0, left: -12, right: 0 }}
+	                 width={"100%"} height={"100%"} data={data__} >
+
+      margin={{
+        top: 5,
+        right: 0,
+        left: 0,
+        bottom: 5,
+      }}
+*/
+
+
+  function renderGraph() {
+  return (
+        <div style={{ position: 'absolute', top: 10, bottom: 0, left: 10, right: 15 }} >
+             <Example.SimpleLineChart/>
+	</div>
+	)
+  }
+
+  function renderGraph_() {
+    return (
+      <LineChart
+        style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }}
+        width={'100%'}
+        height={'100%'}
+        data={data__}
+        margin={{ top: 15, right: 15, left: 0, bottom: 5 }}
+      >
+        <Line type='monotone' dataKey='サイト訪問者数' />
+        <CartesianGrid />
+        <XAxis dataKey='day' />
+        <YAxis />
+      </LineChart>
+    );
+  }
+
+  //function onClick(that)  {
+  const onClick = () => {
     func();
     func_dic[data.handler]();
+  };
 
-}
-
-function renderHtml() {
-  let html = value
-  //if (html === 'button') return <button onClick={data.handler} >{data.label}</button>;
-  //if (html === 'button') return <button onClick={onClick(fdic)} >{data.label}</button>;
-  //if (html === 'button') return <button onClick={() => onClick()} >{data.label}</button>;
-  if (html === 'button') return <button onClick={() => func_dic[data.handler]()} >{data.label}</button>;
-  if (html === 'checkbox') return  <input type="checkbox" id="scales" name="scales"  />;
-  return  <label>{`not support: ${html}`}</label>;
-}
-/*
+  function renderHtml() {
+    let html = value;
+    //if (html === 'button') return <button onClick={data.handler} >{data.label}</button>;
+    //if (html === 'button') return <button onClick={onClick(fdic)} >{data.label}</button>;
+    //if (html === 'button') return <button onClick={() => onClick()} >{data.label}</button>;
+    if (html === 'button') return <button onClick={() => func_dic[data.handler]()}>{data.label}</button>;
+    if (html === 'checkbox') return <input type='checkbox' id='scales' name='scales' />;
+    return <label>{`not support: ${html}`}</label>;
+  }
+  /*
 let html_ele 
 if ( type === 'html' ) {
     html_ele = renderByhtml(value)
 }
 */
-/*
+  /*
                 <LineChart  width={"600px"} height={"165px"} data={data__}>
                   <Line type="monotone" dataKey="サイト訪問者数" />
                   <CartesianGrid />
@@ -235,15 +266,7 @@ if ( type === 'html' ) {
       {/*
       {column.render ? column.render(column, item) : value}
       */}
-     {
-      render_type === 'graph' ? (
-              renderGraph()
-       ): render_type === 'html' ? (
-              renderHtml()
-       ):(
-         value
-       )  
-     }
+      {render_type === 'graph' ? renderGraph() : render_type === 'html' ? renderHtml() : value}
     </TableCell>
   );
 }

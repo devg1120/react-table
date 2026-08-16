@@ -354,6 +354,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@recharts/devtools@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@recharts/devtools/-/devtools-0.0.16.tgz#314c5cf22dc3725a00605c0da4d75fd54a9fccfa"
+  integrity sha512-ohU7bDIRzUXDOEUBLtigkYtYNHPzIpFa6GX1f2oeQWqgySZsCujjXNXEwJ09MzVeQ+tvJ09Tnj25FjeJrMHV9w==
+
 "@reduxjs/toolkit@^1.9.0 || 2.x.x":
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-2.12.0.tgz#e62787503a38561e04bb8f39e29ca8db689590f9"

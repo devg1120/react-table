@@ -1,0 +1,506 @@
+import {
+  Project,
+  SyntaxKind,
+  Node,
+  SourceFile,
+  ObjectLiteralExpression,
+  JsxOpeningElement,
+  JsxSelfClosingElement,
+} from 'ts-morph';
+
+export interface ExampleResult {
+  name: string;
+  url: string;
+}
+
+export function unwrapObjectLiteralExpression(node: Node | undefined): ObjectLiteralExpression | undefined {
+  if (!node) {
+    return undefined;
+  }
+
+  if (Node.isObjectLiteralExpression(node)) {
+    return node;
+  }
+
+  if (Node.isSatisfiesExpression(node) || Node.isAsExpression(node) || Node.isParenthesizedExpression(node)) {
+    return unwrapObjectLiteralExpression(node.getExpression());
+  }
+
+  return undefined;
+}
+
+export class ExampleReader {
+  private project: Project;
+
+  private fileToExamples: Map<string, ExampleResult[]> = new Map();
+
+  private exportToExamples: Map<string, ExampleResult[]> = new Map();
+
+  private initialized = false;
+
+  constructor() {
+    this.project = new Project({
+      tsConfigFilePath: 'tsconfig.json',
+    });
+    this.initialize();
+  }
+
+  public getExamples(componentName: string, propName?: string): ExampleResult[] {
+    const results = new Map<string, ExampleResult>();
+    const cleanName = componentName.trim();
+
+    if (!propName) {
+      this.exportToExamples.get(cleanName)?.forEach(ex => {
+        results.set(ex.url, ex);
+      });
+    }
+
+    this.fileToExamples.forEach((exList, filePath) => {
+      const sourceFile = this.project.getSourceFile(filePath);
+      if (!sourceFile) return;
+
+      if (!this.isComponentUsed(sourceFile, cleanName)) return;
+
+      if (propName) {
+        // Check both direct usage and Typed pattern usage
+        const hasDirect = this.isPropUsed(sourceFile, cleanName, propName);
+        const hasTyped = this.isTypedPropUsed(sourceFile, cleanName, propName);
+        if (!hasDirect && !hasTyped) return;
+      }
+
+      exList.forEach(ex => results.set(ex.url, ex));
+    });
+
+    return Array.from(results.values());
+  }
+
+  private initialize() {
+    if (this.initialized) {
+      return;
+    }
+    // Add all relevant files
+    this.project.addSourceFilesAtPaths([
+      'www/src/docs/exampleComponents/**/*.{ts,tsx}',
+      'www/src/docs/apiExamples/**/*.{ts,tsx}',
+    ]);
+
+    this.buildUrlMap();
+    this.initialized = true;
+  }
+
+  private buildUrlMap() {
+    // Parse www/src/docs/exampleComponents/index.ts
+    const exampleComponentsIndex = this.project.getSourceFile('www/src/docs/exampleComponents/index.ts');
+    if (exampleComponentsIndex) {
+      this.processExampleComponentsIndex(exampleComponentsIndex);
+    }
+
+    const apiExamplesIndex = this.project.getSourceFile('www/src/docs/apiExamples/index.tsx');
+    if (apiExamplesIndex) {
+      this.processApiExamplesIndex(apiExamplesIndex);
+    }
+  }
+
+  private processExampleComponentsIndex(sourceFile: SourceFile) {
+    const allExamplesExport = sourceFile.getVariableDeclaration('allExamples');
+    if (!allExamplesExport) return;
+
+    const initializer = unwrapObjectLiteralExpression(allExamplesExport.getInitializer());
+    if (!initializer) return;
+
+    initializer.getProperties().forEach(prop => {
+      if (Node.isPropertyAssignment(prop)) {
+        // e.g. AreaChart: { examples: areaChartExamples ... }
+        // We want to process `areaChartExamples`
+        const objectLiteral = unwrapObjectLiteralExpression(prop.getInitializer());
+        if (objectLiteral) {
+          const examplesProp = objectLiteral.getProperty('examples');
+          if (examplesProp && Node.isPropertyAssignment(examplesProp)) {
+            const examplesIdentifier = examplesProp.getInitializerIfKind(SyntaxKind.Identifier);
+            if (examplesIdentifier) {
+              const examplesName = examplesIdentifier.getText();
+              const definitions = examplesIdentifier.getDefinitions();
+              if (definitions.length > 0) {
+                const def = definitions[0];
+                const declaration = def?.getDeclarationNode();
+                if (declaration) {
+                  const declSourceFile = declaration.getSourceFile();
+                  if (declSourceFile !== sourceFile && Node.isVariableDeclaration(declaration)) {
+                    // It is defined in another file, process it there
+                    this.processExampleMap(declSourceFile, declaration.getName());
+                  } else if (Node.isImportSpecifier(declaration)) {
+                    // Sometimes it points to the import specifier
+                    const importDecl = declaration.getImportDeclaration();
+                    const moduleSpecifier = importDecl.getModuleSpecifierSourceFile();
+                    if (moduleSpecifier) {
+                      this.processExampleMap(moduleSpecifier, examplesName);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  private processExampleMap(sourceFile: SourceFile, exportName: string) {
+    const variableDecl = sourceFile.getVariableDeclaration(exportName);
+    if (!variableDecl) return;
+
+    const initializer = unwrapObjectLiteralExpression(variableDecl.getInitializer());
+    if (!initializer) return;
+
+    initializer.getProperties().forEach(prop => {
+      if (Node.isPropertyAssignment(prop)) {
+        const exampleName = prop.getName(); // e.g. SimpleAreaChart
+        const exampleObj = unwrapObjectLiteralExpression(prop.getInitializer());
+        if (exampleObj) {
+          const componentProp = exampleObj.getProperty('Component');
+          if (componentProp && Node.isPropertyAssignment(componentProp)) {
+            const componentIdentifier = componentProp.getInitializerIfKind(SyntaxKind.Identifier);
+            if (componentIdentifier) {
+              // Find where this component is defined/imported
+              const definitions = componentIdentifier.getDefinitions();
+              if (definitions.length > 0) {
+                const def = definitions[0];
+                const declaration = def?.getDeclarationNode();
+                let componentSourceFile: SourceFile | undefined;
+
+                if (declaration && Node.isImportSpecifier(declaration)) {
+                  componentSourceFile = declaration.getImportDeclaration().getModuleSpecifierSourceFile();
+                } else if (
+                  declaration &&
+                  (Node.isFunctionDeclaration(declaration) || Node.isVariableDeclaration(declaration))
+                ) {
+                  componentSourceFile = declaration.getSourceFile();
+                }
+
+                if (componentSourceFile) {
+                  const filePath = componentSourceFile.getFilePath();
+                  const url = `/examples/${exampleName}/`;
+
+                  // Try to find 'name' property in the object literal
+                  let name = exampleName;
+                  const nameProp = exampleObj.getProperty('name');
+                  if (nameProp && Node.isPropertyAssignment(nameProp)) {
+                    const nameInitializer = nameProp.getInitializerIfKind(SyntaxKind.StringLiteral);
+                    if (nameInitializer) {
+                      name = nameInitializer.getLiteralValue();
+                    }
+                  }
+
+                  if (!this.fileToExamples.has(filePath)) {
+                    this.fileToExamples.set(filePath, []);
+                  }
+                  this.fileToExamples.get(filePath)!.push({ name, url });
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  private processApiExamplesIndex(sourceFile: SourceFile) {
+    const allApiExamplesExport = sourceFile.getVariableDeclaration('allApiExamples');
+    if (!allApiExamplesExport) return;
+
+    const initializer = unwrapObjectLiteralExpression(allApiExamplesExport.getInitializer());
+    if (!initializer) return;
+
+    initializer.getProperties().forEach(prop => {
+      if (!Node.isPropertyAssignment(prop)) {
+        return;
+      }
+
+      const examplesIdentifier = prop.getInitializerIfKind(SyntaxKind.Identifier);
+      if (!examplesIdentifier) {
+        return;
+      }
+
+      const definitions = examplesIdentifier.getDefinitions();
+      if (definitions.length === 0) {
+        return;
+      }
+
+      const declaration = definitions[0]?.getDeclarationNode();
+      if (!declaration) {
+        return;
+      }
+
+      if (Node.isVariableDeclaration(declaration)) {
+        this.processApiExampleArray(declaration.getSourceFile(), declaration.getName());
+      } else {
+        const importDeclaration = declaration.getFirstAncestorByKind(SyntaxKind.ImportDeclaration);
+        const moduleSpecifier = importDeclaration?.getModuleSpecifierSourceFile();
+        if (moduleSpecifier) {
+          this.processApiExampleArray(moduleSpecifier, examplesIdentifier.getText());
+        }
+      }
+    });
+  }
+
+  private processApiExampleArray(sourceFile: SourceFile, exportName: string) {
+    const variableDecl = sourceFile.getVariableDeclaration(exportName);
+    if (!variableDecl) return;
+
+    const initializer = variableDecl.getInitializerIfKind(SyntaxKind.ArrayLiteralExpression);
+    if (!initializer) return;
+
+    initializer.getElements().forEach(element => {
+      const exampleObj = unwrapObjectLiteralExpression(element);
+      if (!exampleObj) {
+        return;
+      }
+
+      const defaultToolTabProp = exampleObj.getProperty('defaultToolTab');
+      if (!defaultToolTabProp || !Node.isPropertyAssignment(defaultToolTabProp)) {
+        return;
+      }
+
+      const defaultToolTab = defaultToolTabProp.getInitializerIfKind(SyntaxKind.StringLiteral)?.getLiteralValue();
+      if (!defaultToolTab) {
+        return;
+      }
+
+      defaultToolTab
+        .split('|')
+        .map(name => name.trim())
+        .filter(Boolean)
+        .forEach(name => {
+          this.addExportExample(name, {
+            name: `${name} API example`,
+            url: `/api/${name}/`,
+          });
+        });
+    });
+  }
+
+  private addExportExample(exportName: string, example: ExampleResult) {
+    const existingExamples = this.exportToExamples.get(exportName) ?? [];
+    if (existingExamples.some(existing => existing.url === example.url)) {
+      return;
+    }
+
+    this.exportToExamples.set(exportName, [...existingExamples, example]);
+  }
+
+  private isComponentUsed(sourceFile: SourceFile, componentName: string): boolean {
+    // Check imports
+    const imports = sourceFile.getImportDeclarations();
+    for (const importDecl of imports) {
+      const namedImports = importDecl.getNamedImports();
+      for (const namedImport of namedImports) {
+        if (namedImport.getName() === componentName) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Checks if a variable is a chart factory result (createHorizontalChart or createVerticalChart).
+   * Returns the variable name if found, undefined otherwise.
+   * Handles chained calls like: createHorizontalChart<...>()({ ... })
+   */
+  private getChartFactoryVariable(sourceFile: SourceFile): string | undefined {
+    const variables = sourceFile.getVariableDeclarations();
+    for (const variable of variables) {
+      const initializer = variable.getInitializer();
+      if (!initializer) {
+        continue;
+      }
+
+      // Traverse the call chain to find the base function name
+      // e.g., createHorizontalChart<...>()({...}) -> createHorizontalChart
+      let current: Node = initializer;
+      while (current.getKind() === SyntaxKind.CallExpression) {
+        const callExpr = current as import('ts-morph').CallExpression;
+        current = callExpr.getExpression();
+      }
+
+      const baseText = current.getText();
+      if (baseText === 'createHorizontalChart' || baseText === 'createVerticalChart') {
+        const name = variable.getName();
+        // Also verify the name is used in JSX to avoid false positives
+        const jsxOpeningElements = sourceFile.getDescendantsOfKind(SyntaxKind.JsxOpeningElement);
+        const jsxSelfClosingElements = sourceFile.getDescendantsOfKind(SyntaxKind.JsxSelfClosingElement);
+        const hasJsxMatch = [...jsxOpeningElements, ...jsxSelfClosingElements].some(el => {
+          const tagName = el.getTagNameNode();
+          // In ts-morph, JSX member expressions like <Typed.X> are represented as PropertyAccessExpression
+          if (tagName.getKind() !== SyntaxKind.PropertyAccessExpression) {
+            return false;
+          }
+          const obj = tagName.getExpression();
+          return Node.isIdentifier(obj) && obj.getText() === name;
+        });
+        if (hasJsxMatch) {
+          return name;
+        }
+      }
+    }
+    return undefined;
+  }
+
+  private isPropUsed(sourceFile: SourceFile, componentName: string, propName: string): boolean {
+    // Find all JSX elements matching componentName
+    // We need to resolve local name if aliased
+    let localName = componentName;
+    const imports = sourceFile.getImportDeclarations();
+    for (const importDecl of imports) {
+      const namedImports = importDecl.getNamedImports();
+      for (const namedImport of namedImports) {
+        if (namedImport.getName() === componentName) {
+          const alias = namedImport.getAliasNode();
+          if (alias) {
+            localName = alias.getText();
+          }
+          break;
+        }
+      }
+    }
+
+    const jsxElements = sourceFile.getDescendantsOfKind(SyntaxKind.JsxOpeningElement);
+    const jsxSelfClosingElements = sourceFile.getDescendantsOfKind(SyntaxKind.JsxSelfClosingElement);
+
+    for (const el of jsxElements) {
+      if (this.isElementMatchingTag(el, localName, propName)) {
+        return true;
+      }
+    }
+    for (const el of jsxSelfClosingElements) {
+      if (this.isElementMatchingTag(el, localName, propName)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if a JSX element matches the given component name and has the given prop.
+   * Handles both direct usage (e.g., <XAxis dataKey="...">) and property access (e.g., <Typed.XAxis dataKey="...">).
+   */
+  private isElementMatchingTag(
+    node: JsxOpeningElement | JsxSelfClosingElement,
+    componentName: string,
+    propName: string,
+  ): boolean {
+    const tagNameNode = node.getTagNameNode();
+
+    let matched = false;
+    // Check direct match (e.g., <XAxis>)
+    if (tagNameNode.getText() === componentName) {
+      matched = true;
+    }
+    // Check property access pattern (e.g., <Typed.XAxis> where tag kind is PropertyAccessExpression)
+    else if (tagNameNode.getKind() === SyntaxKind.PropertyAccessExpression) {
+      if (tagNameNode.getName() === componentName) {
+        matched = true;
+      }
+    }
+
+    if (!matched) {
+      return false;
+    }
+
+    // Special handling for children
+    if (propName === 'children') {
+      if (node.getAttribute('children')) return true;
+      if (Node.isJsxOpeningElement(node)) {
+        const jsxElement = node.getParentIfKind(SyntaxKind.JsxElement);
+        if (jsxElement) {
+          const children = jsxElement.getJsxChildren();
+          const hasRealChildren = children.some(child => {
+            if (Node.isJsxText(child)) {
+              return child.getText().trim().length > 0;
+            }
+            return true;
+          });
+          if (hasRealChildren) return true;
+        }
+      }
+      return false;
+    }
+
+    const attr = node.getAttribute(propName);
+    return !!attr;
+  }
+
+  /**
+   * Checks if a prop is used on a component via the Typed pattern
+   * (e.g., <Typed.XAxis dataKey="label" /> matches XAxis's dataKey prop).
+   */
+  private isTypedPropUsed(sourceFile: SourceFile, componentName: string, propName: string): boolean {
+    const factoryVar = this.getChartFactoryVariable(sourceFile);
+    if (!factoryVar) {
+      return false;
+    }
+
+    const jsxElements = sourceFile.getDescendantsOfKind(SyntaxKind.JsxOpeningElement);
+    const jsxSelfClosingElements = sourceFile.getDescendantsOfKind(SyntaxKind.JsxSelfClosingElement);
+
+    for (const el of jsxElements) {
+      if (this.isTypedElementMatchingTag(el, factoryVar, componentName, propName)) {
+        return true;
+      }
+    }
+    for (const el of jsxSelfClosingElements) {
+      if (this.isTypedElementMatchingTag(el, factoryVar, componentName, propName)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if a JSX element matches the Typed pattern (e.g., <Typed.XAxis dataKey="...">).
+   */
+  private isTypedElementMatchingTag(
+    node: JsxOpeningElement | JsxSelfClosingElement,
+    factoryVar: string,
+    componentName: string,
+    propName: string,
+  ): boolean {
+    const tagNameNode = node.getTagNameNode();
+
+    // Check property access pattern (e.g., <Typed.XAxis>)
+    if (tagNameNode.getKind() !== SyntaxKind.PropertyAccessExpression) {
+      return false;
+    }
+
+    const obj = tagNameNode.getExpression();
+    const prop = tagNameNode.getName();
+
+    if (!Node.isIdentifier(obj) || prop !== componentName) {
+      return false;
+    }
+
+    // Special handling for children
+    if (propName === 'children') {
+      if (node.getAttribute('children')) return true;
+      if (Node.isJsxOpeningElement(node)) {
+        const jsxElement = node.getParentIfKind(SyntaxKind.JsxElement);
+        if (jsxElement) {
+          const children = jsxElement.getJsxChildren();
+          const hasRealChildren = children.some(child => {
+            if (Node.isJsxText(child)) {
+              return child.getText().trim().length > 0;
+            }
+            return true;
+          });
+          if (hasRealChildren) return true;
+        }
+      }
+      return false;
+    }
+
+    const attr = node.getAttribute(propName);
+    return !!attr;
+  }
+}

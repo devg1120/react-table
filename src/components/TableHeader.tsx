@@ -78,15 +78,13 @@ export function TableHeader<T>({ columns, rowEdit = true, style = {}, checkCol =
 	    */
   return (
     <tr>
-      {checkCol && <TableHeaderCheck id="thc" ></TableHeaderCheck>}
+      {checkCol && <TableHeaderCheck id='thc'></TableHeaderCheck>}
       {columns.map((column, columnIndex) => (
         <TableHeaderCell key={`table-head-cell-${columnIndex}`} style={{ width: column.width }}>
           {column.title}
         </TableHeaderCell>
       ))}
-      {rowEdit ? <TableHeaderButton></TableHeaderButton>
-               : <TableHeaderButton></TableHeaderButton>
-      }
+      {rowEdit ? <TableHeaderButton></TableHeaderButton> : <TableHeaderButton></TableHeaderButton>}
     </tr>
   );
 }

@@ -1,0 +1,15 @@
+export const expectedInBundle = [
+  'DefaultZIndexes',
+  'getNiceTickValues',
+  'getRelativeCoordinate',
+  'Global',
+  'interpolate',
+  'Layer',
+  'Polygon',
+  'Rectangle',
+  'Surface',
+  'Treemap',
+  'useChartHeight',
+  'useChartWidth',
+  'useChartLayout',
+] as const;

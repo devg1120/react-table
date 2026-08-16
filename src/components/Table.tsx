@@ -202,33 +202,31 @@ export function Table<T>({
     table_width = 'max-content';
   }
 
+  const func_dic_ = {};
 
-
-  const func_dic_ = {}
-
-  if ( data ) {
-      for ( let i = 0 ; i < data.length ; i++ ) {
-         if (data[i]) {
-	    for (const key in data[i]) {
-                if (typeof data[i][key] == "object") {
-	             for (const key2 in data[i][key]) {
-                         if (typeof data[i][key][key2] == "function") {
-                             const func = data[i][key][key2];
-                             const name = data[i][key][key2].name;
-			     console.log(name, func);
-                             //console.log(key,key2,  data[i][key][key2].name);
-			     func_dic_[name] = func;
-			     data[i][key][key2] = name;
-		         }
-		     }
-		}
+  if (data) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i]) {
+        for (const key in data[i]) {
+          if (typeof data[i][key] == 'object') {
+            for (const key2 in data[i][key]) {
+              if (typeof data[i][key][key2] == 'function') {
+                const func = data[i][key][key2];
+                const name = data[i][key][key2].name;
+                console.log(name, func);
+                //console.log(key,key2,  data[i][key][key2].name);
+                func_dic_[name] = func;
+                data[i][key][key2] = name;
+              }
             }
-         }
+          }
+        }
       }
+    }
   }
 
-  const [func_dic, ] = useState(func_dic_);
-/*
+  const [func_dic] = useState(func_dic_);
+  /*
  if (Object.keys(func_dic).length > 0 ){
      console.log(func_dic)
   }
@@ -368,7 +366,7 @@ export function Table<T>({
     console.log('update');
     const table_coln = columns.length;
     const table_rown = dataA.length;
-    console.log("id", id)
+    console.log('id', id);
     const table = document.querySelector('#' + id);
     const tds = table.querySelectorAll('.tableCell');
     for (let i = 0; i < tds.length; i++) {
@@ -443,26 +441,25 @@ export function Table<T>({
     }
   }, [scrollY]);
 
-
   const TableContainerElement = useRef(null);
   const TableElement = useRef(null);
 
   //let tableHeight = 100;
   const [tableHeight, set_tableHeight] = useState(100);
-  const [checkHeaderWidth, set_checkHeaderWidth,] = useState(31);
+  const [checkHeaderWidth, set_checkHeaderWidth] = useState(31);
   useEffect(() => {
     if (TableElement['current']) {
       //console.log(TableElement['current'].scrollHeight);
       set_tableHeight(TableElement['current'].scrollHeight);
-      const thc_ele = TableElement['current'].querySelector("#thc" );
+      const thc_ele = TableElement['current'].querySelector('#thc');
       //console.log(thc_ele);
-      if (thc_ele !=null) {
-          const width = thc_ele.getBoundingClientRect().width;
-          set_checkHeaderWidth(width);
+      if (thc_ele != null) {
+        const width = thc_ele.getBoundingClientRect().width;
+        set_checkHeaderWidth(width);
       }
       //setKey(!key)
     }
-  //}, []);
+    //}, []);
   }, [dataA]);
 
   useEffect(() => {
@@ -631,7 +628,7 @@ export function Table<T>({
     set_x_cursorStart(event.clientX);
     set_resizeCol_index(index);
     set_x_dragStart(true);
-    document.addEventListener('mouseup',f3, { once : true })
+    document.addEventListener('mouseup', f3, { once: true });
   }
   function mouseMove_x(event, id_) {
     //if (id != id_) return;
@@ -684,7 +681,7 @@ export function Table<T>({
     event.stopPropagation();
     event.preventDefault();
     set_x_dragStart(false);
-    return
+    return;
 
     //console.log('mouseUp_x', id_, resizeCol_index);
     let cursorPosition = event.clientX;
@@ -865,8 +862,8 @@ export function Table<T>({
                 cellStyle={cellStyle}
                 checkCol={checkCol}
                 skipCellList={skipCellList}
-		cellLine={cellLine}
-		func_dic={func_dic}
+                cellLine={cellLine}
+                func_dic={func_dic}
               />
             </tbody>
           </TableWrapper>
@@ -881,7 +878,7 @@ export function Table<T>({
                 left = left + checkHeaderWidth;
               } else {
                 left = left - 1;
-	      }
+              }
               return (
                 <ResizeX
                   key={columnIndex}
