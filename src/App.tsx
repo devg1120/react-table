@@ -454,7 +454,7 @@ const data_1 =  {
     //B: { value: 'button', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
     //B: { value: 'checkbox', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
 
-    B: { value: 'b5xz', type: "graph", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+    B: { value: 'b5xz', type: "graph", colspan: '4', rowspan: '6', style: { backgroundColor: 'ightyellow' } },
     C: 'c5',
     D: 'd5',
     E: 'e5',

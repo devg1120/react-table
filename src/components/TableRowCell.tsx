@@ -23,6 +23,8 @@ interface Props<T> {
 }
 
 const default_style = {
+  position: "relative",
+
   paddingTop: 0,
   paddingBottom: 0,
   paddingLeft: 5,
@@ -172,10 +174,12 @@ function renderGraph() {
               </LineChart>
 	);
 }
+             <LineChart  width={"100%"} height={126} data={data__}>
 */
 function renderGraph() {
     return (
-             <LineChart  width={"100%"} height={126} data={data__}>
+             <LineChart  style={{position: "absolute",  top: 5, bottom: 0, left: -12, right: 0 }}
+	                 width={"100%"} height={"100%"} data={data__}>
                   <Line type="monotone" dataKey="サイト訪問者数" />
                   <CartesianGrid />
                   <XAxis dataKey="day" />
