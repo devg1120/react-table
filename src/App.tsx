@@ -463,12 +463,20 @@ const data_1 =  {
 
 data_test[1] = data_1 ;
 
-function onClick()  {
-    console.log("OK App")
+function onClick1()  {
+    console.log("OK App 1")
+    alert("OK App 1")
 }
+
+function onClick2()  {
+    console.log("OK App 2")
+    alert("OK App 2")
+}
+
 const data_8 =  {
     B: { type: "html", value: 'checkbox'  },
-    D: { type: "html", value: 'button'  , label : "NEW2", handler: onClick},
+    D: { type: "html", value: 'button'  , label : "NEW1", handler: onClick1},
+    E: { type: "html", value: 'button'  , label : "NEW2", handler: onClick2},
 }
 
 data_test[8] = data_8 ;
@@ -484,7 +492,7 @@ export const App = () => {
           <h2> TEST </h2>
           <Session>
             <Table
-              id='TEST=TABLE'
+              id='TEST_TABLE'
               data={data_test}
               columns={columns_test}
               //cellStyle={cellStyle_sy}

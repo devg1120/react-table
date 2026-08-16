@@ -175,27 +175,17 @@ function renderGraph() {
 
 //function onClick(that)  {
 const onClick = () => {
-    //console.log("OK2")
-    //console.log(data)
     func();
-    //console.log(func_dic)
-    //func_dic["onClick"]();
     func_dic[data.handler]();
 
-    /*
-    console.log("func_dic", func_dic)
-    console.log("fdic", fdic)
-    if (data.handler  in fdic) {
-        fdic[data.handler]()
-    }
-    */
 }
 
 function renderHtml() {
   let html = value
   //if (html === 'button') return <button onClick={data.handler} >{data.label}</button>;
   //if (html === 'button') return <button onClick={onClick(fdic)} >{data.label}</button>;
-  if (html === 'button') return <button onClick={() => onClick()} >{data.label}</button>;
+  //if (html === 'button') return <button onClick={() => onClick()} >{data.label}</button>;
+  if (html === 'button') return <button onClick={() => func_dic[data.handler]()} >{data.label}</button>;
   if (html === 'checkbox') return  <input type="checkbox" id="scales" name="scales"  />;
   return  <label>{`not support: ${html}`}</label>;
 }

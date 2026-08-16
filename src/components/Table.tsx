@@ -176,7 +176,7 @@ export function Table<T>({
   //skipCellList = [],
 }: Props<T>): JSX.Element {
   //let skipCellList = [];
-  // console.log(id, skipCellList)
+  //console.log("id",id )
   let container_height = containerHeight;
   if (!enableScrollY) {
     container_height = '100%';
@@ -360,7 +360,7 @@ export function Table<T>({
       const rowData = JSON.parse(JSON.stringify(dataA[row]));
       rowData[colname] = text;
       dataA[row] = rowData;
-      console.log('updateData', row, colname, text);
+      //console.log('updateData', row, colname, text);
     }
   };
 
@@ -368,6 +368,7 @@ export function Table<T>({
     console.log('update');
     const table_coln = columns.length;
     const table_rown = dataA.length;
+    console.log("id", id)
     const table = document.querySelector('#' + id);
     const tds = table.querySelectorAll('.tableCell');
     for (let i = 0; i < tds.length; i++) {
