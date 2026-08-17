@@ -506,9 +506,9 @@ const Case7 = (props) => {
 //----------------------------------------------------------
 //----------------------------------------------------------
 
+     //const [fruit, setFruit] = useState('apple');
 const CaseTest = (props) => {
      const case_name = props.name
-
      const columns_test: IColumnType<IData>[] = [
        { key: 'A', title: 'A', width: 100 },
        { key: 'B', title: 'B', width: 100 },
@@ -563,24 +563,21 @@ const CaseTest = (props) => {
 
      }
 
-     /*
-         <select value={fruit} onChange={(e) => setFruit(e.target.value)}>
-
-     */
-     function change(value) {
-       console.log("change", value);
-       //setFruit(value);
-       fruit = value;
-     } 
-     //const [fruit, setFruit] = useState('apple');
-     let fruit = 'apple';
+     const [key, setKey] = useState(false);
      function SelectMenu() {
+       const [fruit, setFruit] = useState('apple');
+       function change(v) {
+          setFruit(v);
+	  setKey(!key)
+       }
        return (
+       <div>
          <select value={fruit} onChange={(e) => change(e.target.value)}>
            <option value="apple">りんご</option>
            <option value="orange">みかん</option>
            <option value="banana">バナナ</option>
          </select>
+       </div>
        );
      }
 
@@ -626,6 +623,7 @@ const CaseTest = (props) => {
      
      return (
                  <Table
+		   key={key}
                    id='TEST_TABLE'
                    data={data_test}
                    columns={columns_test}
@@ -641,16 +639,27 @@ const CaseTest = (props) => {
 }
 
 const test_session = true;
+     function SelectMenuMain() {
+       const [fruit, setFruit] = useState('apple');
+       return (
+         <select value={fruit} onChange={(e) => setFruit(e.target.value)}>
+           <option value="apple">りんご</option>
+           <option value="orange">みかん</option>
+           <option value="banana">バナナ</option>
+         </select>
+       );
+     }
 //----------------------------------------------------------
 
 export const App = () => {
   return (
     <>
+    <SelectMenuMain/>
       {test_session && (
         <>
           <h2> TEST </h2>
           <Session>
-	  <CaseTest name="TEST"/>
+	  <CaseTest name="TEST"  />
           </Session>
         </>
       )}
