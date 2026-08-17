@@ -564,15 +564,15 @@ const CaseTest = (props) => {
      }
 
      const [key, setKey] = useState(false);
-     function SelectMenu() {
-       const [fruit, setFruit] = useState('apple');
-       function change(v) {
+     const [fruit, setFruit] = useState('apple');
+     function change_fruit(v) {
           setFruit(v);
 	  setKey(!key)
-       }
+     }
+     function SelectMenu() {
        return (
        <div>
-         <select value={fruit} onChange={(e) => change(e.target.value)}>
+         <select value={fruit} onChange={(e) => change_fruit(e.target.value)}>
            <option value="apple">りんご</option>
            <option value="orange">みかん</option>
            <option value="banana">バナナ</option>
@@ -591,7 +591,47 @@ const CaseTest = (props) => {
      
      data_test[13] = data_8;
 
- function renderGraph(darkMode) {
+     const [chart, setChart] = useState("line");
+     function change_chart(v) {
+          setChart(v);
+	  setKey(!key)
+      }
+     function SelectChart() {
+       return (
+       <div>
+         <select value={chart} onChange={(e) => change_chart(e.target.value)}>
+           <option value={"line"}>Line</option>
+           <option value={"bar"}>Bar</option>
+           <option value={"compose"}>Compose</option>
+         </select>
+       </div>
+       );
+     }
+
+     const [darkMode, setDarkMode] = useState("light");
+     function change_darkMode(v) {
+          setDarkMode(v);
+	  setKey(!key)
+      }
+     function SelectDarkMode() {
+       return (
+       <div>
+         <select value={darkMode} onChange={(e) => change_darkMode(e.target.value)}>
+           <option value={"light"}>light</option>
+           <option value={"dark"}>dark</option>
+         </select>
+       </div>
+       );
+     }
+     const data_10 = {
+       A: { type: 'embed', element: SelectChart() , colspan: "2", style: { }, name : "embed_select_chart"},
+       C: { type: 'embed', element: SelectDarkMode() ,  style: { }, name : "embed_select_darkmode"},
+     };
+     
+     data_test[29] = data_10;
+
+ //function renderGraph(darkMode) {
+ function renderGraph() {
   return (
         <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 10, bottom: 5, left: 7, right: 15 }} >
 	{/*
@@ -604,9 +644,18 @@ const CaseTest = (props) => {
 	     <LocalEx.BarChartWithMultiXAxis/>
 	     <LocalEx.PieChart/>
 	     <LocalEx.SimpleRadarChart/>
+	     <LocalEx.SimpleRadarChart/>
 	    
 	    */}
+	{ chart == "line" ?
+             <LocalEx.SimpleLineChart2/>
+        : chart == "bar" ?
+	     <LocalEx.MixBarChart/>
+        : chart == "compose" ?
+	     <LocalEx.LineBarAreaComposedChart/>
+	:
 	     <LocalEx.SimpleRadarChart/>
+	     }
 	</div>
 	)
   }
@@ -616,7 +665,7 @@ const CaseTest = (props) => {
        //B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: {   } },
        //B: { type: 'embed', element: LocalEx.SimpleLineChart2 , name : "embed_sc2" },
        //B: { type: 'embed', element: build() , name : "embed_sc2" },
-       B: { type: 'embed', element: renderGraph("dark") , colspan:"6", rowspan:"14",name : "embed_sc2" },
+       B: { type: 'embed', element: renderGraph() , colspan:"6", rowspan:"14",name : "embed_sc2" },
      };
      
      data_test[30] = data_9;
