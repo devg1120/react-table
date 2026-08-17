@@ -84,6 +84,7 @@ export function TableRowCell<T>({
   cellLine = true,
   func = () => alert('A'),
   func_dic = {},
+  embed_dic = {},
 }: Props<T>): JSX.Element {
   /*
  const that = this;
@@ -113,6 +114,7 @@ export function TableRowCell<T>({
   let colspan_num = 0;
   let rowspan_num = 0;
   let darkMode = "light";
+  let element = null;
   //let graph = false;
   let render_type = 'string';
 
@@ -141,6 +143,11 @@ export function TableRowCell<T>({
     if (data.darkMode) {
       darkMode = data.darkMode;
     }
+
+    if (data.element) {
+      element = data.element;
+    }
+
   }
 
   let row_style = {};
@@ -269,6 +276,15 @@ function renderGraph() {
     if (html === 'checkbox') return <input type='checkbox' id='scales' name='scales' />;
     return <label>{`not support: ${html}`}</label>;
   }
+
+  function renderEmbed() {
+    
+    //return <label>Embed</label>;
+    console.log(data.name, embed_dic[data.name]);
+    return embed_dic[data.name];
+
+  }
+
   /*
 let html_ele 
 if ( type === 'html' ) {
@@ -300,7 +316,10 @@ if ( type === 'html' ) {
       {/*
       {column.render ? column.render(column, item) : value}
       */}
-      {render_type === 'graph' ? renderGraph(darkMode) : render_type === 'html' ? renderHtml() : value}
+      { render_type === 'graph' ? renderGraph(darkMode)
+      : render_type === 'html' ? renderHtml() 
+      : render_type === 'embed' ? renderEmbed() 
+      : value}
     </TableCell>
   );
 }

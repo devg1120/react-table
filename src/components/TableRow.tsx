@@ -111,9 +111,13 @@ export function TableRow<T>({
   skipCellList = [],
   cellLine = true,
   func_dic = {},
+  embed_dic = {},
 }: Props<T>): JSX.Element {
   if (Object.keys(func_dic).length > 0) {
     console.log(func_dic);
+  }
+  if (Object.keys(embed_dic).length > 0) {
+    console.log(embed_dic);
   }
 
   const cellLine_style = cellLine ? {} : { border: '' };
@@ -182,6 +186,7 @@ export function TableRow<T>({
               skipCellList={skipCellList}
               cellLine={cellLine}
               func_dic={func_dic}
+              embed_dic={embed_dic}
               func={onClickRow}
             />
           ))}

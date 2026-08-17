@@ -1,5 +1,5 @@
 import { styled } from '@stitches/react';
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback, isValidElement } from 'react';
 //import { useReducer } from 'react'
 
 import { TableHeader } from './TableHeader';
@@ -203,6 +203,7 @@ export function Table<T>({
   }
 
   const func_dic_ = {};
+  const embed_dic_ = {};
 
   if (data) {
     for (let i = 0; i < data.length; i++) {
@@ -210,14 +211,33 @@ export function Table<T>({
         for (const key in data[i]) {
           if (typeof data[i][key] == 'object') {
             for (const key2 in data[i][key]) {
+               //console.log(data[i][key][key2] ) 
+               //console.log(typeof data[i][key][key2] ) 
+
               if (typeof data[i][key][key2] == 'function') {
                 const func = data[i][key][key2];
                 const name = data[i][key][key2].name;
-                console.log(name, func);
+                //console.log(name, func);
                 //console.log(key,key2,  data[i][key][key2].name);
                 func_dic_[name] = func;
                 data[i][key][key2] = name;
               }
+              if (typeof data[i][key][key2] == 'object') {
+                  if (data[i][key][key2]["$$typeof"] ) {
+                          //console.log(data[i][key][key2] ) 
+			  //console.log("************");
+			  //console.log(isValidElement(data[i][key][key2]));
+		     if (isValidElement(data[i][key][key2])) {
+		        const ele = data[i][key][key2]
+                        const name = data[i][key].name;
+                        data[i][key][key2] = name;
+			console.log("embed", name);
+                        embed_dic_[name] = ele;
+
+		     }
+	           }
+              }
+              
             }
           }
         }
@@ -226,6 +246,8 @@ export function Table<T>({
   }
 
   const [func_dic] = useState(func_dic_);
+  const [embed_dic] = useState(embed_dic_);
+
   /*
  if (Object.keys(func_dic).length > 0 ){
      console.log(func_dic)
@@ -864,6 +886,7 @@ export function Table<T>({
                 skipCellList={skipCellList}
                 cellLine={cellLine}
                 func_dic={func_dic}
+                embed_dic={embed_dic}
               />
             </tbody>
           </TableWrapper>

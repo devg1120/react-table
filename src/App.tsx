@@ -548,10 +548,22 @@ const CaseTest = (props) => {
        alert('OK App 2');
      }
      
+     function onClick3() {
+       console.log('OK App 3');
+       alert('Embed OK App 3');
+     }
+     
+     function build() {
+        return (
+           <button onClick={onClick3}> Embed </button>
+	)
+
+     }
      const data_8 = {
        B: { type: 'html', value: 'checkbox' },
        D: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
        E: { type: 'html', value: 'button', label: 'NEW2', handler: onClick2 },
+       F: { type: 'embed', element: build() , name : "embed_test"},
      };
      
      data_test[13] = data_8;
