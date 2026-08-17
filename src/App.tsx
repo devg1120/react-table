@@ -3,6 +3,8 @@ import { styled } from '@stitches/react';
 import { useState, useEffect } from 'react';
 
 import { Table, loadTableData, build_skipCellList, IColumnType } from './components';
+import  * as LocalEx   from "../rechart/local";
+
 
 interface IData {
   fullName: string;
@@ -516,7 +518,7 @@ const CaseTest = (props) => {
        { key: 'F', title: 'F', width: 100 },
        { key: 'G', title: 'G', width: 100 },
      ];
-     const data_test = data_build(columns_test, 30);
+     const data_test = data_build(columns_test, 45);
      console.log(data_test);
      function render(column, item) {
        return 'OK';
@@ -591,6 +593,36 @@ const CaseTest = (props) => {
      };
      
      data_test[13] = data_8;
+
+ function renderGraph(darkMode) {
+  return (
+        <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 10, bottom: 5, left: 7, right: 15 }} >
+	{/*
+             <LocalEx.SimpleLineChart2/>
+	     <LocalEx.MixBarChart/>
+	     <LocalEx.LineBarAreaComposedChart/>
+	     <LocalEx.BiaxialLineChart/>
+	     <LocalEx.StackedAreaChart/>
+	     <LocalEx.BrushBarChart/>
+	     <LocalEx.BarChartWithMultiXAxis/>
+	     <LocalEx.PieChart/>
+	     <LocalEx.SimpleRadarChart/>
+	    
+	    */}
+	     <LocalEx.SimpleRadarChart/>
+	</div>
+	)
+  }
+
+     const data_9 = {
+       //B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: { backgroundColor: '#000000' } },
+       //B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: {   } },
+       //B: { type: 'embed', element: LocalEx.SimpleLineChart2 , name : "embed_sc2" },
+       //B: { type: 'embed', element: build() , name : "embed_sc2" },
+       B: { type: 'embed', element: renderGraph("dark") , colspan:"6", rowspan:"14",name : "embed_sc2" },
+     };
+     
+     data_test[30] = data_9;
      
      return (
                  <Table

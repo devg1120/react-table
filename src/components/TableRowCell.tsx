@@ -280,7 +280,7 @@ function renderGraph() {
   function renderEmbed() {
     
     //return <label>Embed</label>;
-    console.log(data.name, embed_dic[data.name]);
+    //console.log(data.name, embed_dic[data.name]);
     return embed_dic[data.name];
 
   }
