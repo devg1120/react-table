@@ -2,17 +2,23 @@ import { useState, useEffect } from 'react';
 
 import { styled } from '@stitches/react';
 import get from 'lodash.get';
+import { IColumnType } from './Table';
 
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 // https://github.com/recharts/recharts/tree/main/www/src/docs/exampleComponents
 //import Example1 from "./rechart/SimpleLineChart";
-//import SimpleLineChart   from "./rechart/exampleComponents/LineChart/SimpleLineChart";
+//import SimpleLineChart   from "../../rechart/exampleComponents/LineChart/SimpleLineChart";
 //import  {SimpleLineChart}    from "./rechart/exampleComponents/entry";
 //import  * as Ex   from "./rechart/exampleComponents/entry2";
-import  * as Example   from "./rechart";
+//import  * as Example   from "./rechart";
 
-import { IColumnType } from './Table';
+import SimpleLineChart   from "../../rechart/exampleComponents/LineChart/SimpleLineChart";
+import  * as Example   from "../../rechart";
+import  * as LocalEx   from "../../rechart/local";
+
+import './chart.css';
+
 
 const data__ = [
   { day: '月', サイト訪問者数: 2200 },
@@ -106,7 +112,7 @@ export function TableRowCell<T>({
   let rowspan = false;
   let colspan_num = 0;
   let rowspan_num = 0;
-
+  let darkMode = "light";
   //let graph = false;
   let render_type = 'string';
 
@@ -131,6 +137,9 @@ export function TableRowCell<T>({
     if (data.rowspan) {
       rowspan = true;
       rowspan_num = Number(data.rowspan);
+    }
+    if (data.darkMode) {
+      darkMode = data.darkMode;
     }
   }
 
@@ -195,7 +204,7 @@ function renderGraph() {
 */
 
 
-  function renderGraph() {
+  function renderGraph2() {
   return (
         <div style={{ position: 'absolute', top: 10, bottom: 0, left: 10, right: 15 }} >
              <Example.SimpleLineChart/>
@@ -203,6 +212,31 @@ function renderGraph() {
 	)
   }
 
+  /*
+        <div  className="chart"  data-mode='dark / light' style={{ position: 'absolute', top: 10, bottom: 0, left: 10, right: 15 }} >
+        <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 10, bottom: 10, left: 10, right: 10 }} >
+        <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }} >
+
+  */
+  function renderGraph(darkMode) {
+  return (
+        <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 10, bottom: 5, left: 7, right: 15 }} >
+	{/*
+             <LocalEx.SimpleLineChart2/>
+	     <LocalEx.MixBarChart/>
+	     <LocalEx.LineBarAreaComposedChart/>
+	     <LocalEx.BiaxialLineChart/>
+	     <LocalEx.StackedAreaChart/>
+	     <LocalEx.BrushBarChart/>
+	     <LocalEx.BarChartWithMultiXAxis/>
+	     <LocalEx.PieChart/>
+	     <LocalEx.SimpleRadarChart/>
+	    
+	    */}
+	     <LocalEx.SimpleRadarChart/>
+	</div>
+	)
+  }
   function renderGraph_() {
     return (
       <LineChart
@@ -266,7 +300,7 @@ if ( type === 'html' ) {
       {/*
       {column.render ? column.render(column, item) : value}
       */}
-      {render_type === 'graph' ? renderGraph() : render_type === 'html' ? renderHtml() : value}
+      {render_type === 'graph' ? renderGraph(darkMode) : render_type === 'html' ? renderHtml() : value}
     </TableCell>
   );
 }

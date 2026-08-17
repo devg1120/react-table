@@ -420,15 +420,6 @@ const Session = styled('div', {
   marginBottom: '50px',
 });
 
-const columns_test: IColumnType<IData>[] = [
-  { key: 'A', title: 'A', width: 100 },
-  { key: 'B', title: 'B', width: 100 },
-  { key: 'C', title: 'C', width: 100 },
-  { key: 'D', title: 'D', width: 100 },
-  { key: 'E', title: 'E', width: 100 },
-  { key: 'F', title: 'F', width: 100 },
-  { key: 'G', title: 'G', width: 100 },
-];
 
 function data_build(columns, n) {
   let data_ = [];
@@ -441,47 +432,148 @@ function data_build(columns, n) {
   }
   return data_;
 }
+//----------------------------------------------------------
+const Case7 = (props) => {
+     const case_name = props.name
 
-const data_test = data_build(columns_test, 30);
-console.log(data_test);
-function render(column, item) {
-  return 'OK';
+     const columns_test: IColumnType<IData>[] = [
+       { key: 'A', title: 'A', width: 100 },
+       { key: 'B', title: 'B', width: 100 },
+       { key: 'C', title: 'C', width: 100 },
+       { key: 'D', title: 'D', width: 100 },
+       { key: 'E', title: 'E', width: 100 },
+       { key: 'F', title: 'F', width: 100 },
+       { key: 'G', title: 'G', width: 100 },
+     ];
+     const data_test = data_build(columns_test, 30);
+     console.log(data_test);
+     function render(column, item) {
+       return 'OK';
+     }
+     const data_1 = {
+       A: 'a5',
+       //B: { value: 'b5', colspan: '3', rowspan: '5', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'b5', type: "graph", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'button', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'checkbox', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: { backgroundColor: '#ffffff' } },
+
+       B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: {  },  },
+     };
+     
+     data_test[1] = data_1;
+     
+     const data_2 = {
+       B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: { backgroundColor: '#000000' } , darkMode: "dark"},
+     };
+     
+     data_test[16] = data_2;
+     function onClick1() {
+       console.log('OK App 1');
+       alert( case_name + " " + 'OK App 1' );
+     }
+     
+     function onClick2() {
+       console.log('OK App 2');
+       alert('OK App 2');
+     }
+     
+     const data_8 = {
+       B: { type: 'html', value: 'checkbox' },
+       D: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
+       E: { type: 'html', value: 'button', label: 'NEW2', handler: onClick2 },
+     };
+     
+     data_test[13] = data_8;
+     
+     return (
+                 <Table
+                   id='TEST_TABLE'
+                   data={data_test}
+                   columns={columns_test}
+                   //cellStyle={cellStyle_sy}
+                   localStorageName={'TEST'}
+                   //checkColEnable={true}
+                   //enableScrollX={true}
+                   enableScrollY={false}
+                   //containerWidth={'800px'}
+                 />
+     )
 }
-const data_1 = {
-  A: 'a5',
-  //B: { value: 'b5', colspan: '3', rowspan: '5', style: { backgroundColor: 'lightyellow' } },
-  //B: { value: 'b5', type: "graph", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
-  //B: { value: 'button', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
-  //B: { value: 'checkbox', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
-  B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: { backgroundColor: '#000000' } },
-};
+//----------------------------------------------------------
+//----------------------------------------------------------
 
-data_test[1] = data_1;
+const CaseTest = (props) => {
+     const case_name = props.name
 
-const data_2 = {
-  B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: { backgroundColor: '#000000' } },
-};
-
-data_test[16] = data_2;
-function onClick1() {
-  console.log('OK App 1');
-  alert('OK App 1');
+     const columns_test: IColumnType<IData>[] = [
+       { key: 'A', title: 'A', width: 100 },
+       { key: 'B', title: 'B', width: 100 },
+       { key: 'C', title: 'C', width: 100 },
+       { key: 'D', title: 'D', width: 100 },
+       { key: 'E', title: 'E', width: 100 },
+       { key: 'F', title: 'F', width: 100 },
+       { key: 'G', title: 'G', width: 100 },
+     ];
+     const data_test = data_build(columns_test, 30);
+     console.log(data_test);
+     function render(column, item) {
+       return 'OK';
+     }
+     const data_1 = {
+       A: 'a5',
+       //B: { value: 'b5', colspan: '3', rowspan: '5', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'b5', type: "graph", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'button', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'checkbox', type: "html", colspan: '4', rowspan: '6', style: { backgroundColor: 'lightyellow' } },
+       //B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: { backgroundColor: '#ffffff' } },
+       B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: {  },  },
+     };
+     
+     data_test[1] = data_1;
+     
+     const data_2 = {
+       //B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: { backgroundColor: '#000000' } },
+       B: { value: 'b5xz', type: 'graph', colspan: '5', rowspan: '12', style: {  backgroundColor: '#000000' } , darkMode : "dark"},
+     };
+     
+     data_test[16] = data_2;
+     function onClick1() {
+       console.log(name + " " + 'OK App 1');
+       alert(case_name + " " + 'OK App 1');
+     }
+     
+     function onClick2() {
+       console.log('OK App 2');
+       alert('OK App 2');
+     }
+     
+     const data_8 = {
+       B: { type: 'html', value: 'checkbox' },
+       D: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
+       E: { type: 'html', value: 'button', label: 'NEW2', handler: onClick2 },
+     };
+     
+     data_test[13] = data_8;
+     
+     return (
+                 <Table
+                   id='TEST_TABLE'
+                   data={data_test}
+                   columns={columns_test}
+                   //cellStyle={cellStyle_sy}
+                   localStorageName={'TEST'}
+                   //checkColEnable={true}
+                   //enableScrollX={true}
+                   enableScrollY={false}
+                   //containerWidth={'800px'}
+		   darkMode={"dark"}
+                 />
+     )
 }
-
-function onClick2() {
-  console.log('OK App 2');
-  alert('OK App 2');
-}
-
-const data_8 = {
-  B: { type: 'html', value: 'checkbox' },
-  D: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
-  E: { type: 'html', value: 'button', label: 'NEW2', handler: onClick2 },
-};
-
-data_test[13] = data_8;
 
 const test_session = true;
+//----------------------------------------------------------
 
 export const App = () => {
   return (
@@ -490,17 +582,7 @@ export const App = () => {
         <>
           <h2> TEST </h2>
           <Session>
-            <Table
-              id='TEST_TABLE'
-              data={data_test}
-              columns={columns_test}
-              //cellStyle={cellStyle_sy}
-              localStorageName={'TEST'}
-              //checkColEnable={true}
-              //enableScrollX={true}
-              enableScrollY={false}
-              //containerWidth={'800px'}
-            />
+	  <CaseTest name="TEST"/>
           </Session>
         </>
       )}
@@ -573,6 +655,12 @@ export const App = () => {
           containerWidth={'800px'}
         />
       </Session>
+
+      <h2> TABLE 7 reChart</h2>
+      <Session>
+         <Case7 name="CASE 7"/>
+      </Session>
+
     </>
   );
 };
