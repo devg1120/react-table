@@ -1,5 +1,6 @@
 import '@fontsource/anek-telugu';
 import { styled } from '@stitches/react';
+import { useState, useEffect } from 'react';
 
 import { Table, loadTableData, build_skipCellList, IColumnType } from './components';
 
@@ -559,11 +560,34 @@ const CaseTest = (props) => {
 	)
 
      }
+
+     /*
+         <select value={fruit} onChange={(e) => setFruit(e.target.value)}>
+
+     */
+     function change(value) {
+       console.log("change", value);
+       //setFruit(value);
+       fruit = value;
+     } 
+     //const [fruit, setFruit] = useState('apple');
+     let fruit = 'apple';
+     function SelectMenu() {
+       return (
+         <select value={fruit} onChange={(e) => change(e.target.value)}>
+           <option value="apple">りんご</option>
+           <option value="orange">みかん</option>
+           <option value="banana">バナナ</option>
+         </select>
+       );
+     }
+
      const data_8 = {
        B: { type: 'html', value: 'checkbox' },
        D: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
        E: { type: 'html', value: 'button', label: 'NEW2', handler: onClick2 },
        F: { type: 'embed', element: build() , name : "embed_test"},
+       G: { type: 'embed', element: SelectMenu() , name : "embed_select_menu"},
      };
      
      data_test[13] = data_8;
