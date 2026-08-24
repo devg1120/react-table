@@ -13,12 +13,11 @@ import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis } fro
 //import  * as Ex   from "./rechart/exampleComponents/entry2";
 //import  * as Example   from "./rechart";
 
-import SimpleLineChart   from "../../rechart/exampleComponents/LineChart/SimpleLineChart";
-import  * as Example   from "../../rechart";
-import  * as LocalEx   from "../../rechart/local";
+import SimpleLineChart from '../../rechart/exampleComponents/LineChart/SimpleLineChart';
+import * as Example from '../../rechart';
+import * as LocalEx from '../../rechart/local';
 
 import './chart.css';
-
 
 const data__ = [
   { day: '月', サイト訪問者数: 2200 },
@@ -113,7 +112,7 @@ export function TableRowCell<T>({
   let rowspan = false;
   let colspan_num = 0;
   let rowspan_num = 0;
-  let darkMode = "light";
+  let darkMode = 'light';
   let element = null;
   //let graph = false;
   let render_type = 'string';
@@ -147,7 +146,6 @@ export function TableRowCell<T>({
     if (data.element) {
       element = data.element;
     }
-
   }
 
   let row_style = {};
@@ -210,13 +208,12 @@ function renderGraph() {
       }}
 */
 
-
   function renderGraph2() {
-  return (
-        <div style={{ position: 'absolute', top: 10, bottom: 0, left: 10, right: 15 }} >
-             <Example.SimpleLineChart/>
-	</div>
-	)
+    return (
+      <div style={{ position: 'absolute', top: 10, bottom: 0, left: 10, right: 15 }}>
+        <Example.SimpleLineChart />
+      </div>
+    );
   }
 
   /*
@@ -226,9 +223,13 @@ function renderGraph() {
 
   */
   function renderGraph(darkMode) {
-  return (
-        <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 10, bottom: 5, left: 7, right: 15 }} >
-	{/*
+    return (
+      <div
+        className='chart'
+        data-mode={darkMode}
+        style={{ position: 'absolute', top: 10, bottom: 5, left: 7, right: 15 }}
+      >
+        {/*
              <LocalEx.SimpleLineChart2/>
 	     <LocalEx.MixBarChart/>
 	     <LocalEx.LineBarAreaComposedChart/>
@@ -240,9 +241,9 @@ function renderGraph() {
 	     <LocalEx.SimpleRadarChart/>
 	    
 	    */}
-	     <LocalEx.SimpleRadarChart/>
-	</div>
-	)
+        <LocalEx.SimpleRadarChart />
+      </div>
+    );
   }
   function renderGraph_() {
     return (
@@ -278,11 +279,9 @@ function renderGraph() {
   }
 
   function renderEmbed() {
-    
     //return <label>Embed</label>;
     //console.log(data.name, embed_dic[data.name]);
     return embed_dic[data.name];
-
   }
 
   /*
@@ -316,10 +315,13 @@ if ( type === 'html' ) {
       {/*
       {column.render ? column.render(column, item) : value}
       */}
-      { render_type === 'graph' ? renderGraph(darkMode)
-      : render_type === 'html' ? renderHtml() 
-      : render_type === 'embed' ? renderEmbed() 
-      : value}
+      {render_type === 'graph'
+        ? renderGraph(darkMode)
+        : render_type === 'html'
+          ? renderHtml()
+          : render_type === 'embed'
+            ? renderEmbed()
+            : value}
     </TableCell>
   );
 }

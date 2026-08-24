@@ -211,10 +211,10 @@ export function Table<T>({
         for (const key in data[i]) {
           if (typeof data[i][key] == 'object') {
             for (const key2 in data[i][key]) {
-               //console.log(data[i][key][key2] ) 
-               //console.log(typeof data[i][key][key2] ) 
+              //console.log(data[i][key][key2] )
+              //console.log(typeof data[i][key][key2] )
 
-              if (typeof data[i][key][key2] == 'function') {
+              if (typeof data[i][key][key2] == 'function') {         // function
                 const func = data[i][key][key2];
                 const name = data[i][key][key2].name;
                 //console.log(name, func);
@@ -222,22 +222,20 @@ export function Table<T>({
                 func_dic_[name] = func;
                 data[i][key][key2] = name;
               }
-              if (typeof data[i][key][key2] == 'object') {
-                  if (data[i][key][key2]["$$typeof"] ) {
-                          //console.log(data[i][key][key2] ) 
-			  //console.log("************");
-			  //console.log(isValidElement(data[i][key][key2]));
-		     if (isValidElement(data[i][key][key2])) {
-		        const ele = data[i][key][key2]
-                        const name = data[i][key].name;
-                        data[i][key][key2] = name;
-			console.log("embed", name);
-                        embed_dic_[name] = ele;
-
-		     }
-	           }
+              if (typeof data[i][key][key2] == 'object') {          // react component
+                if (data[i][key][key2]['$$typeof']) {
+                  //console.log(data[i][key][key2] )
+                  //console.log("************");
+                  //console.log(isValidElement(data[i][key][key2]));
+                  if (isValidElement(data[i][key][key2])) {
+                    const ele = data[i][key][key2];
+                    const name = data[i][key].name;
+                    data[i][key][key2] = name;
+                    console.log('embed', name);
+                    embed_dic_[name] = ele;
+                  }
+                }
               }
-              
             }
           }
         }
