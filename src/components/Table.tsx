@@ -214,7 +214,8 @@ export function Table<T>({
               //console.log(data[i][key][key2] )
               //console.log(typeof data[i][key][key2] )
 
-              if (typeof data[i][key][key2] == 'function') {         // function
+              if (typeof data[i][key][key2] == 'function') {
+                // function
                 const func = data[i][key][key2];
                 const name = data[i][key][key2].name;
                 //console.log(name, func);
@@ -222,7 +223,8 @@ export function Table<T>({
                 func_dic_[name] = func;
                 data[i][key][key2] = name;
               }
-              if (typeof data[i][key][key2] == 'object') {          // react component
+              if (typeof data[i][key][key2] == 'object') {
+                // react component
                 if (data[i][key][key2]['$$typeof']) {
                   //console.log(data[i][key][key2] )
                   //console.log("************");
