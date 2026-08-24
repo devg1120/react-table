@@ -1,32 +1,6 @@
-import '@fontsource/anek-telugu';
-import { styled } from '@stitches/react';
-import { useState, useEffect } from 'react';
-
 import { Table, loadTableData, IColumnType } from './components';
+import { useState, useEffect } from 'react';
 import * as LocalEx from '../rechart/local';
-
-import Case1 from './Case1';
-import Case2 from './Case2';
-import Case3 from './Case3';
-import Case4 from './Case4';
-import Case5 from './Case5';
-import Case6 from './Case6';
-import Case7 from './Case7';
-import Case8 from './Case8';
-
-/*
-interface IData {
-  fullName: string;
-  role: string;
-  tags: string[];
-}
-*/
-//----------------------------------------------------------
-
-const Session = styled('div', {
-  marginLeft: '40px',
-  marginBottom: '50px',
-});
 
 function data_build(columns, n) {
   let data_ = [];
@@ -40,9 +14,10 @@ function data_build(columns, n) {
   return data_;
 }
 
-//----------------------------------------------------------
+const Case8 = (props) => {
+  const id = 'ASTable8';
+  const localStorageName = 'table_data8';
 
-const CaseTest = (props) => {
   const case_name = props.name;
   const columns_test: IColumnType<IData>[] = [
     { key: 'A', title: 'A', width: 100 },
@@ -229,71 +204,4 @@ const CaseTest = (props) => {
     />
   );
 };
-
-const test_session = false;
-function SelectMenuMain() {
-  const [fruit, setFruit] = useState('apple');
-  return (
-    <select value={fruit} onChange={(e) => setFruit(e.target.value)}>
-      <option value='apple'>りんご</option>
-      <option value='orange'>みかん</option>
-      <option value='banana'>バナナ</option>
-    </select>
-  );
-}
-//----------------------------------------------------------
-
-export const App = () => {
-  return (
-    <>
-      {test_session && (
-        <>
-          <h2> TEST </h2>
-          <SelectMenuMain />
-          <Session>
-            <CaseTest name='TEST' />
-          </Session>
-        </>
-      )}
-      <h2> TABLE 1 </h2>
-      <Session>
-        <Case1 name='CASE 1' />
-      </Session>
-
-      <h2> TABLE 2 </h2>
-      <Session>
-        <Case2 name='CASE 2' />
-      </Session>
-
-      <h2> TABLE 3 not storage</h2>
-      <Session>
-        <Case3 name='CASE 3' />
-      </Session>
-
-      <h2> TABLE 4 call data styles</h2>
-      <Session>
-        <Case4 name='CASE 4' />
-      </Session>
-
-      <h2> TABLE 5 scroll-y</h2>
-      <Session>
-        <Case5 name='CASE 5' />
-      </Session>
-
-      <h2> TABLE 6 scroll-yx</h2>
-      <Session>
-        <Case6 name='CASE 6' />
-      </Session>
-
-      <h2> TABLE 7 reChart1</h2>
-      <Session>
-        <Case7 name='CASE 7' />
-      </Session>
-
-      <h2> TABLE 8 reChart2</h2>
-      <Session>
-        <Case8 name='CASE 8' />
-      </Session>
-    </>
-  );
-};
+export default Case8;
