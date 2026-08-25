@@ -412,7 +412,13 @@ export function Table<T>({
     }
    */
     if (typeof dataA[row][colname] === 'object' ) {
+         if (dataA[row][colname].type == "embed") {
+            if (dataA[row][colname].getValue) {
+	    console.log("getValue");
+	    }
+	 } else {
          dataA[row][colname].value = text;
+	 }
     } else if (typeof dataA[row][colname] === 'string' ) {
          dataA[row][colname] = text;
     } else {
