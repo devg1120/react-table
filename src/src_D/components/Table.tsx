@@ -1,5 +1,5 @@
 import { styled } from '@stitches/react';
-import { useState, useEffect, useRef, useMemo, useCallback, isValidElement } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 //import { useReducer } from 'react'
 
 import { TableHeader } from './TableHeader';
@@ -16,15 +16,10 @@ import { AiOutlineDrag } from 'react-icons/ai';
 
 import { AiOutlineTable } from 'react-icons/ai';
 import { AiOutlineFile } from 'react-icons/ai';
-import { AiOutlinePrinter } from 'react-icons/ai';
-import { AiOutlineSelect } from 'react-icons/ai';
-import { AiOutlineBuild } from 'react-icons/ai';
 
 import { AiOutlineDelete } from 'react-icons/ai';
 
 import { AiOutlineClose } from 'react-icons/ai';
-
-import { AiOutlineColumnWidth } from 'react-icons/ai';
 
 import { Tooltip } from 'react-tooltip';
 
@@ -51,27 +46,15 @@ const icon_style_press = {
   backgroundColor: '#f5f5f5',
 };
 
+const IconDump = styled(AiOutlineFile, icon_style);
+const IconUpdate = styled(AiOutlineTable, icon_style);
 const IconReset = styled(AiOutlineRedo, icon_style);
-const IconUpdate = styled(AiOutlineFile, icon_style);
-const IconDump = styled(AiOutlinePrinter, icon_style);
-
-//const IconCellArrowNaviOff = styled(AiOutlineDrag, icon_style);
-//const IconCellArrowNaviOn = styled(AiOutlineDrag, icon_style_press);
-const IconCellArrowNaviOff = styled(AiOutlineSelect, icon_style);
-const IconCellArrowNaviOn = styled(AiOutlineSelect, icon_style_press);
-
-const IconColumnWidthResizeOff = styled(AiOutlineColumnWidth, icon_style);
-const IconColumnWidthResizeOn = styled(AiOutlineColumnWidth, icon_style_press);
-
-const IconCellLineOff = styled(AiOutlineTable, icon_style);
-const IconCellLineOn = styled(AiOutlineTable, icon_style_press);
-
-const IconRowEditOff = styled(AiOutlineBuild, icon_style);
-const IconRowEditOn = styled(AiOutlineBuild, icon_style_press);
-
 const IconLoad = styled(AiOutlineVerticalAlignTop, icon_style);
 const IconSave = styled(AiOutlineVerticalAlignBottom, icon_style);
 const IconRemove = styled(AiOutlineDelete, icon_style);
+
+const IconCellArrowNaviOff = styled(AiOutlineDrag, icon_style);
+const IconCellArrowNaviOn = styled(AiOutlineDrag, icon_style_press);
 
 let focusCell = null;
 
@@ -103,60 +86,61 @@ export function loadTableData(localStorageName): [] {
   return JSON.parse(json);
 }
 
-export function build_skipCellList(data, columns) {
-  let skipCellList_ = [];
+export function build_skipCellList( data, columns ) {
+    let skipCellList_= []
 
-  for (let r = 0; r < data.length; r++) {
-    for (let c = 0; c < columns.length; c++) {
-      if (columns[c].key) {
-        let cell = data[r][columns[c].key];
-        if (typeof cell == 'object') {
-          if (cell['colspan'] && cell['rowspan']) {
-            const rn = r + 1;
-            const cn = c + 1;
-            const rs = Number(cell['rowspan']);
-            const cs = Number(cell['colspan']);
-            //console.log(rn,cn,rs,cs,cell)
-            for (let r_ = rn; r_ < rn + rs; r_++) {
-              for (let c_ = cn; c_ < cn + cs; c_++) {
-                if (!(r_ == rn && c_ == cn)) {
-                  //console.log(r_, c_)
-                  skipCellList_.push([r_, c_]);
-                }
-              }
-            }
-          } else if (cell['colspan']) {
-            const rn = r + 1;
-            const cn = c + 1;
-            const rs = Number(cell['rowspan']);
-            const cs = Number(cell['colspan']);
-            //console.log(rn,cn,rs,cs,cell)
-            let r_ = rn;
-            for (let c_ = cn; c_ < cn + cs; c_++) {
-              if (!(r_ == rn && c_ == cn)) {
-                //console.log(r_, c_)
-                skipCellList_.push([r_, c_]);
-              }
-            }
-          } else if (cell['rowspan']) {
-            const rn = r + 1;
-            const cn = c + 1;
-            const rs = Number(cell['rowspan']);
-            const cs = Number(cell['colspan']);
-            //console.log(rn,cn,rs,cs,cell)
-            for (let r_ = rn; r_ < rn + rs; r_++) {
-              let c_ = cn;
-              if (!(r_ == rn && c_ == cn)) {
-                //console.log(r_, c_)
-                skipCellList_.push([r_, c_]);
-              }
-            }
-          }
-        }
-      }
+    for ( let r = 0; r < data.length ; r++) {
+         for ( let c = 0; c < columns.length ; c++) {
+	   if (columns[c].key) {
+	        let  cell = data[r][columns[c].key]
+                if (typeof(cell) == 'object') {
+		    if ( cell["colspan"] && cell["rowspan"]) {
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     for (let c_ = cn ; c_ < cn + cs; c_++) {
+				 if( !(r_ == rn && c_ == cn) ) {
+				     //console.log(r_, c_)
+                                     skipCellList_.push([r_, c_])
+				  }
+			     }
+			 }
+		    } else  if ( cell["colspan"] ) {
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 let r_ = rn ;
+			     for (let c_ = cn ; c_ < cn + cs; c_++) {
+				 if( !(r_ == rn && c_ == cn) ) {
+				     //console.log(r_, c_)
+                                     skipCellList_.push([r_, c_])
+				  }
+			     }
+		    } else  if ( cell["rowspan"] ) {
+                          const rn = r + 1;
+                          const cn = c + 1;
+			  const rs = Number(cell["rowspan"])
+			  const cs = Number(cell["colspan"])
+                         //console.log(rn,cn,rs,cs,cell)
+			 for (let r_ = rn ; r_ < rn + rs; r_++) {
+			     let c_ = cn;
+				 if( !(r_ == rn && c_ == cn) ) {
+				     //console.log(r_, c_)
+                                     skipCellList_.push([r_, c_])
+				  }
+			 }
+
+		    }
+		}
+	   }
+	 }
     }
-  }
-  return skipCellList_;
+    return skipCellList_;
 }
 
 export function Table<T>({
@@ -176,7 +160,7 @@ export function Table<T>({
   //skipCellList = [],
 }: Props<T>): JSX.Element {
   //let skipCellList = [];
-  //console.log("id",id )
+  // console.log(id, skipCellList)
   let container_height = containerHeight;
   if (!enableScrollY) {
     container_height = '100%';
@@ -202,57 +186,7 @@ export function Table<T>({
     table_width = 'max-content';
   }
 
-  const func_dic_ = {};
-  const embed_dic_ = {};
-/*                                                 // DIC USE
-  if (data) {
-    for (let i = 0; i < data.length; i++) {
-      if (data[i]) {
-        for (const key in data[i]) {
-          if (typeof data[i][key] == 'object') {
-            for (const key2 in data[i][key]) {
-              //console.log(data[i][key][key2] )
-              //console.log(typeof data[i][key][key2] )
-
-              if (typeof data[i][key][key2] == 'function') {  //function
-                // function
-                const func = data[i][key][key2];
-                const name = data[i][key][key2].name;
-
-                func_dic_[name] = func;
-                data[i][key][key2] = name;
-              }
-              if (typeof data[i][key][key2] == 'object') {   //embded
-                // react component
-                if (data[i][key][key2]['$$typeof']) {
-                  if (isValidElement(data[i][key][key2])) {        
-                    const ele = data[i][key][key2];
-                    const name = data[i][key].name;
-
-                    embed_dic_[name] = ele;
-                    data[i][key][key2] = name;
-
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-*/
-  const [func_dic] = useState(func_dic_);
-  const [embed_dic] = useState(embed_dic_);
-
-  /*
- if (Object.keys(func_dic).length > 0 ){
-     console.log(func_dic)
-  }
-*/
   let copyData = [];
-
-/*
   if (data != null) {
     copyData = JSON.parse(JSON.stringify(data));
   } else {
@@ -264,32 +198,18 @@ export function Table<T>({
     data = JSON.parse(JSON.stringify(data_));
     copyData = JSON.parse(JSON.stringify(data));
   }
-*/
 
-  if (data == null || data.length == 0) {
-    let row_data = {};
-    for (let i in columns) {
-      row_data[columns[i].key] = '';
-    }
-    let data_ = [row_data];
-    copyData = data_
-  } else {
-    copyData = data;
-  }
-  
+
   const [edit, setEdit] = useState('plaintext-only');
   const [key, setKey] = useState(false);
   const [key2, setKey2] = useState(false);
   const [dataA, setDataA] = useState(copyData);
   const [checkCol, setCheckCol] = useState(checkColEnable);
   const [cellArrowNavi, setCellArrowNavi] = useState(false);
-  const [columnWidthResize, setColumnWidthResize] = useState(false);
-  const [cellLine, setCellLine] = useState(true);
-  const [rowEdit, setRowEdit] = useState(false);
   //const [focusCell, setFocusCell] = useState(null);
   const [rowNum, setRowNum] = useState(dataA.length);
 
-  const skipCellList = build_skipCellList(dataA, columns);
+  const skipCellList = build_skipCellList( dataA, columns )
 
   function arraymove(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
@@ -320,9 +240,7 @@ export function Table<T>({
       return;
     }
     arraymove(dataA, Number(index), Number(index) - 1);
-    //setDataA(JSON.parse(JSON.stringify(dataA)));
-    //setDataA(dataA);
-    setKey(!key);
+    setDataA(JSON.parse(JSON.stringify(dataA)));
   };
 
   const handleRowDown = (index) => {
@@ -332,21 +250,16 @@ export function Table<T>({
       return;
     }
     arraymove(dataA, Number(index), Number(index) + 1);
-    //setDataA(JSON.parse(JSON.stringify(dataA)));
-    //setDataA(dataA);
-    setKey(!key);
+    setDataA(JSON.parse(JSON.stringify(dataA)));
   };
 
   const handleRowDelete = (index) => {
     dataA.splice(Number(index), 1);
-    //setDataA(JSON.parse(JSON.stringify(dataA)));
-    //setDataA(dataA);
-    setKey(!key);
+    setDataA(JSON.parse(JSON.stringify(dataA)));
   };
 
-  const handleChange = (id) => {
-    //console.log("change", id);
-    cell_update(id);
+  const handleChange = () => {
+    update();
   };
 
   const handleCheck = (index, e) => {
@@ -363,23 +276,10 @@ export function Table<T>({
   };
 
   const dump = () => {
-    console.dir(dataA);
+    console.dir( dataA);
   };
-
   const cellArrowNaviToggle = () => {
     setCellArrowNavi(!cellArrowNavi);
-  };
-
-  const columnWidthResizeToggle = () => {
-    setColumnWidthResize(!columnWidthResize);
-  };
-
-  const cellLineToggle = () => {
-    setCellLine(!cellLine);
-  };
-
-  const rowEditToggle = () => {
-    setRowEdit(!rowEdit);
   };
 
   const handleMouseEnter = () => {
@@ -394,48 +294,16 @@ export function Table<T>({
     }
   };
   const updateData = (row, colname, text) => {
-	  /*
     if (dataA[row][colname] != text) {
       const rowData = JSON.parse(JSON.stringify(dataA[row]));
       rowData[colname] = text;
       dataA[row] = rowData;
-      //console.log('updateData', row, colname, text);
     }
-   */
-  /*
-    if (dataA[row][colname] != text) {
-      //const rowData = dataA[row];
-      //rowData[colname] = text;
-      //dataA[row] = rowData;
-      dataA[row][colname] = text;
-      console.log('updateData', row, colname, text);
-    }
-   */
-    if (typeof dataA[row][colname] === 'object' ) {
-         dataA[row][colname].value = text;
-    } else if (typeof dataA[row][colname] === 'string' ) {
-         dataA[row][colname] = text;
-    } else {
-          console.log("cell type of unknown!!!");
-    }
-
-  };
-
-  const cell_update = (cellid) => {
-    console.log('cell_update', cellid);
-    const idp = cellid.split('_')
-    const rown = Number(idp[1]) -1
-    const coln = Number(idp[2]) -1
-    const table = document.querySelector('#' + id);
-    const td = table.querySelector("#"+cellid);
-    updateData(rown, columns[coln].key, td.textContent);
   };
 
   const update = () => {
-    console.log('update', id);
     const table_coln = columns.length;
     const table_rown = dataA.length;
-    console.log('id', id);
     const table = document.querySelector('#' + id);
     const tds = table.querySelectorAll('.tableCell');
     for (let i = 0; i < tds.length; i++) {
@@ -513,24 +381,6 @@ export function Table<T>({
   const TableContainerElement = useRef(null);
   const TableElement = useRef(null);
 
-  //let tableHeight = 100;
-  const [tableHeight, set_tableHeight] = useState(100);
-  const [checkHeaderWidth, set_checkHeaderWidth] = useState(31);
-  useEffect(() => {
-    if (TableElement['current']) {
-      //console.log(TableElement['current'].scrollHeight);
-      set_tableHeight(TableElement['current'].scrollHeight);
-      const thc_ele = TableElement['current'].querySelector('#thc');
-      //console.log(thc_ele);
-      if (thc_ele != null) {
-        const width = thc_ele.getBoundingClientRect().width;
-        set_checkHeaderWidth(width);
-      }
-      //setKey(!key)
-    }
-    //}, []);
-  }, [dataA]);
-
   useEffect(() => {
     if (TableContainerElement['current']) {
       const ele = TableContainerElement['current'];
@@ -586,10 +436,10 @@ export function Table<T>({
     //console.log("new_id", new_id)
     const ele = TableContainerElement['current'].querySelector('#' + new_id);
     if (ele) {
-      ele.focus();
+       ele.focus();
     } else {
-      focusCell = new_id;
-      focusChange(key_name);
+       focusCell = new_id;
+       focusChange(key_name);
     }
     return;
   };
@@ -641,8 +491,7 @@ export function Table<T>({
   }, [scrollY]);
 */
 
-  const fixStyle = {
-    //PENDING
+  const fixStyle = {                                    //PENDING
     position: 'sticky',
     top: '0px',
     zIndex: 1000,
@@ -652,10 +501,11 @@ export function Table<T>({
     //boxShadow: "0 20px 20px -20px #000000 inset;", //上
     //boxShadow: "0 -20px 20px -20px #000000 inset;",  //下
     //boxShadow: "0 -3px 3px -3px #000000 inset;",  //下
-    boxShadow: '0 -1px inset gray;', //下
+    boxShadow: "0 -1px inset gray;", //下
+
   };
 
-  const headerStyleFix = { ...headerStyle, ...fixStyle }; // PENDING
+  const headerStyleFix = { ...headerStyle, ...fixStyle };       // PENDING
   //const headerStyleFix = { ...headerStyle,  };
   const tooltipStyle = {
     //backgroundColor: "#696969",
@@ -667,106 +517,107 @@ export function Table<T>({
     padding: '0px',
   };
 
-  const ResizeX = styled('div', {
-    position: 'absolute',
-    //position: 'fixed',
-    top: 0,
-    left: 0,
-    //width: '7px',
-    width: '3px',
-    //height: '100%',
-    //background: "transparent",
-    background: '#1E90FF',
-    cursor: 'col-resize',
-    zIndex: '100000',
-  });
+  const ResizeY = styled('div',
+              {
+                 position: "absolute",
+                 //position: "relative",
+                 top: 0,
+                 left: 0,
+                 width: "7px",
+                 height: "100%",
+                 //background: "transparent",
+                 background: "#1E90FF",
+                 cursor: "col-resize",
+                 zIndex: "100000",
+             });
 
-  const [x_cursorStart, set_x_cursorStart] = useState(0);
-  const [x_dragStart, set_x_dragStart] = useState(false);
+  //const mouseMove_handle = () => {console.log("move");}
+  //const mouseUp_handle   = () => {console.log("up");}
+  /*************************************************************************/
+  /*
+  let y_cursorStart = 0;
+  let y_dragStart = false;
+  let resizeCol_index = -1;    
+*/
+  const [y_cursorStart,   set_y_cursorStart ]  = useState(0);
+  const [y_dragStart,     set_y_dragStart]     = useState(false);
   const [resizeCol_index, set_resizeCol_index] = useState(-1);
 
-  const f1 = (e) => mouseMove_x(e, id);
-  const f2 = (e) => mouseUp_x(e, id);
-  const f3 = (e) => document_mouseUp_x(e, id);
+  const f1 = (e) => mouseMove_y(e,id) ;
+  const f2 = (e) => mouseUp_y(e,id) ;
 
-  function mouseDown_x(event, index) {
-    //console.log('mouseDown_x', id, index);
-    event.stopPropagation();
-    event.preventDefault();
+  function mouseDown_y(event,index) {
+       console.log("mouseDown_y", id , index);
+       event.stopPropagation()
+       event.preventDefault()
 
-    set_x_cursorStart(event.clientX);
-    set_resizeCol_index(index);
-    set_x_dragStart(true);
-    document.addEventListener('mouseup', f3, { once: true });
+       //y_cursorStart =  event.pageX; // 注意!! resize-yであれば  pageX
+       set_y_cursorStart ( event.clientX); 
+       //y_cursorStart =  event.offsetX; // 注意!! resize-yであれば  pageX
+       //y_cursorStart =  event.screenX; // 注意!! resize-yであれば  pageX
+
+       set_resizeCol_index( index );    
+       set_y_dragStart( true );
+      
+       //document.body.addEventListener("mousemove", f1 );
+       //document.body.addEventListener("mouseup",  f2 );
+
   }
-  function mouseMove_x(event, id_) {
-    //if (id != id_) return;
-    if (id != id_) {
-      console.log('NG');
-      return;
-    }
-    if (!x_dragStart) return;
-    event.stopPropagation();
-    event.preventDefault();
-    let cursorPosition = event.clientX;
+  function mouseMove_y( event, id_) {
+       //if (id != id_) return;
+       if (id != id_) { console.log("NG");return; }
+       if (!y_dragStart ) return;
+       event.stopPropagation()
+       event.preventDefault()
+       //let cursorPosition = event.pageX; // 注意!!  resize-yであれば  pageX
+       let cursorPosition = event.clientX; // 注意!!  resize-yであれば  pageX
+       //let cursorPosition = event.offsetX; // 注意!!  resize-yであれば  pageX
+       //let cursorPosition = event.screenX; // 注意!!  resize-yであれば  pageX
 
-    let mouseMoved = cursorPosition - x_cursorStart;
-    set_x_cursorStart(cursorPosition);
-    //console.log('mouseMove_x', id_, resizeCol_index, mouseMoved);
+       let mouseMoved = cursorPosition - y_cursorStart;
+       set_y_cursorStart( cursorPosition );
+       console.log("mouseMove_y", id_ , resizeCol_index , mouseMoved);
+       //console.log("mouseMove_y", id_ , resizeCol_index , y_cursorStart, cursorPosition, mouseMoved);
 
-    if (resizeCol_index >= 0) {
-      columns[resizeCol_index].width += mouseMoved;
-      setKey2(!key2);
-      //setKey(!key);
-    }
+      if (resizeCol_index >= 0) {
+          //console.log(columns[resizeCol_index].width);
+          columns[resizeCol_index].width += mouseMoved ;
+          //console.log(columns[resizeCol_index].width);
+          //console.log(">", columns[resizeCol_index].width);
+          //setKey(!key);
+          setKey2(!key2);
+      }
+
   }
-  function mouseUp_x(event, id_) {
-    if (id != id_) {
-      console.log('NG');
-      return;
-    }
-    if (!x_dragStart) return;
-    event.stopPropagation();
-    event.preventDefault();
-    //console.log('mouseUp_x', id_, resizeCol_index);
-    let cursorPosition = event.clientX;
+  function mouseUp_y( event, id_) {
+       console.log("mouseUp_y", id_ , resizeCol_index );
+       if (id != id_) { console.log("NG");return; }
+       event.stopPropagation()
+       event.preventDefault()
+       console.log("mouseUp_y", id_ , resizeCol_index );
+       //let cursorPosition = event.pageX; // 注意!!  resize-yであれば  pageX
+       let cursorPosition = event.clientX; // 注意!!  resize-yであれば  pageX
 
-    let mouseMoved = cursorPosition - x_cursorStart;
-    set_x_cursorStart(cursorPosition);
+       let mouseMoved = cursorPosition - y_cursorStart;
+       set_y_cursorStart( cursorPosition );
+       //console.log("mouseMove_y", id_ , resizeCol_index , mouseMoved);
+       //console.log("mouseMove_y", id_ , resizeCol_index , y_cursorStart, cursorPosition, mouseMoved);
 
-    if (resizeCol_index >= 0) {
-      columns[resizeCol_index].width += mouseMoved;
-      setKey2(!key2);
-      //setKey(!key);
-    }
-    set_x_dragStart(false);
+      if (resizeCol_index >= 0) {
+          //console.log(columns[resizeCol_index].width);
+          columns[resizeCol_index].width += mouseMoved ;
+          //console.log(columns[resizeCol_index].width);
+          //console.log(">", columns[resizeCol_index].width);
+          //setKey(!key);
+          setKey2(!key2);
+      }
+
+       set_y_dragStart( false );
+       //resizeCol_index = -1;    
+       //document.body.removeEventListener("mousemove", f1 );
+       //document.body.removeEventListener("mouseup",  f2 );
   }
 
-  function document_mouseUp_x(event, id_) {
-    //console.log('document_mouseUp_x', id_, resizeCol_index);
-    if (id != id_) {
-      console.log('NG');
-      return;
-    }
-    if (!x_dragStart) return;
-    event.stopPropagation();
-    event.preventDefault();
-    set_x_dragStart(false);
-    return;
-
-    //console.log('mouseUp_x', id_, resizeCol_index);
-    let cursorPosition = event.clientX;
-
-    let mouseMoved = cursorPosition - x_cursorStart;
-    set_x_cursorStart(cursorPosition);
-
-    if (resizeCol_index >= 0) {
-      columns[resizeCol_index].width += mouseMoved;
-      setKey2(!key2);
-      //setKey(!key);
-    }
-    set_x_dragStart(false);
-  }
 
   return (
     <>
@@ -800,7 +651,6 @@ export function Table<T>({
             <Tooltip id='update' style={tooltipStyle} />
             <IconDump onClick={() => dump()} data-tooltip-id='dump' data-tooltip-content='Dump' />
             <Tooltip id='dump' style={tooltipStyle} />
-            &nbsp; &nbsp;
             {cellArrowNavi ? (
               <IconCellArrowNaviOn
                 onClick={() => cellArrowNaviToggle()}
@@ -815,48 +665,6 @@ export function Table<T>({
               />
             )}
             <Tooltip id='arrow' style={tooltipStyle} />
-            {columnWidthResize ? (
-              <IconColumnWidthResizeOn
-                onClick={() => columnWidthResizeToggle()}
-                data-tooltip-id='colResize'
-                data-tooltip-content='Col Width Resize'
-              />
-            ) : (
-              <IconColumnWidthResizeOff
-                onClick={() => columnWidthResizeToggle()}
-                data-tooltip-id='colResize'
-                data-tooltip-content='Col Width Resize'
-              />
-            )}
-            <Tooltip id='colResize' style={tooltipStyle} />
-            {cellLine ? (
-              <IconCellLineOn
-                onClick={() => cellLineToggle()}
-                data-tooltip-id='cellLine'
-                data-tooltip-content='Cell Line'
-              />
-            ) : (
-              <IconCellLineOff
-                onClick={() => cellLineToggle()}
-                data-tooltip-id='cellLine'
-                data-tooltip-content='Cell Line'
-              />
-            )}
-            <Tooltip id='cellLine' style={tooltipStyle} />
-            {rowEdit ? (
-              <IconRowEditOn
-                onClick={() => rowEditToggle()}
-                data-tooltip-id='rowEdit'
-                data-tooltip-content='Row Edit'
-              />
-            ) : (
-              <IconRowEditOff
-                onClick={() => rowEditToggle()}
-                data-tooltip-id='rowEdit'
-                data-tooltip-content='Row Edit'
-              />
-            )}
-            <Tooltip id='rowEdit' style={tooltipStyle} />
           </div>
           <div>
             <label
@@ -893,36 +701,23 @@ export function Table<T>({
           </div>
         </div>
 
-        <TableContainer
-          ref={TableContainerElement}
-          onKeyDown={handleKeyDown}
-          onMouseEnter={handleMouseEnter}
-          onMouseUp={f2}
-        >
-          <TableWrapper
-            ref={TableElement}
-            id={id}
-            key={key}
-            onMouseMove={f1}
-            //onMouseUp={f2}
-          >
+        <TableContainer ref={TableContainerElement} onKeyDown={handleKeyDown} 
+	   onMouseEnter={handleMouseEnter}
+           onMouseUp={f2}
+	>
+          <TableWrapper id={id} key={key}
+           onMouseMove={f1}
+           //onMouseUp={f2}
+
+	  >
             <thead>
-              <TableHeader
-                key={key2}
-                columns={columns}
-                rowEdit={rowEdit}
-                style={scrollY ? headerStyleFix : ''}
-                checkCol={checkCol}
-              />
+              <TableHeader key={key2} columns={columns} style={scrollY? headerStyleFix: ""} checkCol={checkCol} />
             </thead>
-            <tbody
-            //ref={TableElement}
-            >
+            <tbody ref={TableElement}>
               <TableRow
                 data={dataA}
                 columns={columns}
                 edit={edit}
-                rowEdit={rowEdit}
                 handleAdd={handleRowAdd}
                 handleUp={handleRowUp}
                 handleDown={handleRowDown}
@@ -933,34 +728,23 @@ export function Table<T>({
                 rowStyle={rowStyle}
                 cellStyle={cellStyle}
                 checkCol={checkCol}
-                skipCellList={skipCellList}
-                cellLine={cellLine}
-                func_dic={func_dic}
-                embed_dic={embed_dic}
+		skipCellList={skipCellList}
               />
             </tbody>
           </TableWrapper>
-          {columnWidthResize &&
-            columns.map((column, columnIndex) => {
-              //console.log("columnIndex", columnIndex);
-              let left = 0;
-              for (let i = 0; i <= columnIndex; i++) {
-                //left = left + Number(columns[i].width) + 0.5;
-                left = left + Number(columns[i].width) + 1;
-              }
-              if (checkColEnable) {
-                left = left + checkHeaderWidth;
-              } else {
-                left = left - 1;
-              }
-              return (
-                <ResizeX
-                  key={columnIndex}
-                  onMouseDown={(e) => mouseDown_x(e, columnIndex)}
-                  style={{ left: `${left}px`, height: `${tableHeight}px` }}
-                />
-              );
-            })}
+	  
+             {columns.map((column, columnIndex) => {
+		     //console.log("columnIndex", columnIndex);
+                     let left = 0;
+                     for ( let i = 0 ; i <= columnIndex; i++) {
+                            left = left +Number(columns[i].width)
+		     }
+		     if (checkColEnable) { left = left + 32; }
+	            return  (
+                            <ResizeY key={columnIndex} onMouseDown={(e) => mouseDown_y(e, columnIndex) } style={{ left: `${left}px`}} />
+                      )}
+	     )}
+
         </TableContainer>
       </div>
     </>

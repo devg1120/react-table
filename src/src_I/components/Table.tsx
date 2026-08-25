@@ -344,9 +344,8 @@ export function Table<T>({
     setKey(!key);
   };
 
-  const handleChange = (id) => {
-    //console.log("change", id);
-    cell_update(id);
+  const handleChange = () => {
+    update();
   };
 
   const handleCheck = (index, e) => {
@@ -402,37 +401,16 @@ export function Table<T>({
       //console.log('updateData', row, colname, text);
     }
    */
-  /*
     if (dataA[row][colname] != text) {
-      //const rowData = dataA[row];
-      //rowData[colname] = text;
-      //dataA[row] = rowData;
-      dataA[row][colname] = text;
-      console.log('updateData', row, colname, text);
+      const rowData = dataA[row];
+      rowData[colname] = text;
+      dataA[row] = rowData;
+      //console.log('updateData', row, colname, text);
     }
-   */
-    if (typeof dataA[row][colname] === 'object' ) {
-         dataA[row][colname].value = text;
-    } else if (typeof dataA[row][colname] === 'string' ) {
-         dataA[row][colname] = text;
-    } else {
-          console.log("cell type of unknown!!!");
-    }
-
-  };
-
-  const cell_update = (cellid) => {
-    console.log('cell_update', cellid);
-    const idp = cellid.split('_')
-    const rown = Number(idp[1]) -1
-    const coln = Number(idp[2]) -1
-    const table = document.querySelector('#' + id);
-    const td = table.querySelector("#"+cellid);
-    updateData(rown, columns[coln].key, td.textContent);
   };
 
   const update = () => {
-    console.log('update', id);
+    console.log('update');
     const table_coln = columns.length;
     const table_rown = dataA.length;
     console.log('id', id);

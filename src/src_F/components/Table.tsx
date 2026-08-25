@@ -204,7 +204,7 @@ export function Table<T>({
 
   const func_dic_ = {};
   const embed_dic_ = {};
-/*                                                 // DIC USE
+
   if (data) {
     for (let i = 0; i < data.length; i++) {
       if (data[i]) {
@@ -214,24 +214,27 @@ export function Table<T>({
               //console.log(data[i][key][key2] )
               //console.log(typeof data[i][key][key2] )
 
-              if (typeof data[i][key][key2] == 'function') {  //function
+              if (typeof data[i][key][key2] == 'function') {
                 // function
                 const func = data[i][key][key2];
                 const name = data[i][key][key2].name;
-
+                //console.log(name, func);
+                //console.log(key,key2,  data[i][key][key2].name);
                 func_dic_[name] = func;
                 data[i][key][key2] = name;
               }
-              if (typeof data[i][key][key2] == 'object') {   //embded
+              if (typeof data[i][key][key2] == 'object') {
                 // react component
                 if (data[i][key][key2]['$$typeof']) {
-                  if (isValidElement(data[i][key][key2])) {        
+                  //console.log(data[i][key][key2] )
+                  //console.log("************");
+                  //console.log(isValidElement(data[i][key][key2]));
+                  if (isValidElement(data[i][key][key2])) {
                     const ele = data[i][key][key2];
                     const name = data[i][key].name;
-
-                    embed_dic_[name] = ele;
                     data[i][key][key2] = name;
-
+                    console.log('embed', name);
+                    embed_dic_[name] = ele;
                   }
                 }
               }
@@ -241,7 +244,7 @@ export function Table<T>({
       }
     }
   }
-*/
+
   const [func_dic] = useState(func_dic_);
   const [embed_dic] = useState(embed_dic_);
 
@@ -251,8 +254,6 @@ export function Table<T>({
   }
 */
   let copyData = [];
-
-/*
   if (data != null) {
     copyData = JSON.parse(JSON.stringify(data));
   } else {
@@ -264,19 +265,7 @@ export function Table<T>({
     data = JSON.parse(JSON.stringify(data_));
     copyData = JSON.parse(JSON.stringify(data));
   }
-*/
 
-  if (data == null || data.length == 0) {
-    let row_data = {};
-    for (let i in columns) {
-      row_data[columns[i].key] = '';
-    }
-    let data_ = [row_data];
-    copyData = data_
-  } else {
-    copyData = data;
-  }
-  
   const [edit, setEdit] = useState('plaintext-only');
   const [key, setKey] = useState(false);
   const [key2, setKey2] = useState(false);
@@ -320,9 +309,7 @@ export function Table<T>({
       return;
     }
     arraymove(dataA, Number(index), Number(index) - 1);
-    //setDataA(JSON.parse(JSON.stringify(dataA)));
-    //setDataA(dataA);
-    setKey(!key);
+    setDataA(JSON.parse(JSON.stringify(dataA)));
   };
 
   const handleRowDown = (index) => {
@@ -332,21 +319,16 @@ export function Table<T>({
       return;
     }
     arraymove(dataA, Number(index), Number(index) + 1);
-    //setDataA(JSON.parse(JSON.stringify(dataA)));
-    //setDataA(dataA);
-    setKey(!key);
+    setDataA(JSON.parse(JSON.stringify(dataA)));
   };
 
   const handleRowDelete = (index) => {
     dataA.splice(Number(index), 1);
-    //setDataA(JSON.parse(JSON.stringify(dataA)));
-    //setDataA(dataA);
-    setKey(!key);
+    setDataA(JSON.parse(JSON.stringify(dataA)));
   };
 
-  const handleChange = (id) => {
-    //console.log("change", id);
-    cell_update(id);
+  const handleChange = () => {
+    update();
   };
 
   const handleCheck = (index, e) => {
@@ -394,45 +376,16 @@ export function Table<T>({
     }
   };
   const updateData = (row, colname, text) => {
-	  /*
     if (dataA[row][colname] != text) {
       const rowData = JSON.parse(JSON.stringify(dataA[row]));
       rowData[colname] = text;
       dataA[row] = rowData;
       //console.log('updateData', row, colname, text);
     }
-   */
-  /*
-    if (dataA[row][colname] != text) {
-      //const rowData = dataA[row];
-      //rowData[colname] = text;
-      //dataA[row] = rowData;
-      dataA[row][colname] = text;
-      console.log('updateData', row, colname, text);
-    }
-   */
-    if (typeof dataA[row][colname] === 'object' ) {
-         dataA[row][colname].value = text;
-    } else if (typeof dataA[row][colname] === 'string' ) {
-         dataA[row][colname] = text;
-    } else {
-          console.log("cell type of unknown!!!");
-    }
-
-  };
-
-  const cell_update = (cellid) => {
-    console.log('cell_update', cellid);
-    const idp = cellid.split('_')
-    const rown = Number(idp[1]) -1
-    const coln = Number(idp[2]) -1
-    const table = document.querySelector('#' + id);
-    const td = table.querySelector("#"+cellid);
-    updateData(rown, columns[coln].key, td.textContent);
   };
 
   const update = () => {
-    console.log('update', id);
+    console.log('update');
     const table_coln = columns.length;
     const table_rown = dataA.length;
     console.log('id', id);
@@ -717,7 +670,6 @@ export function Table<T>({
     if (resizeCol_index >= 0) {
       columns[resizeCol_index].width += mouseMoved;
       setKey2(!key2);
-      //setKey(!key);
     }
   }
   function mouseUp_x(event, id_) {
@@ -737,13 +689,12 @@ export function Table<T>({
     if (resizeCol_index >= 0) {
       columns[resizeCol_index].width += mouseMoved;
       setKey2(!key2);
-      //setKey(!key);
     }
     set_x_dragStart(false);
   }
 
   function document_mouseUp_x(event, id_) {
-    //console.log('document_mouseUp_x', id_, resizeCol_index);
+    console.log('document_mouseUp_x', id_, resizeCol_index);
     if (id != id_) {
       console.log('NG');
       return;
@@ -763,7 +714,6 @@ export function Table<T>({
     if (resizeCol_index >= 0) {
       columns[resizeCol_index].width += mouseMoved;
       setKey2(!key2);
-      //setKey(!key);
     }
     set_x_dragStart(false);
   }

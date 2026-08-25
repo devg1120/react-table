@@ -29,7 +29,7 @@ const Case8 = (props) => {
     { key: 'G', title: 'G', width: 100 },
   ];
   const data_test = data_build(columns_test, 45);
-  //console.log(data_test);
+  console.log(data_test);
   function render(column, item) {
     return 'OK';
   }

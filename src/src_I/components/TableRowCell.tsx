@@ -304,7 +304,7 @@ if ( type === 'html' ) {
       className='tableCell'
       contentEditable={contentEditable}
       suppressContentEditableWarning={true}
-      onInput={() => handleChange(id)}
+      onInput={handleChange}
       onFocus={onFocus}
       //{ colspan ? `colspan="${colspan_num}"`  :""}
       //{ rowspan ? `rowspan="${rowspan_num}"`  :""}
