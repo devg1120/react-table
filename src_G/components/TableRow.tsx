@@ -113,15 +113,13 @@ export function TableRow<T>({
   func_dic = {},
   embed_dic = {},
 }: Props<T>): JSX.Element {
-
-/*
   if (Object.keys(func_dic).length > 0) {
     console.log(func_dic);
   }
   if (Object.keys(embed_dic).length > 0) {
     console.log(embed_dic);
   }
-*/
+
   const cellLine_style = cellLine ? {} : { border: '' };
 
   const TableRowItem = styled('tr', { ...default_style_row, ...rowStyle });

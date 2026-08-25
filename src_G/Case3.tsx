@@ -1,8 +1,8 @@
 import { Table, loadTableData, IColumnType } from './components';
 
-const Case1 = (props) => {
-  const id = 'ASTable1';
-  const localStorageName = 'table_data1';
+const Case3 = (props) => {
+  const id = 'ASTable3';
+  const localStorageName = 'table_data3';
 
   const columns: IColumnType<IData>[] = [
     {
@@ -21,10 +21,10 @@ const Case1 = (props) => {
       width: 150,
     },
   ];
-
+  /*
   const data: IData[] = [
     {
-      fullName: 'Francisco Mendes',
+      fullName: 'Francisco GUSA2',
       role: 'Full Stack',
       tags: 'dev',
       row_style: {
@@ -70,38 +70,10 @@ const Case1 = (props) => {
       tags: 'designer3',
     },
   ];
-
-  const tableStyle = {
-    border: 'solid red 3px',
-  };
-
-  const headerStyle = {
-    backgroundColor: 'yellow',
-    height: '70px',
-  };
-
-  const rowStyle = {
-    backgroundColor: 'white',
-    //"&:nth-child(odd)": {
-    '&:nth-child(even)': {
-      backgroundColor: '#e0e0e0',
-    },
-  };
-
-  const cellStyle = {
-    fontFamily: 'monospace',
-    fontSize: 14,
-    padding: 6,
-    textAlign: 'center',
-  };
-/*
-  let data_ = loadTableData(localStorageName);
-  if (data_ == null) {
-    data_ = data;
-  }
 */
 
-  /*
+  let data_ = loadTableData(localStorageName);
+
   const tableStyle = {
     border: 'solid red 3px',
   };
@@ -125,18 +97,16 @@ const Case1 = (props) => {
     padding: 6,
     textAlign: 'center',
   };
-  */
   return (
     <Table
       id={id}
-      data={data}
+      data={data_}
       columns={columns}
       localStorageName={localStorageName}
-      tableStyle={tableStyle}
-      cellStyle={cellStyle}
-      checkColEnable={true}
-      enableScrollY={false}
+      rowStyle={rowStyle}
+      headerStyle={headerStyle}
+      checkColEnable={false}
     />
   );
 };
-export default Case1;
+export default Case3;

@@ -53,7 +53,7 @@ const check_fixed__style = {
   zIndex: 8999,
   borderLeft: 'solid 1px gray',
   borderRight: 'solid 1px gray',
-  /*
+/*
   boxShadow: "-1px 0px 1px 0px gray inset;",
 
   boxShadow: "10px 0 inset;", //左
@@ -97,7 +97,6 @@ export function TableRow<T>({
   data,
   columns,
   edit,
-  rowEdit = false,
   handleAdd,
   handleUp,
   handleDown,
@@ -108,62 +107,21 @@ export function TableRow<T>({
   rowStyle = {},
   cellStyle = {},
   checkCol = false,
-  skipCellList = [],
-  cellLine = true,
-  func_dic = {},
-  embed_dic = {},
+  skipCellList = []
 }: Props<T>): JSX.Element {
-
-/*
-  if (Object.keys(func_dic).length > 0) {
-    console.log(func_dic);
-  }
-  if (Object.keys(embed_dic).length > 0) {
-    console.log(embed_dic);
-  }
-*/
-  const cellLine_style = cellLine ? {} : { border: '' };
-
   const TableRowItem = styled('tr', { ...default_style_row, ...rowStyle });
-  const TableRowCheck = styled('td', {
-    ...default_style_button,
-    ...cellStyle,
-    ...check_fixed__style,
-    ...cellLine_style,
-  });
+  const TableRowCheck = styled('td', { ...default_style_button, ...cellStyle, ...check_fixed__style });
   const TableRowButton = styled('td', {
     ...default_style_button,
     ...button_fixed__style,
-    ...cellLine_style,
     //...cellStyle,
   });
-  const TableRowTail = styled('td', {
-    ...default_style_button,
-    ...button_fixed__style,
-    ...cellLine_style,
-    //...cellStyle,
-  });
-
-  //console.log(skipCellList);
+  console.log(skipCellList);
   function isChecked(index) {
     if ('_check' in data[index]) {
       return data[index]._check;
     }
     return false;
-  }
-
-  function isSkip(rowIndex, colIndex) {
-    for (let i = 0; i < skipCellList.length; i++) {
-      let cell = skipCellList[i];
-      if (cell[0] == rowIndex + 1 && cell[1] == colIndex + 1) {
-        return true;
-      }
-      return false;
-    }
-  }
-  function onClickRow() {
-    alert('onClickRow');
-    console.log(func_dic);
   }
   return (
     <>
@@ -185,22 +143,16 @@ export function TableRow<T>({
               handleChange={handleChange}
               handleFocus={handleFocus}
               style={cellStyle}
-              skipCellList={skipCellList}
-              cellLine={cellLine}
-              func_dic={func_dic}
-              embed_dic={embed_dic}
-              func={onClickRow}
             />
           ))}
-          {rowEdit ? (
-            <TableRowButton>
-              {/*
+          <TableRowButton>
+            {/*
 	    <button onClick={() => handleAdd(itemIndex)} >□</button>
 	    <button onClick={() => handleUp(itemIndex)} >↑</button>
 	    <button onClick={() => handleDown(itemIndex)} >↓</button>
 	    <button onClick={() => handleDelete(itemIndex)} >×</button>
 	    */}
-              {/*
+            {/*
             <IconPlus onClick={() => handleAdd(itemIndex)} data-tooltip-id={'add'} data-tooltip-content='Insert' />
             <Tooltip id={'add'} style={tooltipStyle} />
             <IconUp onClick={() => handleUp(itemIndex)} data-tooltip-id='up' data-tooltip-content='Up' />
@@ -214,14 +166,11 @@ export function TableRow<T>({
             />{' '}
             <Tooltip id='delete' style={tooltipStyle} />
 	    */}
-              <IconPlus onClick={() => handleAdd(itemIndex)} />
-              <IconUp onClick={() => handleUp(itemIndex)} />
-              <IconDown onClick={() => handleDown(itemIndex)} />
-              <IconClose onClick={() => handleDelete(itemIndex)} />
-            </TableRowButton>
-          ) : (
-            <TableRowTail>&ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;</TableRowTail>
-          )}
+            <IconPlus onClick={() => handleAdd(itemIndex)} />
+            <IconUp onClick={() => handleUp(itemIndex)} />
+            <IconDown onClick={() => handleDown(itemIndex)} />
+            <IconClose onClick={() => handleDelete(itemIndex)} />
+          </TableRowButton>
         </TableRowItem>
       ))}
     </>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { styled } from '@stitches/react';
-//import get from 'lodash.get';
+import get from 'lodash.get';
 import { IColumnType } from './Table';
 
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
@@ -105,8 +105,7 @@ export function TableRowCell<T>({
     //console.log(skipCellList);
   }
   const [contentEditable, setrCcontentEditable] = useState(edit);
-  //const data = get(item, column.key);
-  const data = item[column.key]
+  const data = get(item, column.key);
   let value = '';
   let cell_style = {};
   let colspan = false;
@@ -271,16 +270,18 @@ function renderGraph() {
 
   function renderHtml() {
     let html = value;
-    //if (html === 'button') return <button onClick={() => func_dic[data.handler]()}>{data.label}</button>;  //DIC USE
-    if (html === 'button') return <button onClick={() => data.handler()}>{data.label}</button>;
-
+    //if (html === 'button') return <button onClick={data.handler} >{data.label}</button>;
+    //if (html === 'button') return <button onClick={onClick(fdic)} >{data.label}</button>;
+    //if (html === 'button') return <button onClick={() => onClick()} >{data.label}</button>;
+    if (html === 'button') return <button onClick={() => func_dic[data.handler]()}>{data.label}</button>;
     if (html === 'checkbox') return <input type='checkbox' id='scales' name='scales' />;
     return <label>{`not support: ${html}`}</label>;
   }
 
   function renderEmbed() {
-    //return embed_dic[data.name];  //DIC USE
-    return data.element
+    //return <label>Embed</label>;
+    //console.log(data.name, embed_dic[data.name]);
+    return embed_dic[data.name];
   }
 
   /*

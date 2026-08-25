@@ -15,7 +15,6 @@
     "@fontsource/anek-telugu": "^4.5.2",
     "@recharts/devtools": "^0.0.16",
     "@stitches/react": "^1.2.8",
-    "lodash.get": "^4.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.7.0",
