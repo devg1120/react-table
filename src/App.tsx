@@ -7,6 +7,7 @@ import * as LocalEx from '../rechart/local';
 
 import Case1 from './Case1';
 import Case2 from './Case2';
+import Case21 from './Case21';
 import Case3 from './Case3';
 import Case4 from './Case4';
 import Case5 from './Case5';
@@ -263,6 +264,11 @@ export const App = () => {
       <h2> TABLE 2 </h2>
       <Session>
         <Case2 name='CASE 2' />
+      </Session>
+
+      <h2> TABLE 21 </h2>
+      <Session>
+        <Case21 name='CASE 21' />
       </Session>
 
       <h2> TABLE 3 not storage</h2>
