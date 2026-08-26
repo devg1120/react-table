@@ -203,6 +203,11 @@ export function TableRowCell<T>({
     console.log(v)
     data.cv = v;
   }
+  function select_change(v) {
+    //alert(v)
+    console.log(v)
+    data.cv = v;
+  }
 
   function cap(str) {
 	if (typeof str !== 'string' || !str) return str;
@@ -274,6 +279,33 @@ export function TableRowCell<T>({
        </>
       );
 */
+    if (html === 'selectmenu')
+      return (
+       <>
+      <div>
+        <select defaultValue={data.cv} onChange={(e) => select_change(e.target.value)}>
+           {data.menu.map((entry, index) =>
+              <option key={index} value={entry.value}>{entry.name}</option>
+           )}
+        </select>
+      </div>
+       </>
+      );
+/*
+    if (html === 'selectmenu')
+      return (
+       <>
+      <div>
+        <select defaultValue={data.cv} onChange={(e) => select_change(e.target.value)}>
+          <option value='apple'>りんご</option>
+          <option value='orange'>みかん</option>
+          <option value='banana'>バナナ</option>
+        </select>
+      </div>
+       </>
+      );
+*/
+
     return <label>{`not support: ${html}`}</label>;
   }
 

@@ -220,6 +220,18 @@ const Case21 = (props) => {
     tags: { type: 'html', value: 'radio', cv: 'huey', name:'droen' ,label:"radio sel", 
 	        menu: ['huey', 'dewey', 'louie'] },
   };
+  const data_a2 = {
+    fullName: { type: 'html', value: 'selectmenu', label: "html", cv: "apple", 
+	          menu: [
+			  {value:'apple' , name: "りんご"},
+                    	  {value:'orange', name: "みかん"},
+                    	  {value:'banana', name: "バナナ"},
+
+                       ]
+                 },
+    role: "",
+    tags:"",
+  };
 
   const data_b = {
     //fullName: { type: 'embed', element: build_checkbox(),  name: 'embed_checkbox' },
@@ -254,6 +266,7 @@ const Case21 = (props) => {
   */
 
   data[3] = data_a;
+  data[4] = data_a2;
   data[6] = data_b;
   data[7] = data_c;
 
