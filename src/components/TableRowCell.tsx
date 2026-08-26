@@ -287,7 +287,15 @@ function renderGraph() {
 
   function renderEmbed() {
     //return embed_dic[data.name];  //DIC USE
-    return data.element(data)
+    //return data.element(data)
+
+    if (typeof data.element === "function" ) {
+       return data.element(data)
+
+    } else {
+       return data.element
+    }
+
   }
 
   /*

@@ -142,11 +142,15 @@ const Case21 = (props) => {
      console.log("select change:", v);
   }
 
-  function SelectMenu() {
+  function SelectMenu(data) {
+  const change_ = (c) => {
+          console.log("change", c)
+	  data.cv = c
+  }
 
     return (
       <div>
-        <select  onChange={(e) => change_fruit(e.target.value)}>
+        <select  defaultValue={data.cv} onChange={(e) => change_(e.target.value)}>
           <option value='apple'>りんご</option>
           <option value='orange'>みかん</option>
           <option value='banana'>バナナ</option>
@@ -230,8 +234,14 @@ const checkbox = () => {
   const data_b = {
     //fullName: { type: 'embed', element: build_checkbox(),  name: 'embed_checkbox' },
     fullName: { type: 'embed', element: Checkbox,  name: 'embed_checkbox' },
-    role: "OK",
+    role: { type: 'embed', element: Checkbox,  cv: true, name: 'embed_checkbox' },
+    //role: "OK",
     tags: "OK",
+  };
+  const data_c = {
+    fullName: { type: 'embed', element: SelectMenu,  cv:'apple' , name: 'embed_selectmenu' },
+    role: { type: 'embed', element: SelectMenu,  cv:'banana' , name: 'embed_selectmenu' },
+    tags: { type: 'embed', element: SelectMenu,  cv:'orange' , name: 'embed_selectmenu' },
   };
   /*
   const data_b = {
@@ -255,7 +265,7 @@ const checkbox = () => {
 
   data[4] = data_a
   data[5] = data_b
-  //data[6] = data_c
+  data[6] = data_c
 
   let data_ = loadTableData(localStorageName);
   if (data_ == null) {

@@ -256,7 +256,7 @@ export const App = () => {
           </Session>
         </>
       )}
-      {/*
+      
       <h2> TABLE 1 </h2>
       <Session>
         <Case1 name='CASE 1' />
@@ -266,13 +266,13 @@ export const App = () => {
       <Session>
         <Case2 name='CASE 2' />
       </Session>
-  */}
+  
       <h2> TABLE 21 </h2>
       <Session>
         <Case21 name='CASE 21' />
       </Session>
       
-      {/* 
+       
       <h2> TABLE 3 not storage</h2>
       <Session>
         <Case3 name='CASE 3' />
@@ -302,7 +302,7 @@ export const App = () => {
       <Session>
         <Case8 name='CASE 8' />
       </Session>
-   */}
+   
     </>
   );
 };
