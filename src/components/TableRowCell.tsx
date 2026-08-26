@@ -204,6 +204,11 @@ export function TableRowCell<T>({
     data.cv = v;
   }
 
+  function cap(str) {
+	if (typeof str !== 'string' || !str) return str;
+	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   function renderHtml() {
     let html = value;
 
@@ -225,8 +230,27 @@ export function TableRowCell<T>({
        </>
       );
 
-             //<input type="radio" id="huey" name="drone" value="huey" onChange={(e) => radio_select(e.target.checked)} />
-    if (html === 'radio')
+    if (html === 'radio') {
+       
+       return (
+       <>
+         <fieldset key="1">
+	 <legend>{data.label}</legend>
+           {data.menu.map((label, index) =>
+               <div key={index}>
+		  { label == data.cv 
+                    ? <input type="radio" id={label}  name={data.name} value={label} onChange={(e) => radio_select(e.target.value)} defaultChecked/>
+                    : <input type="radio" id={label}  name={data.name} value={label} onChange={(e) => radio_select(e.target.value)} />
+		  }
+               <label>{cap(label)}</label>
+               </div>
+           )}
+         </fieldset>
+       </>
+       );
+    }
+/*
+    if (html === 'radio_')
       return (
        <>
          <fieldset>
@@ -249,7 +273,7 @@ export function TableRowCell<T>({
          </fieldset>
        </>
       );
-
+*/
     return <label>{`not support: ${html}`}</label>;
   }
 

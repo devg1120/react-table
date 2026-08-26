@@ -49,41 +49,34 @@ const Case21 = (props) => {
       },
     },
     {
-      fullName: 'gusa syou',
-      role: 'Social Media Manager1',
-      tags: 'designer1',
-      _check: true,
+      fullName: '### type html',
+      role: '',
+      tags: '',
     },
     {
-      fullName: 'yama ryo',
-      role: 'Social Media Manager2',
-      //tags: 'designer2',
-      tags: {
-        value: 'designer2',
-        style: {
-          'border-bottom': 'solid 4px red',
-        },
-      },
+      fullName: '',
+      role: '',
+      tags: '',
     },
     {
-      fullName: 'san del',
-      role: 'Social Media Manager3',
-      tags: 'designer3',
+      fullName: '',
+      role: '',
+      tags: '',
     },
     {
-      fullName: 'san del',
-      role: 'Social Media Manager3',
-      tags: 'designer3',
+      fullName: '### type embed',
+      role: '',
+      tags: '',
     },
     {
-      fullName: 'san del',
-      role: 'Social Media Manager3',
-      tags: 'designer3',
+      fullName: '',
+      role: '',
+      tags: '',
     },
     {
-      fullName: 'san del',
-      role: 'Social Media Manager3',
-      tags: 'designer3',
+      fullName: '',
+      role: '',
+      tags: '',
     },
   ];
 
@@ -224,7 +217,7 @@ const Case21 = (props) => {
   const data_a = {
     fullName: { type: 'html', value: 'checkbox', label: "html", cv: false },
     role: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
-    tags: { type: 'html', value: 'radio', cv: 'huey', name:'droen', 
+    tags: { type: 'html', value: 'radio', cv: 'huey', name:'droen' ,label:"radio sel", 
 	        menu: ['huey', 'dewey', 'louie'] },
   };
 
@@ -260,9 +253,9 @@ const Case21 = (props) => {
   };
   */
 
-  data[4] = data_a;
-  data[5] = data_b;
-  data[6] = data_c;
+  data[3] = data_a;
+  data[6] = data_b;
+  data[7] = data_c;
 
   let data_ = loadTableData(localStorageName);
   if (data_ == null) {
@@ -302,7 +295,8 @@ const Case21 = (props) => {
         localStorageName={localStorageName}
         rowStyle={rowStyle}
         headerStyle={headerStyle}
-        checkColEnable={true}
+        chenckColEnable={true}
+        enableScrollY={false}
       />
     </>
   );
