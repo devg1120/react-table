@@ -1,27 +1,27 @@
 import { Table, loadTableData, IColumnType } from './components';
 
 const Case3 = (props) => {
-  const id = 'ASTable3';
-  const localStorageName = 'table_data3';
+   const id = 'ASTable3';
+   const localStorageName = 'table_data3';
 
-  const columns: IColumnType<IData>[] = [
-    {
-      key: 'fullName',
-      title: 'Full Name',
-      width: 200,
-    },
-    {
-      key: 'role',
-      title: 'Role',
-      width: 200,
-    },
-    {
-      key: 'tags',
-      title: 'Tags',
-      width: 150,
-    },
-  ];
-  /*
+   const columns: IColumnType<IData>[] = [
+      {
+         key: 'fullName',
+         title: 'Full Name',
+         width: 200,
+      },
+      {
+         key: 'role',
+         title: 'Role',
+         width: 200,
+      },
+      {
+         key: 'tags',
+         title: 'Tags',
+         width: 150,
+      },
+   ];
+   /*
   const data: IData[] = [
     {
       fullName: 'Francisco GUSA2',
@@ -72,43 +72,43 @@ const Case3 = (props) => {
   ];
 */
 
-  //let data_ = loadTableData(localStorageName);
-  //let data_ = null;
-  let data_ = [];
+   //let data_ = loadTableData(localStorageName);
+   //let data_ = null;
+   let data_ = [];
 
-  const tableStyle = {
-    border: 'solid red 3px',
-  };
+   const tableStyle = {
+      border: 'solid red 3px',
+   };
 
-  const headerStyle = {
-    backgroundColor: 'yellow',
-    height: '70px',
-  };
+   const headerStyle = {
+      backgroundColor: 'yellow',
+      height: '70px',
+   };
 
-  const rowStyle = {
-    backgroundColor: 'white',
-    //"&:nth-child(odd)": {
-    '&:nth-child(even)': {
-      backgroundColor: '#e0e0e0',
-    },
-  };
+   const rowStyle = {
+      backgroundColor: 'white',
+      //"&:nth-child(odd)": {
+      '&:nth-child(even)': {
+         backgroundColor: '#e0e0e0',
+      },
+   };
 
-  const cellStyle = {
-    fontFamily: 'monospace',
-    fontSize: 14,
-    padding: 6,
-    textAlign: 'center',
-  };
-  return (
-    <Table
-      id={id}
-      data={data_}
-      columns={columns}
-      localStorageName={localStorageName}
-      rowStyle={rowStyle}
-      headerStyle={headerStyle}
-      checkColEnable={false}
-    />
-  );
+   const cellStyle = {
+      fontFamily: 'monospace',
+      fontSize: 14,
+      padding: 6,
+      textAlign: 'center',
+   };
+   return (
+      <Table
+         id={id}
+         data={data_}
+         columns={columns}
+         localStorageName={localStorageName}
+         rowStyle={rowStyle}
+         headerStyle={headerStyle}
+         checkColEnable={false}
+      />
+   );
 };
 export default Case3;
