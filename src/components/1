@@ -393,7 +393,7 @@ export function Table<T>({
       }
     }
   };
-  const updateData = (row, colname, td) => {
+  const updateData = (row, colname, text) => {
 	  /*
     if (dataA[row][colname] != text) {
       const rowData = JSON.parse(JSON.stringify(dataA[row]));
@@ -413,19 +413,15 @@ export function Table<T>({
    */
     if (typeof dataA[row][colname] === 'object' ) {
          if (dataA[row][colname].type == "embed") {
-		 /*
-		 console.log(td)
             if (dataA[row][colname].getValue) {
 	    console.log("getValue", dataA[row][colname].getValue());
 	    }
-	   */
 	 } else if (dataA[row][colname].type == "html") {
-
 	 } else {
-         dataA[row][colname].value = td.textContent;
+         dataA[row][colname].value = text;
 	 }
     } else if (typeof dataA[row][colname] === 'string' ) {
-         dataA[row][colname] = td.textContent;
+         dataA[row][colname] = text;
     } else {
           console.log("cell type of unknown!!!");
     }
@@ -439,7 +435,7 @@ export function Table<T>({
     const coln = Number(idp[2]) -1
     const table = document.querySelector('#' + id);
     const td = table.querySelector("#"+cellid);
-    updateData(rown, columns[coln].key, td);
+    updateData(rown, columns[coln].key, td.textContent);
   };
 
   const update = () => {

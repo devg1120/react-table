@@ -269,18 +269,25 @@ function renderGraph() {
     func_dic[data.handler]();
   };
 
+  //const [ cv, setCv ] = useState(false);
+
+  function checked(c) {
+        //alert(c)
+        //setCv(c)
+	data.cv = c;
+  }
   function renderHtml() {
     let html = value;
     //if (html === 'button') return <button onClick={() => func_dic[data.handler]()}>{data.label}</button>;  //DIC USE
     if (html === 'button') return <button onClick={() => data.handler()}>{data.label}</button>;
 
-    if (html === 'checkbox') return <input type='checkbox' id='scales' name='scales' />;
+    if (html === 'checkbox') return <input type='checkbox' id='scales' name='scales' defaultChecked={data.cv} onChange={e => checked(e.target.checked)}/>;
     return <label>{`not support: ${html}`}</label>;
   }
 
   function renderEmbed() {
     //return embed_dic[data.name];  //DIC USE
-    return data.element
+    return data.element(data)
   }
 
   /*

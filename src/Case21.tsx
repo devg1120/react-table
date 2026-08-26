@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 const Case21 = (props) => {
   const id = 'ASTable21';
   const localStorageName = 'table_data21';
-const [ dvalue, setDValue ] = useState(true);
+//const [ value, setValue ] = useState(true);
 
   const columns: IColumnType<IData>[] = [
     {
@@ -117,6 +117,21 @@ const [ dvalue, setDValue ] = useState(true);
    )
   }
 
+  function Checkbox(data) {
+
+  const checked_ = (c) => {
+          console.log("checked", c)
+	  data.cv = c
+  }
+     //<input type="checkbox"  checked={data.cv} onChange={e => checked_(e.target.checked)} />
+   return (
+   <>
+     <label >check:</label>
+     <input type="checkbox"  defaultChecked={data.cv} onChange={e => checked_(e.target.checked)} />
+   </>
+   )
+  }
+
   function build_button() {
     return <button onClick={onClick3}> Button </button>;
   }
@@ -169,18 +184,18 @@ const select_menu = () => {
   }
 };
 
-const [ value, setValue ] = useState(true);
+//const [ value, setValue ] = useState(true);
 const checkbox = () => {
   //let value = false;
-  //const [ dvalue, setDValue ] = useState(true);
+  const [ value, setValue ] = useState(false);
 
   const checked_ = (e) => {
   //function checked (c)  {
           console.log("checked", e.target.checked)
 	  //value = e.target.checked;
 	  setValue(e.target.checked)
-	  console.log(value);
-	  console.log("getValue", data_c.fullName.getValue())
+	  //console.log(value);
+	  //console.log("getValue", data_c.fullName.getValue())
   }
   const getValue = () => {
       return value
@@ -207,13 +222,27 @@ const checkbox = () => {
 
 
   const data_a = {
-    fullName: { type: 'html', value: 'checkbox' },
+    fullName: { type: 'html', value: 'checkbox', cv: false},
     role: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
     tags: { type: 'html', value: 'button', label: 'NEW2', handler: onClick2 },
   };
 
   const data_b = {
+    //fullName: { type: 'embed', element: build_checkbox(),  name: 'embed_checkbox' },
+    fullName: { type: 'embed', element: Checkbox,  name: 'embed_checkbox' },
+    role: "OK",
+    tags: "OK",
+  };
+  /*
+  const data_b = {
     fullName: { type: 'embed', element: build_checkbox(),  name: 'embed_checkbox' },
+    //fullName: { type: 'embed', element: Checkbox(),  name: 'embed_checkbox' },
+    role: { type: 'embed', element: build_button(), name: 'embed_test' },
+    tags: { type: 'embed', element: SelectMenu(), name: 'embed_select_menu' },
+  };
+  const data_b = {
+    fullName: { type: 'embed', element: build_checkbox(),  name: 'embed_checkbox' },
+    //fullName: { type: 'embed', element: Checkbox(),  name: 'embed_checkbox' },
     role: { type: 'embed', element: build_button(), name: 'embed_test' },
     tags: { type: 'embed', element: SelectMenu(), name: 'embed_select_menu' },
   };
@@ -222,11 +251,11 @@ const checkbox = () => {
     role: { type: 'embed', element: build_button(), name: 'embed_test' },
     tags: select_menu(),
   };
-  
+  */
 
   data[4] = data_a
   data[5] = data_b
-  data[6] = data_c
+  //data[6] = data_c
 
   let data_ = loadTableData(localStorageName);
   if (data_ == null) {
@@ -257,6 +286,8 @@ const checkbox = () => {
     textAlign: 'center',
   };
   return (
+   <>
+   <Checkbox/>
     <Table
       id={id}
       data={data_}
@@ -266,6 +297,7 @@ const checkbox = () => {
       headerStyle={headerStyle}
       checkColEnable={true}
     />
+   </>
   );
 };
 export default Case21;
