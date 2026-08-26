@@ -113,8 +113,7 @@ export function TableRow<T>({
   func_dic = {},
   embed_dic = {},
 }: Props<T>): JSX.Element {
-
-/*
+  /*
   if (Object.keys(func_dic).length > 0) {
     console.log(func_dic);
   }

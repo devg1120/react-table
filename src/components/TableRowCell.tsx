@@ -6,13 +6,6 @@ import { IColumnType } from './Table';
 
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-// https://github.com/recharts/recharts/tree/main/www/src/docs/exampleComponents
-//import Example1 from "./rechart/SimpleLineChart";
-//import SimpleLineChart   from "../../rechart/exampleComponents/LineChart/SimpleLineChart";
-//import  {SimpleLineChart}    from "./rechart/exampleComponents/entry";
-//import  * as Ex   from "./rechart/exampleComponents/entry2";
-//import  * as Example   from "./rechart";
-
 import SimpleLineChart from '../../rechart/exampleComponents/LineChart/SimpleLineChart';
 import * as Example from '../../rechart';
 import * as LocalEx from '../../rechart/local';
@@ -85,28 +78,9 @@ export function TableRowCell<T>({
   func_dic = {},
   embed_dic = {},
 }: Props<T>): JSX.Element {
-  /*
- const that = this;
- let f2;
- if (Object.keys(func_dic).length > 0 ){
-     console.log(func_dic)
-  
-  
-  //const f = func_dic["onClick"];
-  f2 = func_dic["onClick"];
-  //f();
-  //console.log("f2", f2)
-  //f()
-  f2()
-}
-*/
-
-  if (skipCellList.length > 0) {
-    //console.log(skipCellList);
-  }
   const [contentEditable, setrCcontentEditable] = useState(edit);
   //const data = get(item, column.key);
-  const data = item[column.key]
+  const data = item[column.key];
   let value = '';
   let cell_style = {};
   let colspan = false;
@@ -160,11 +134,12 @@ export function TableRowCell<T>({
   //const TableCell = styled('td', { position: "relative"});
 
   const id = `Cell_${rown}_${coln}`;
+
   /*
   useEffect(() => {
 	  console.log("cell value:", value);
   }, [value]);
-*/
+  */
 
   function onFocus() {
     //console.log("focus:", id)
@@ -185,44 +160,7 @@ export function TableRowCell<T>({
     // console.log("Skip", rown,coln);
     return <></>;
   }
-  /*
-function renderGraph() {
-    return (
-             <LineChart  width={"600px"} height={"165px"} data={data__}>
-                  <Line type="monotone" dataKey="サイト訪問者数" />
-                  <CartesianGrid />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-              </LineChart>
-	);
-}
-             <LineChart  width={"100%"} height={126} data={data__}>
 
-             <LineChart  style={{position: "absolute",  top: 5, bottom: 0, left: -12, right: 0 }}
-	                 width={"100%"} height={"100%"} data={data__} >
-
-      margin={{
-        top: 5,
-        right: 0,
-        left: 0,
-        bottom: 5,
-      }}
-*/
-
-  function renderGraph2() {
-    return (
-      <div style={{ position: 'absolute', top: 10, bottom: 0, left: 10, right: 15 }}>
-        <Example.SimpleLineChart />
-      </div>
-    );
-  }
-
-  /*
-        <div  className="chart"  data-mode='dark / light' style={{ position: 'absolute', top: 10, bottom: 0, left: 10, right: 15 }} >
-        <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 10, bottom: 10, left: 10, right: 10 }} >
-        <div  className="chart"    data-mode={darkMode}  style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }} >
-
-  */
   function renderGraph(darkMode) {
     return (
       <div
@@ -246,73 +184,90 @@ function renderGraph() {
       </div>
     );
   }
-  function renderGraph_() {
-    return (
-      <LineChart
-        style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }}
-        width={'100%'}
-        height={'100%'}
-        data={data__}
-        margin={{ top: 15, right: 15, left: 0, bottom: 5 }}
-      >
-        <Line type='monotone' dataKey='サイト訪問者数' />
-        <CartesianGrid />
-        <XAxis dataKey='day' />
-        <YAxis />
-      </LineChart>
-    );
-  }
 
-  //function onClick(that)  {
+  /*
   const onClick = () => {
     func();
     func_dic[data.handler]();
   };
-
+  */
   //const [ cv, setCv ] = useState(false);
 
-  function checked(c) {
-        //alert(c)
-        //setCv(c)
-	data.cv = c;
+  function checkbox_checked(c) {
+    //alert(c)
+    //setCv(c)
+    data.cv = c;
   }
+  function radio_select(v) {
+    //alert(v)
+    console.log(v)
+    data.cv = v;
+  }
+
   function renderHtml() {
     let html = value;
+
     //if (html === 'button') return <button onClick={() => func_dic[data.handler]()}>{data.label}</button>;  //DIC USE
+
     if (html === 'button') return <button onClick={() => data.handler()}>{data.label}</button>;
 
-    if (html === 'checkbox') return <input type='checkbox' id='scales' name='scales' defaultChecked={data.cv} onChange={e => checked(e.target.checked)}/>;
+    if (html === 'checkbox')
+      return (
+       <>
+        {data.label && <label>{data.label}</label>}
+        <input
+          type='checkbox'
+          id='scales'
+          name='scales'
+          defaultChecked={data.cv}
+          onChange={(e) => checkbox_checked(e.target.checked)}
+        />
+       </>
+      );
+
+             //<input type="radio" id="huey" name="drone" value="huey" onChange={(e) => radio_select(e.target.checked)} />
+    if (html === 'radio')
+      return (
+       <>
+         <fieldset>
+           <legend>Select</legend>
+         
+           <div>
+             <input type="radio" id="huey" name="drone" value="huey" onChange={(e) => radio_select(e.target.value)} />
+             <label >Huey</label>
+           </div>
+         
+           <div>
+             <input type="radio" id="dewey" name="drone" value="dewey" onChange={(e) => radio_select(e.target.value)} defaultChecked/>
+             <label >Dewey</label>
+           </div>
+         
+           <div>
+             <input type="radio" id="louie" name="drone" value="louie" onChange={(e) => radio_select(e.target.value)}/>
+             <label >Louie</label>
+           </div>
+         </fieldset>
+       </>
+      );
+
     return <label>{`not support: ${html}`}</label>;
   }
 
   function renderEmbed() {
     //return embed_dic[data.name];  //DIC USE
-    //return data.element(data)
 
-    if (typeof data.element === "function" ) {
-       return data.element(data)
+    if (typeof data.element === 'function') {
+      return data.element(data);
+
+    } else if (typeof data.element === 'object' && data.element['$$typeof']) {
+      return data.element;
 
     } else {
-       return data.element
+      console.log('not suport embded type!');
+      return null;
     }
-
   }
 
-  /*
-let html_ele 
-if ( type === 'html' ) {
-    html_ele = renderByhtml(value)
-}
-*/
-  /*
-                <LineChart  width={"600px"} height={"165px"} data={data__}>
-                  <Line type="monotone" dataKey="サイト訪問者数" />
-                  <CartesianGrid />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-                </LineChart>
-
-*/
   return (
     <TableCell
       id={id}

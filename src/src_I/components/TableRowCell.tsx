@@ -106,7 +106,7 @@ export function TableRowCell<T>({
   }
   const [contentEditable, setrCcontentEditable] = useState(edit);
   //const data = get(item, column.key);
-  const data = item[column.key]
+  const data = item[column.key];
   let value = '';
   let cell_style = {};
   let colspan = false;
@@ -280,7 +280,7 @@ function renderGraph() {
 
   function renderEmbed() {
     //return embed_dic[data.name];  //DIC USE
-    return data.element
+    return data.element;
   }
 
   /*

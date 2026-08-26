@@ -41,24 +41,24 @@ const data: IData[] = [
     role: 'Full Stack',
     tags: 'dev',
     row_style: {
-            backgroundColor: "pink",
-    }
+      backgroundColor: 'pink',
+    },
   },
   {
     //fullName: 'Ricardo Malva',
-    fullName: { value: 'Ricardo Malva',
-	        style: {
-                      "height": "60px",
-		      "text-align": "right",
-                      "background-color": "lightgreen",
-
-		}
+    fullName: {
+      value: 'Ricardo Malva',
+      style: {
+        height: '60px',
+        'text-align': 'right',
+        'background-color': 'lightgreen',
+      },
     },
     role: 'Social Media Manager',
     tags: 'photographer',
     row_style: {
-            backgroundColor: "yellow",
-    }
+      backgroundColor: 'yellow',
+    },
   },
   {
     fullName: 'gusa syou',
@@ -70,12 +70,12 @@ const data: IData[] = [
     fullName: 'yama ryo',
     role: 'Social Media Manager2',
     //tags: 'designer2',
-    tags: { value: 'designer2',
-	    style: {
-                    "border-bottom": "solid 4px red",
-	          }
-	  }
-
+    tags: {
+      value: 'designer2',
+      style: {
+        'border-bottom': 'solid 4px red',
+      },
+    },
   },
   {
     fullName: 'san del',
@@ -92,7 +92,6 @@ let data2 = loadTableData(localStorageName2);
 if (data2 == null) {
   data2 = data;
 }
-
 
 let data3 = loadTableData(localStorageName3); // null
 
@@ -128,17 +127,17 @@ const columns4: IColumnType<IData>[] = [
   { key: 'D', title: 'D', width: 200 },
 ];
 
-const r = "30";
-  const color = "lightgreen";
-  const svgdata = `
+const r = '30';
+const color = 'lightgreen';
+const svgdata = `
      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
          <circle cx="50" cy="50" r="${r}" stroke="red" stroke-width="2" fill="${color}"/>
      </svg>
      `;
 
-  const svgdata_enc = encodeURIComponent(svgdata);
+const svgdata_enc = encodeURIComponent(svgdata);
 
-  const image2 = "url(\'data:image/svg+xml, " + svgdata_enc + "\')";
+const image2 = "url(\'data:image/svg+xml, " + svgdata_enc + "\')";
 
 const data4: IData[] = [
   {
@@ -149,70 +148,65 @@ const data4: IData[] = [
   },
   {
     A: 'a2',
-    B: 
-       {
-         value : "b2",
-	 style : {
-           borderTop:"solid 3px green",
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"double 4px green",
-          "text-align": "left",
-	 }
-       },
-    C: 
-       {
-         value : "c2",
-	 style : {
-           borderTop:"solid 3px green",
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"double 4px green",
-          "text-align": "right",
-
-	 }
-       },
-    D: 
-       {
-         value : "d2",
-         style : {
-                "background-image": image2,
-                "background-repeat": "no-repeat",
-                "background-size": "cover",
-         }
-       },
-
+    B: {
+      value: 'b2',
+      style: {
+        borderTop: 'solid 3px green',
+        borderLeft: 'solid 3px green',
+        borderRight: 'solid 3px green',
+        borderBottom: 'double 4px green',
+        'text-align': 'left',
+      },
+    },
+    C: {
+      value: 'c2',
+      style: {
+        borderTop: 'solid 3px green',
+        borderLeft: 'solid 3px green',
+        borderRight: 'solid 3px green',
+        borderBottom: 'double 4px green',
+        'text-align': 'right',
+      },
+    },
+    D: {
+      value: 'd2',
+      style: {
+        'background-image': image2,
+        'background-repeat': 'no-repeat',
+        'background-size': 'cover',
+      },
+    },
 
     row_style: {
-         height:"160px",
-    }
+      height: '160px',
+    },
   },
   {
     A: 'a3',
-    B: //'b3',
-       {
-         value : "b3",
-	 style : {
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"solid 3px green",
-	   "vertical-align": "top",
-	 }
-       },
-    C: //'c3',
-       {
-         value : "c3",
-	 style : {
-           borderLeft:"solid 3px green",
-           borderRight:"solid 3px green",
-           borderBottom:"solid 3px green",
-	   "vertical-align": "bottom",
-	 }
-       },
+    //'b3',
+    B: {
+      value: 'b3',
+      style: {
+        borderLeft: 'solid 3px green',
+        borderRight: 'solid 3px green',
+        borderBottom: 'solid 3px green',
+        'vertical-align': 'top',
+      },
+    },
+    //'c3',
+    C: {
+      value: 'c3',
+      style: {
+        borderLeft: 'solid 3px green',
+        borderRight: 'solid 3px green',
+        borderBottom: 'solid 3px green',
+        'vertical-align': 'bottom',
+      },
+    },
     D: 'd3',
     row_style: {
-         height:"60px",
-    }
+      height: '60px',
+    },
   },
   {
     A: 'a4',
@@ -222,7 +216,7 @@ const data4: IData[] = [
   },
   {
     A: 'a5',
-    B: { value: 'b5', colspan: "2", rowspan: "3" , style: { backgroundColor: "lightyellow"}},
+    B: { value: 'b5', colspan: '2', rowspan: '3', style: { backgroundColor: 'lightyellow' } },
     C: 'c5',
     D: 'd5',
   },
@@ -247,7 +241,7 @@ const data4: IData[] = [
   {
     A: 'a9',
     //B: 'b9',
-    B: { value: 'b9', colspan: "2", style: { backgroundColor: "lightblue"}  },
+    B: { value: 'b9', colspan: '2', style: { backgroundColor: 'lightblue' } },
     C: 'c9',
     D: 'd9',
   },
@@ -260,7 +254,7 @@ const data4: IData[] = [
   {
     A: 'a11',
     //B: 'b11',
-    B: { value: 'b11', rowspan: "3", style: { backgroundColor: "lightgreen"}  },
+    B: { value: 'b11', rowspan: '3', style: { backgroundColor: 'lightgreen' } },
     C: 'c11',
     D: 'd11',
   },
@@ -282,7 +276,6 @@ const data4: IData[] = [
     C: 'c14',
     D: 'd14',
   },
-
 ];
 
 /*
@@ -356,7 +349,7 @@ function build_skipCellList( data, columns ) {
     return skipCellList_;
 }
 */
-let skipCellList = build_skipCellList( data4, columns4 ) 
+let skipCellList = build_skipCellList(data4, columns4);
 const localStorageName4 = 'table_data4';
 //--------------------------------------------------
 const localStorageName5 = 'table_data5';
@@ -432,23 +425,23 @@ const test_session = false;
 export const App = () => {
   return (
     <>
-    {test_session && (
-      <>
-      <h2> TABLE 5 scroll-yx</h2>
-      <Session>
-        <Table
-          id='ASTable6'
-          data={data_sy2}
-          columns={columns_sy2}
-          cellStyle={cellStyle_sy}
-          localStorageName={localStorageName5}
-          checkColEnable={true}
-          enableScrollX={true}
-          containerWidth={'800px'}
-        />
-      </Session>
-      </>
-    )}
+      {test_session && (
+        <>
+          <h2> TABLE 5 scroll-yx</h2>
+          <Session>
+            <Table
+              id='ASTable6'
+              data={data_sy2}
+              columns={columns_sy2}
+              cellStyle={cellStyle_sy}
+              localStorageName={localStorageName5}
+              checkColEnable={true}
+              enableScrollX={true}
+              containerWidth={'800px'}
+            />
+          </Session>
+        </>
+      )}
       <h2> TABLE 1 </h2>
       <Session>
         <Table
@@ -488,8 +481,8 @@ export const App = () => {
           columns={columns4}
           cellStyle={cellStyle_sy}
           enableScrollY={false}
-          localStorageName={"styles_table_ample"}
-	  //skipCellList={skipCellList}
+          localStorageName={'styles_table_ample'}
+          //skipCellList={skipCellList}
         />
       </Session>
 

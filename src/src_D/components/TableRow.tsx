@@ -53,7 +53,7 @@ const check_fixed__style = {
   zIndex: 8999,
   borderLeft: 'solid 1px gray',
   borderRight: 'solid 1px gray',
-/*
+  /*
   boxShadow: "-1px 0px 1px 0px gray inset;",
 
   boxShadow: "10px 0 inset;", //左
@@ -107,7 +107,7 @@ export function TableRow<T>({
   rowStyle = {},
   cellStyle = {},
   checkCol = false,
-  skipCellList = []
+  skipCellList = [],
 }: Props<T>): JSX.Element {
   const TableRowItem = styled('tr', { ...default_style_row, ...rowStyle });
   const TableRowCheck = styled('td', { ...default_style_button, ...cellStyle, ...check_fixed__style });
@@ -125,15 +125,14 @@ export function TableRow<T>({
   }
 
   function isSkip(rowIndex, colIndex) {
-     for(let i = 0; i < skipCellList.length; i++) {
-        let cell = skipCellList[i]
-	if ( cell[0] == rowIndex +1 && cell[1] == colIndex +1) {
-              return true
-	}	
-	return false
-     }
+    for (let i = 0; i < skipCellList.length; i++) {
+      let cell = skipCellList[i];
+      if (cell[0] == rowIndex + 1 && cell[1] == colIndex + 1) {
+        return true;
+      }
+      return false;
+    }
   }
-
 
   return (
     <>
@@ -155,7 +154,7 @@ export function TableRow<T>({
               handleChange={handleChange}
               handleFocus={handleFocus}
               style={cellStyle}
-	      skipCellList={skipCellList}
+              skipCellList={skipCellList}
             />
           ))}
           <TableRowButton>

@@ -1,7 +1,6 @@
 import { Table, loadTableData, IColumnType } from './components';
 import { useState, useEffect } from 'react';
 
-
 const Case21 = (props) => {
   const id = 'ASTable21';
   const localStorageName = 'table_data21';
@@ -103,17 +102,16 @@ const Case21 = (props) => {
   }
   function checked(v) {
     console.log('checked', v);
-    alert('checked:'+ v);
+    alert('checked:' + v);
   }
 
-
   function build_checkbox() {
-   return (
-   <>
-     <label >check:</label>
-     <input type="checkbox"  onChange={e => checked(e.target.checked)} />
-   </>
-   )
+    return (
+      <>
+        <label>check:</label>
+        <input type='checkbox' onChange={(e) => checked(e.target.checked)} />
+      </>
+    );
   }
 
   function build_button() {
@@ -123,14 +121,13 @@ const Case21 = (props) => {
   function change_fruit(v) {
     //setFruit(v);
     //setKey(!key);
-     console.log("select change:", v);
+    console.log('select change:', v);
   }
 
   function SelectMenu() {
-
     return (
       <div>
-        <select  onChange={(e) => change_fruit(e.target.value)}>
+        <select onChange={(e) => change_fruit(e.target.value)}>
           <option value='apple'>りんご</option>
           <option value='orange'>みかん</option>
           <option value='banana'>バナナ</option>
@@ -151,8 +148,8 @@ const Case21 = (props) => {
     tags: { type: 'embed', element: SelectMenu(), name: 'embed_select_menu' },
   };
 
-  data[4] = data_a
-  data[5] = data_b
+  data[4] = data_a;
+  data[5] = data_b;
 
   let data_ = loadTableData(localStorageName);
   if (data_ == null) {

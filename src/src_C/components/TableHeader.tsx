@@ -26,7 +26,6 @@ const default_style = {
   //backgroundColor: "#e0e0e0",
   backgroundColor: '#cce5ff',
   //boxShadow: "inset 0 -0.7px 0 gray",  //OK
-
 };
 
 const default_style_button = {
@@ -41,16 +40,16 @@ const check_fixed__style = {
   //position: 'sticky',
   left: -1,
   zIndex: 9999,
-  borderLeft: 'solid 1px gray',  
-  borderRight: 'solid 1px gray', 
+  borderLeft: 'solid 1px gray',
+  borderRight: 'solid 1px gray',
 };
 
 const button_fixed__style = {
   //position: 'sticky',
   right: 0,
   zIndex: 9999,
-  borderLeft: 'solid 1px gray', 
-  borderRight: 'solid 1px gray', 
+  borderLeft: 'solid 1px gray',
+  borderRight: 'solid 1px gray',
 };
 
 export function TableHeader<T>({ columns, style = {}, checkCol = false }: Props<T>): JSX.Element {

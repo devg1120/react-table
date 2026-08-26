@@ -256,7 +256,7 @@ export const App = () => {
           </Session>
         </>
       )}
-      
+
       <h2> TABLE 1 </h2>
       <Session>
         <Case1 name='CASE 1' />
@@ -266,43 +266,41 @@ export const App = () => {
       <Session>
         <Case2 name='CASE 2' />
       </Session>
-  
+
       <h2> TABLE 21 </h2>
       <Session>
         <Case21 name='CASE 21' />
       </Session>
-      
-      
+
       <h2> TABLE 3 not storage</h2>
       <Session>
         <Case3 name='CASE 3' />
       </Session>
-      
+
       <h2> TABLE 4 call data styles</h2>
       <Session>
         <Case4 name='CASE 4' />
       </Session>
-      
+
       <h2> TABLE 5 scroll-y</h2>
       <Session>
         <Case5 name='CASE 5' />
       </Session>
-     
+
       <h2> TABLE 6 scroll-yx</h2>
       <Session>
         <Case6 name='CASE 6' />
       </Session>
-      
+
       <h2> TABLE 7 reChart1</h2>
       <Session>
         <Case7 name='CASE 7' />
       </Session>
-      
+
       <h2> TABLE 8 reChart2</h2>
       <Session>
         <Case8 name='CASE 8' />
       </Session>
-   
     </>
   );
 };

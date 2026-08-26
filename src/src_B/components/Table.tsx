@@ -86,61 +86,60 @@ export function loadTableData(localStorageName): [] {
   return JSON.parse(json);
 }
 
-export function build_skipCellList( data, columns ) {
-    let skipCellList_= []
+export function build_skipCellList(data, columns) {
+  let skipCellList_ = [];
 
-    for ( let r = 0; r < data.length ; r++) {
-         for ( let c = 0; c < columns.length ; c++) {
-	   if (columns[c].key) {
-	        let  cell = data[r][columns[c].key]
-                if (typeof(cell) == 'object') {
-		    if ( cell["colspan"] && cell["rowspan"]) {
-                          const rn = r + 1;
-                          const cn = c + 1;
-			  const rs = Number(cell["rowspan"])
-			  const cs = Number(cell["colspan"])
-                         //console.log(rn,cn,rs,cs,cell)
-			 for (let r_ = rn ; r_ < rn + rs; r_++) {
-			     for (let c_ = cn ; c_ < cn + cs; c_++) {
-				 if( !(r_ == rn && c_ == cn) ) {
-				     console.log(r_, c_)
-                                     skipCellList_.push([r_, c_])
-				  }
-			     }
-			 }
-		    } else  if ( cell["colspan"] ) {
-                          const rn = r + 1;
-                          const cn = c + 1;
-			  const rs = Number(cell["rowspan"])
-			  const cs = Number(cell["colspan"])
-                         //console.log(rn,cn,rs,cs,cell)
-			 let r_ = rn ;
-			     for (let c_ = cn ; c_ < cn + cs; c_++) {
-				 if( !(r_ == rn && c_ == cn) ) {
-				     console.log(r_, c_)
-                                     skipCellList_.push([r_, c_])
-				  }
-			     }
-		    } else  if ( cell["rowspan"] ) {
-                          const rn = r + 1;
-                          const cn = c + 1;
-			  const rs = Number(cell["rowspan"])
-			  const cs = Number(cell["colspan"])
-                         //console.log(rn,cn,rs,cs,cell)
-			 for (let r_ = rn ; r_ < rn + rs; r_++) {
-			     let c_ = cn;
-				 if( !(r_ == rn && c_ == cn) ) {
-				     console.log(r_, c_)
-                                     skipCellList_.push([r_, c_])
-				  }
-			 }
-
-		    }
-		}
-	   }
-	 }
+  for (let r = 0; r < data.length; r++) {
+    for (let c = 0; c < columns.length; c++) {
+      if (columns[c].key) {
+        let cell = data[r][columns[c].key];
+        if (typeof cell == 'object') {
+          if (cell['colspan'] && cell['rowspan']) {
+            const rn = r + 1;
+            const cn = c + 1;
+            const rs = Number(cell['rowspan']);
+            const cs = Number(cell['colspan']);
+            //console.log(rn,cn,rs,cs,cell)
+            for (let r_ = rn; r_ < rn + rs; r_++) {
+              for (let c_ = cn; c_ < cn + cs; c_++) {
+                if (!(r_ == rn && c_ == cn)) {
+                  console.log(r_, c_);
+                  skipCellList_.push([r_, c_]);
+                }
+              }
+            }
+          } else if (cell['colspan']) {
+            const rn = r + 1;
+            const cn = c + 1;
+            const rs = Number(cell['rowspan']);
+            const cs = Number(cell['colspan']);
+            //console.log(rn,cn,rs,cs,cell)
+            let r_ = rn;
+            for (let c_ = cn; c_ < cn + cs; c_++) {
+              if (!(r_ == rn && c_ == cn)) {
+                console.log(r_, c_);
+                skipCellList_.push([r_, c_]);
+              }
+            }
+          } else if (cell['rowspan']) {
+            const rn = r + 1;
+            const cn = c + 1;
+            const rs = Number(cell['rowspan']);
+            const cs = Number(cell['colspan']);
+            //console.log(rn,cn,rs,cs,cell)
+            for (let r_ = rn; r_ < rn + rs; r_++) {
+              let c_ = cn;
+              if (!(r_ == rn && c_ == cn)) {
+                console.log(r_, c_);
+                skipCellList_.push([r_, c_]);
+              }
+            }
+          }
+        }
+      }
     }
-    return skipCellList_;
+  }
+  return skipCellList_;
 }
 
 export function Table<T>({
@@ -272,7 +271,7 @@ export function Table<T>({
   };
 
   const dump = () => {
-    console.dir( dataA);
+    console.dir(dataA);
   };
   const cellArrowNaviToggle = () => {
     setCellArrowNavi(!cellArrowNavi);
@@ -430,10 +429,10 @@ export function Table<T>({
     //console.log("new_id", new_id)
     const ele = TableContainerElement['current'].querySelector('#' + new_id);
     if (ele) {
-       ele.focus();
+      ele.focus();
     } else {
-       focusCell = new_id;
-       focusChange(key_name);
+      focusCell = new_id;
+      focusChange(key_name);
     }
     return;
   };
@@ -485,7 +484,8 @@ export function Table<T>({
   }, [scrollY]);
 */
 
-  const fixStyle = {                                    //PENDING
+  const fixStyle = {
+    //PENDING
     position: 'sticky',
     top: '0px',
     zIndex: 1000,
@@ -495,11 +495,10 @@ export function Table<T>({
     //boxShadow: "0 20px 20px -20px #000000 inset;", //上
     //boxShadow: "0 -20px 20px -20px #000000 inset;",  //下
     //boxShadow: "0 -3px 3px -3px #000000 inset;",  //下
-    boxShadow: "0 -1px inset gray;", //下
-
+    boxShadow: '0 -1px inset gray;', //下
   };
 
-  const headerStyleFix = { ...headerStyle, ...fixStyle };       // PENDING
+  const headerStyleFix = { ...headerStyle, ...fixStyle }; // PENDING
   //const headerStyleFix = { ...headerStyle,  };
   const tooltipStyle = {
     //backgroundColor: "#696969",
@@ -596,7 +595,7 @@ export function Table<T>({
         <TableContainer ref={TableContainerElement} onKeyDown={handleKeyDown} onMouseEnter={handleMouseEnter}>
           <TableWrapper id={id} key={key}>
             <thead>
-              <TableHeader columns={columns} style={scrollY? headerStyleFix: ""} checkCol={checkCol} />
+              <TableHeader columns={columns} style={scrollY ? headerStyleFix : ''} checkCol={checkCol} />
             </thead>
             <tbody ref={TableElement}>
               <TableRow
@@ -613,7 +612,7 @@ export function Table<T>({
                 rowStyle={rowStyle}
                 cellStyle={cellStyle}
                 checkCol={checkCol}
-		skipCellList={skipCellList}
+                skipCellList={skipCellList}
               />
             </tbody>
           </TableWrapper>

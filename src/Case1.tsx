@@ -94,7 +94,7 @@ const Case1 = (props) => {
     padding: 6,
     textAlign: 'center',
   };
-/*
+  /*
   let data_ = loadTableData(localStorageName);
   if (data_ == null) {
     data_ = data;

@@ -1,11 +1,10 @@
 import { Table, loadTableData, IColumnType } from './components';
 import { useState, useEffect } from 'react';
 
-
 const Case21 = (props) => {
   const id = 'ASTable21';
   const localStorageName = 'table_data21';
-//const [ value, setValue ] = useState(true);
+  //const [ value, setValue ] = useState(true);
 
   const columns: IColumnType<IData>[] = [
     {
@@ -104,32 +103,30 @@ const Case21 = (props) => {
   }
   function checked(v) {
     console.log('checked', v);
-    alert('checked:'+ v);
+    alert('checked:' + v);
   }
 
-
   function build_checkbox() {
-   return (
-   <>
-     <label >check:</label>
-     <input type="checkbox"  onChange={e => checked(e.target.checked)} />
-   </>
-   )
+    return (
+      <>
+        <label>check:</label>
+        <input type='checkbox' onChange={(e) => checked(e.target.checked)} />
+      </>
+    );
   }
 
   function Checkbox(data) {
-
-  const checked_ = (c) => {
-          console.log("checked", c)
-	  data.cv = c
-  }
-     //<input type="checkbox"  checked={data.cv} onChange={e => checked_(e.target.checked)} />
-   return (
-   <>
-     <label >check:</label>
-     <input type="checkbox"  defaultChecked={data.cv} onChange={e => checked_(e.target.checked)} />
-   </>
-   )
+    const checked_ = (c) => {
+      console.log('checked', c);
+      data.cv = c;
+    };
+    //<input type="checkbox"  checked={data.cv} onChange={e => checked_(e.target.checked)} />
+    return (
+      <>
+        <label>check:</label>
+        <input type='checkbox' defaultChecked={data.cv} onChange={(e) => checked_(e.target.checked)} />
+      </>
+    );
   }
 
   function build_button() {
@@ -139,18 +136,18 @@ const Case21 = (props) => {
   function change_fruit(v) {
     //setFruit(v);
     //setKey(!key);
-     console.log("select change:", v);
+    console.log('select change:', v);
   }
 
   function SelectMenu(data) {
-  const change_ = (c) => {
-          console.log("change", c)
-	  data.cv = c
-  }
+    const change_ = (c) => {
+      console.log('change', c);
+      data.cv = c;
+    };
 
     return (
       <div>
-        <select  defaultValue={data.cv} onChange={(e) => change_(e.target.value)}>
+        <select defaultValue={data.cv} onChange={(e) => change_(e.target.value)}>
           <option value='apple'>りんご</option>
           <option value='orange'>みかん</option>
           <option value='banana'>バナナ</option>
@@ -159,89 +156,89 @@ const Case21 = (props) => {
     );
   }
 
-const select_menu = () => {
-  let value = 'apple';
-  const change = (c) => {
-          console.log("select change", c)
-	  value = c;
-	  console.log("getValue", data_c.tags.getValue())
-  }
-  const getValue = () => {
-      return value
-  }
-  const element = () => {
-   return (
-      <>
-        <select  onChange={(e) => change(e.target.value)}>
-          <option value='apple'>りんご</option>
-          <option value='orange'>みかん</option>
-          <option value='banana'>バナナ</option>
-        </select>
-      </>
-   )
-  }
-  return {
-   type: "embed",
-   element: element(),
-   getValue: getValue,
-   name: "selectmenu"
-  }
-};
+  const select_menu = () => {
+    let value = 'apple';
+    const change = (c) => {
+      console.log('select change', c);
+      value = c;
+      console.log('getValue', data_c.tags.getValue());
+    };
+    const getValue = () => {
+      return value;
+    };
+    const element = () => {
+      return (
+        <>
+          <select onChange={(e) => change(e.target.value)}>
+            <option value='apple'>りんご</option>
+            <option value='orange'>みかん</option>
+            <option value='banana'>バナナ</option>
+          </select>
+        </>
+      );
+    };
+    return {
+      type: 'embed',
+      element: element(),
+      getValue: getValue,
+      name: 'selectmenu',
+    };
+  };
 
-//const [ value, setValue ] = useState(true);
-const checkbox = () => {
-  //let value = false;
-  const [ value, setValue ] = useState(false);
+  //const [ value, setValue ] = useState(true);
+  const checkbox = () => {
+    //let value = false;
+    const [value, setValue] = useState(false);
 
-  const checked_ = (e) => {
-  //function checked (c)  {
-          console.log("checked", e.target.checked)
-	  //value = e.target.checked;
-	  setValue(e.target.checked)
-	  //console.log(value);
-	  //console.log("getValue", data_c.fullName.getValue())
-  }
-  const getValue = () => {
-      return value
-  }
-  /*
+    const checked_ = (e) => {
+      //function checked (c)  {
+      console.log('checked', e.target.checked);
+      //value = e.target.checked;
+      setValue(e.target.checked);
+      //console.log(value);
+      //console.log("getValue", data_c.fullName.getValue())
+    };
+    const getValue = () => {
+      return value;
+    };
+    /*
         <input type="checkbox" defaultChecked={value}  onChange={checked_} />
         <input type="checkbox" checked={value}  onChange={checked_} />
    */
-  const element = () => {
-   return (
-      <>
-        <label >check:</label>
-        <input type="checkbox" defaultChecked={value}  onChange={checked_} />
-      </>
-   )
-  }
-  return {
-   type: "embed",
-   element: element(),
-   getValue: getValue,
-   name: "checkbox"
-  }
-};
-
+    const element = () => {
+      return (
+        <>
+          <label>check:</label>
+          <input type='checkbox' defaultChecked={value} onChange={checked_} />
+        </>
+      );
+    };
+    return {
+      type: 'embed',
+      element: element(),
+      getValue: getValue,
+      name: 'checkbox',
+    };
+  };
 
   const data_a = {
-    fullName: { type: 'html', value: 'checkbox', cv: false},
+    fullName: { type: 'html', value: 'checkbox', label: "html", cv: false },
     role: { type: 'html', value: 'button', label: 'NEW1', handler: onClick1 },
-    tags: { type: 'html', value: 'button', label: 'NEW2', handler: onClick2 },
+    tags: { type: 'html', value: 'radio', cv: 'huey', name:'droen', 
+	        menu: ['huey', 'dewey', 'louie'] },
   };
 
   const data_b = {
     //fullName: { type: 'embed', element: build_checkbox(),  name: 'embed_checkbox' },
-    fullName: { type: 'embed', element: Checkbox,  name: 'embed_checkbox' },
-    role: { type: 'embed', element: Checkbox,  cv: true, name: 'embed_checkbox' },
+    fullName: { type: 'embed', element: Checkbox, name: 'embed_checkbox' },
+    role: { type: 'embed', element: Checkbox, cv: true, name: 'embed_checkbox' },
     //role: "OK",
-    tags: "OK",
+    tags: 'OK',
   };
   const data_c = {
-    fullName: { type: 'embed', element: SelectMenu,  cv:'apple' , name: 'embed_selectmenu' },
-    role: { type: 'embed', element: SelectMenu,  cv:'banana' , name: 'embed_selectmenu' },
-    tags: { type: 'embed', element: SelectMenu,  cv:'orange' , name: 'embed_selectmenu' },
+    fullName: { type: 'embed', element: SelectMenu, cv: 'apple', name: 'embed_selectmenu' },
+    role: { type: 'embed', element: SelectMenu, cv: 'banana', name: 'embed_selectmenu' },
+    tags: { type: 'embed', element: SelectMenu, cv: 'orange', name: 'embed_selectmenu' },
   };
   /*
   const data_b = {
@@ -263,9 +260,9 @@ const checkbox = () => {
   };
   */
 
-  data[4] = data_a
-  data[5] = data_b
-  data[6] = data_c
+  data[4] = data_a;
+  data[5] = data_b;
+  data[6] = data_c;
 
   let data_ = loadTableData(localStorageName);
   if (data_ == null) {
@@ -296,18 +293,18 @@ const checkbox = () => {
     textAlign: 'center',
   };
   return (
-   <>
-   <Checkbox/>
-    <Table
-      id={id}
-      data={data_}
-      columns={columns}
-      localStorageName={localStorageName}
-      rowStyle={rowStyle}
-      headerStyle={headerStyle}
-      checkColEnable={true}
-    />
-   </>
+    <>
+      <Checkbox />
+      <Table
+        id={id}
+        data={data_}
+        columns={columns}
+        localStorageName={localStorageName}
+        rowStyle={rowStyle}
+        headerStyle={headerStyle}
+        checkColEnable={true}
+      />
+    </>
   );
 };
 export default Case21;

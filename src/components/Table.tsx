@@ -204,7 +204,7 @@ export function Table<T>({
 
   const func_dic_ = {};
   const embed_dic_ = {};
-/*                                                 // DIC USE
+  /*                                                 // DIC USE
   if (data) {
     for (let i = 0; i < data.length; i++) {
       if (data[i]) {
@@ -252,7 +252,7 @@ export function Table<T>({
 */
   let copyData = [];
 
-/*
+  /*
   if (data != null) {
     copyData = JSON.parse(JSON.stringify(data));
   } else {
@@ -272,11 +272,11 @@ export function Table<T>({
       row_data[columns[i].key] = '';
     }
     let data_ = [row_data];
-    copyData = data_
+    copyData = data_;
   } else {
     copyData = data;
   }
-  
+
   const [edit, setEdit] = useState('plaintext-only');
   const [key, setKey] = useState(false);
   const [key2, setKey2] = useState(false);
@@ -394,7 +394,7 @@ export function Table<T>({
     }
   };
   const updateData = (row, colname, td) => {
-	  /*
+    /*
     if (dataA[row][colname] != text) {
       const rowData = JSON.parse(JSON.stringify(dataA[row]));
       rowData[colname] = text;
@@ -402,7 +402,7 @@ export function Table<T>({
       //console.log('updateData', row, colname, text);
     }
    */
-  /*
+    /*
     if (dataA[row][colname] != text) {
       //const rowData = dataA[row];
       //rowData[colname] = text;
@@ -411,34 +411,32 @@ export function Table<T>({
       console.log('updateData', row, colname, text);
     }
    */
-    if (typeof dataA[row][colname] === 'object' ) {
-         if (dataA[row][colname].type == "embed") {
-		 /*
+    if (typeof dataA[row][colname] === 'object') {
+      if (dataA[row][colname].type == 'embed') {
+        /*
 		 console.log(td)
             if (dataA[row][colname].getValue) {
 	    console.log("getValue", dataA[row][colname].getValue());
 	    }
 	   */
-	 } else if (dataA[row][colname].type == "html") {
-
-	 } else {
-         dataA[row][colname].value = td.textContent;
-	 }
-    } else if (typeof dataA[row][colname] === 'string' ) {
-         dataA[row][colname] = td.textContent;
+      } else if (dataA[row][colname].type == 'html') {
+      } else {
+        dataA[row][colname].value = td.textContent;
+      }
+    } else if (typeof dataA[row][colname] === 'string') {
+      dataA[row][colname] = td.textContent;
     } else {
-          console.log("cell type of unknown!!!");
+      console.log('cell type of unknown!!!');
     }
-
   };
 
   const cell_update = (cellid) => {
     console.log('cell_update', cellid);
-    const idp = cellid.split('_')
-    const rown = Number(idp[1]) -1
-    const coln = Number(idp[2]) -1
+    const idp = cellid.split('_');
+    const rown = Number(idp[1]) - 1;
+    const coln = Number(idp[2]) - 1;
     const table = document.querySelector('#' + id);
-    const td = table.querySelector("#"+cellid);
+    const td = table.querySelector('#' + cellid);
     updateData(rown, columns[coln].key, td);
   };
 

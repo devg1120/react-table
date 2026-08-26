@@ -830,7 +830,7 @@ function SelectMenuMain() {
 }
 //----------------------------------------------------------
 const Case2 = (props) => {
-  const id = "ASTable2"
+  const id = 'ASTable2';
   const localStorageName = 'table_data2';
 
   const columns: IColumnType<IData>[] = [
@@ -899,7 +899,6 @@ const Case2 = (props) => {
     },
   ];
 
-
   let data_ = loadTableData(localStorageName2);
   if (data_ == null) {
     data_ = data;
@@ -942,7 +941,7 @@ const Case2 = (props) => {
 };
 //----------------------------------------------------------
 const Case3 = (props) => {
-  const id = "ASTable3"
+  const id = 'ASTable3';
   const localStorageName = 'table_data3';
 
   const columns: IColumnType<IData>[] = [
@@ -1068,8 +1067,6 @@ const Case3 = (props) => {
     />
   );
 };
-
-
 
 export const App = () => {
   return (
